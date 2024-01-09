@@ -17,10 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from product import views
+from product import views as product_views
+from recipe import views as recipe_views
+from ingredients import views as ingridients_views
 
 router = routers.DefaultRouter()
-router.register(r'products', views.ProductView, 'product')
+router.register(r'products', product_views.ProductView, 'product'),
+router.register(r'recipes', recipe_views.RecipeView, 'recipe')
+router.register(r'ingridients', ingridients_views.IngredientView, 'ingridient')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
