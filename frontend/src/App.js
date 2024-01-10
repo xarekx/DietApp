@@ -38,26 +38,25 @@ class App extends Component {
   renderRecipe = () => {
     const newItems = this.state.recipeList;
     return newItems.map(item => (
-      <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
-        <span className={`recipe-title mr-2`} title={item.title}>
-          {item.title}
-        </span>
-      </li>
+        <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
+          <span className={`recipe-title mr-2`} title={item.title}>
+            {item.title}
+          </span>
+        </li>
     ));
   };
 
-  renderRecipeProducts = () => {
-    const newItems = this.state.recipeList;
-    return newItems.map((item, id) => (
-      <ul key={id}>
-        {item.products.map((product, index) => (
-          <li key={index}>
-            <span>{product.name}</span>
-            <hr/>
-          </li>
-        ))}
-      </ul>
-    ))
+  displayItems(item,index) {
+    return index + ": " + item + "<br>"; 
+  }
+
+  renderRecipeIngredients = () => {
+  const recipe = this.state.recipeList;
+  return (<ul>
+      {recipe.map((item) => (item.ingredients.map((ingred) => <li key={ingred.id}>{ingred.quantity}</li>
+      )))}
+  </ul>);
+    
   };
 
   render() {
@@ -66,15 +65,13 @@ class App extends Component {
       <div className="row">
         <div className="col-md-6 col-sm-10 mx-auto p-0">
           <div className="card p-3">
-            <ul className="list-group list-group-flush" >
+            <ul className="list-group list-group-flush">
               {this.renderRecipe()}
-              <div>
-                <Button className="list-group list-group-flush mt-2"> 
-
-                </Button>
-                {/* <li className="list-group list-group-flush mt-2">{this.renderRecipeProducts()}</li> */}
-              </div>
+              {this.renderRecipeIngredients()}
+              <Button></Button>
+              
             </ul>
+            
           </div>
         </div>
       </div>
