@@ -11,7 +11,6 @@ class Product(models.Model):
     carbohydrates = models.PositiveIntegerField(_("carbohydrates"), default=0, help_text="carbohydrates per 100g")
     fat = models.PositiveIntegerField(_("fat"), default=0, help_text="fat per 100g")
     calories = models.PositiveIntegerField(_("calories"), default=0, help_text="calories per 100g")
-    # recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True, related_name='products')
     
     class Meta:
         verbose_name = _("Product")
@@ -22,3 +21,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})
+    
+    @property
+    def product_name(self):
+        return self.name
