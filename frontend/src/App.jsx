@@ -15,22 +15,7 @@ function App() {
         <Route path='/products' element={<Products />}/>
         <Route path='/recipes' element={<Recipes />}/>
       </Routes>  
-    </BrowserRouter>
-    // <>
-    // <div className="flex flex-row h-screen text-white">
-    //     <div className="nav bg-slate-500 p-4">
-    //       <ul>
-    //         <li>first item</li>
-    //         <li>second item</li>
-    //         <li>third item</li>
-    //       </ul>
-    //     </div>
-    //     <div className="bg-slate-800 w-screen text-white">
-    //     <RecipesData />
-    //     </div>
-    //   </div>
-    // </>
-    
+    </BrowserRouter>  
   );
 }
 

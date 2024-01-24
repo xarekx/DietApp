@@ -68,8 +68,6 @@ export function RecipesData() {
                 })}
             </ul>
         </div>
-        <ProductsData />
-        {/* <button className="btn btn-primary">Dodaj przepis</button> */}
         </>
 
     );

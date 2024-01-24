@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-// import React from 'react';
+import { ProductForm } from "../forms/ProductForm";
 
 
 export function ProductsData() {
@@ -15,23 +15,35 @@ export function ProductsData() {
         })
     },[])
 
-    // return (
-    //     <>
-    //         <div class="dropdown">
-    //             <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    //                 Lista Produktów
-    //             </button>
-    //             <ul className="dropdown-menu">
-    //                 {products.map((product, index)=> {
-    //                     return (
-    //                     <li key={index}>
-    //                         <a class="dropdown-item" href={product.id}>{product.name}</a>
-    //                     </li>)
-    //                 })}
-                    
-    //             </ul>
-    //         </div>
-    //     </>
-    // )
+    return (
+        <>
+        <table className="table-auto border-collapse border border-slate-400">
+            <thead>
+                <tr>
+                    <th className="border border-slate-300">Name</th>
+                    <th className="border border-slate-300">Protein</th>
+                    <th className="border border-slate-300">Carbohydrates</th>
+                    <th className="border border-slate-300">Fat</th>
+                    <th className="border border-slate-300">Calories</th>
+                </tr>
+            </thead>
+            <tbody>  
+                    {products.map((product, index) => {
+                        return (
+                        <tr className="border border-1" key={index}>
+                            <td className="border border-1 text-center">{product.name}</td>
+                            <td className="border border-1 text-center">{product.protein}</td>
+                            <td className="border border-1 text-center">{product.carbohydrates}</td>
+                            <td className="border border-1 text-center">{product.fat}</td>
+                            <td className="border border-1 text-center">{product.calories}</td>
+                        </tr>   
+                        );
+                    })}
+                
+            </tbody>
+        </table>
+        <ProductForm />
+        </>
+    )
 
 }
