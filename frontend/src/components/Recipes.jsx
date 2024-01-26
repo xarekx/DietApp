@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import React from 'react';
-import { ProductsData } from "./Products";
+
 
 
 export function RecipesData() {

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ProductForm } from "../forms/ProductForm";
-
+import { Link } from "react-router-dom";
+import { ProductDetails } from "./ProductDetails";
 
 export function ProductsData() {
 
@@ -13,36 +14,47 @@ export function ProductsData() {
         }).then((data) => {
             setProducts(data);
         })
-    },[])
+    },[]);
 
+    const getProductId = (productId) => {
+        console.log(productId);
+    }
+    
     return (
         <>
-        <table className="table-auto border-collapse border border-slate-400">
-            <thead>
-                <tr>
-                    <th className="border border-slate-300">Name</th>
-                    <th className="border border-slate-300">Protein</th>
-                    <th className="border border-slate-300">Carbohydrates</th>
-                    <th className="border border-slate-300">Fat</th>
-                    <th className="border border-slate-300">Calories</th>
-                </tr>
-            </thead>
-            <tbody>  
+        <div className="flex flex-col ms-auto me-auto w-full mt-10">
+            <table className="table-auto border-collapse border-slate-400">
+                <thead className="">
+                    <tr className="text-base">
+                        <th className="border border-slate-400 text-start"></th>
+                        <th className="border border-slate-400 text-start p-2">Name</th>
+                        <th className="border border-slate-400 text-start p-2">Protein</th>
+                        <th className="border border-slate-400 text-start p-2">Carbohydrates</th>
+                        <th className="border border-slate-400 text-start p-2">Fat</th>
+                        <th className="border border-slate-400 text-start p-2">Calories</th>
+                    </tr>
+                </thead>
+                <tbody>  
                     {products.map((product, index) => {
                         return (
-                        <tr className="border border-1" key={index}>
-                            <td className="border border-1 text-center">{product.name}</td>
-                            <td className="border border-1 text-center">{product.protein}</td>
-                            <td className="border border-1 text-center">{product.carbohydrates}</td>
-                            <td className="border border-1 text-center">{product.fat}</td>
-                            <td className="border border-1 text-center">{product.calories}</td>
+                        <tr className="border border-slate-400 text-start" key={index}>
+                            <td className="border border-slate-400 text-center">{index+1}</td>
+                            <td className="border border-slate-400 p-2">
+                                <Link to={'/products/' + product.id}>
+                                    {product.name}
+                                </Link>
+                            </td>
+                            <td className="border border-slate-400 p-2">{product.protein}</td>
+                            <td className="border border-slate-400 p-2">{product.carbohydrates}</td>
+                            <td className="border border-slate-400 p-2">{product.fat}</td>
+                            <td className="border border-slate-400 p-2">{product.calories}</td>
                         </tr>   
                         );
                     })}
-                
-            </tbody>
-        </table>
-        <ProductForm />
+                </tbody>
+            </table>
+            <ProductForm />
+        </div>
         </>
     )
 
