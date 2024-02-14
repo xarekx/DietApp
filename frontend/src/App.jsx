@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Recipes } from "./pages/Recipes";
-import { Home } from "./pages/Home";
 import { PiBowlFoodFill } from "react-icons/pi";
 import { ProductDetails } from "./components/ProductDetails";
 import { ProductsData } from "./components/Products";
+import { RecipesData } from "./components/Recipes";
+import { Home } from "./components/Home";
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
               <Route exact path='/' element={<Home />}/>
               <Route path='/products' element={<ProductsData />}/>
               <Route path="/products/:productId" element={<ProductDetails />} />
-              <Route path='/recipes' element={<Recipes />}/>
+              <Route path='/recipes' element={<RecipesData />}/>
           </Routes>
         </main>
     </Router>

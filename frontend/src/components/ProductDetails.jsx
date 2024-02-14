@@ -14,7 +14,7 @@ export function ProductDetails() {
         }).then((data) => {
             setProductDetail(data);
         })
-    },[]);
+    });
 
     return(<div>{productDetail.name}</div>);
 
