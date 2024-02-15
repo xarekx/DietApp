@@ -10,7 +10,7 @@ import { Home } from "./components/Home";
 function App() {
   return (
     <Router>
-        <main className="flex bg-slate-200 h-screen">
+        <main className="flex bg-slate-200 min-h-screen">
           <nav className="flex flex-col bg-slate-300 ms-10 text-xl px-10 items-stretch">
           <div className="logo text-black text-center mt-8">
             <Link to="/">

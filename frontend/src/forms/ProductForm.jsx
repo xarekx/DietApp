@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { FaPlus } from "react-icons/fa";
 
 
 export function ProductForm() {
@@ -38,10 +39,8 @@ export function ProductForm() {
 
   return (
     <>
-      <button 
-            onClick={() => setToggle(true)} 
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Add Product
+      <button className="flex items-center gap-2 rounded-md p-1 hover:pointer hover:shadow-md" onClick={()=> setToggle(true)}>
+        <FaPlus className=""/>New
       </button>
       {toggle ? ( 
         <>
@@ -56,14 +55,6 @@ export function ProductForm() {
                   <h3 className="text-3xl font-semibold">
                     Add Product
                   </h3>
-                  {/* <button
-                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setToggle(false)}
-                  >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      X
-                    </span>
-                  </button> */}
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
@@ -79,20 +70,18 @@ export function ProductForm() {
                     <label htmlFor="calories">Calories</label>
                     <input id="calories" type="number" value={form.calories} onChange={handleChange} className="bg-slate-100"></input>
                     <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                    <button
-                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="button"
-                      onClick={() => setToggle(false)}
-                    >
-                      Close
-                    </button>
-                    <button
-                      className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                      type="submit"
-                    >
-                      Save Changes
-                    </button>
-                  </div>
+                      <button
+                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                        onClick={() => setToggle(false)}>
+                        Close
+                      </button>
+                      <button
+                        className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="submit">
+                        Save Changes
+                      </button>
+                    </div>
                   </form>
                 </div>
                 {/*footer*/}
