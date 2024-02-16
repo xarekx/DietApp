@@ -39,8 +39,8 @@ export function ProductForm() {
 
   return (
     <>
-      <button className="flex items-center gap-2 rounded-md p-1 hover:pointer hover:shadow-md" onClick={()=> setToggle(true)}>
-        <FaPlus className=""/>New
+      <button className="flex items-center gap-2 rounded-md ps-2 pe-2 pt-1 pb-1 me-2 border border-slate-400 shadow-sm hover:pointer hover:shadow-md" onClick={()=> setToggle(true)}>
+        <FaPlus className="w-3 h-3 text-slate-500"/>New
       </button>
       {toggle ? ( 
         <>
@@ -85,7 +85,6 @@ export function ProductForm() {
                   </form>
                 </div>
                 {/*footer*/}
-                
               </div>
             </div>
           </div>
