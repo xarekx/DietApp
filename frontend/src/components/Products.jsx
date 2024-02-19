@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
-import { ProductForm } from "../forms/ProductForm";
+import { useState, useEffect, useRef } from "react";
+import { ProductForm } from "../forms/AddProductForm";
 import { HiDotsHorizontal } from "react-icons/hi";
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext } from "react-icons/md";
 import { MdNavigateBefore } from "react-icons/md";
+import { EditProductForm } from "../forms/EditProductForm";
 
 
 export function ProductsData() {
@@ -25,7 +26,7 @@ export function ProductsData() {
         );
         setItemOffset(newOffset);
     };
-
+    
     // get products from products rest api
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/products/").then((res) =>{
@@ -58,30 +59,30 @@ export function ProductsData() {
                     </tr>
                 </thead>
                 <tbody>  
-                    {currentItems.map((product, index) => {
+                    {products && currentItems.map((product, index) => {
                         return (
                             <>
                             {index%2===0 ? 
-                                <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100" key={index}>
+                                <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100" key={index} id={product.id}>
                                     {/* table content */}                     
-                                        <td className="ps-4">{product.name}</td>
-                                        <td className="p-2">{product.protein}</td>
-                                        <td className="p-2">{product.carbohydrates}</td>
-                                        <td className="p-2">{product.fat}</td>
-                                        <td className="p-2">{product.calories}</td>
-                                        {/* dropdown dots */}
-                                        <td className="p-2 text-xl"><HiDotsHorizontal className="hover:text-slate-400 ms-auto me-auto"/></td>
+                                    <td className="ps-4">{product.name}</td>
+                                    <td className="p-2">{product.protein}</td>
+                                    <td className="p-2">{product.carbohydrates}</td>
+                                    <td className="p-2">{product.fat}</td>
+                                    <td className="p-2">{product.calories}</td>
+                                    {/* dropdown dots */}
+                                    <EditProductForm product={products[index]}/>
                                 </tr>
                                 :
                                 <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100 bg-slate-50" key={index}>
                                     {/* table content */}
-                                        <td className="ps-4">{product.name}</td>
-                                        <td className="p-2">{product.protein}</td>
-                                        <td className="p-2">{product.carbohydrates}</td>
-                                        <td className="p-2">{product.fat}</td>
-                                        <td className="p-2">{product.calories}</td>
-                                        {/* dropdown dots */}
-                                        <td className="p-2 text-xl"><HiDotsHorizontal className="hover:text-slate-400 ms-auto me-auto"/></td>
+                                    <td className="ps-4">{product.name}</td>
+                                    <td className="p-2">{product.protein}</td>
+                                    <td className="p-2">{product.carbohydrates}</td>
+                                    <td className="p-2">{product.fat}</td>
+                                    <td className="p-2">{product.calories}</td>
+                                    {/* dropdown dots */}
+                                    <EditProductForm product={products[index]}/>
                                 </tr>
                                 } 
                             </>
