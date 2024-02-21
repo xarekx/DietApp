@@ -2,46 +2,11 @@ import { useState } from "react"
 import { FaPlus } from "react-icons/fa";
 
 
-export function ProductForm() {
+export function AddProductForm({form, handleAddProduct, handleChange}) {
 
     // hook to display add product modal
     const [toggle, setToggle] = useState(false);
-
-    // hook to add new product
-    const [form, setForm] = useState(useState({
-        name: "",
-        protein: 0,
-        carbohydrates: 0,
-        fat: 0,
-        calories: 0
-    }))
-    
-    const handleChange = (event) => {
-        setForm({
-            ...form,
-        [event.target.id]: event.target.value,
-      });
-    };
-
-    // post data to backend with submit
-    const handleSubmit = () => {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                name: form.name,
-                protein: form.protein,
-                carbohydrates: form.carbohydrates,
-                fat: form.fat,
-                calories: form.calories  })
-        };
-        fetch('http://127.0.0.1:8000/api/products/', requestOptions)
-            .then(response => response.json())
-            // .then(form => this.setState({ formId: form.id }));
-    }
-
-   
-
+  
   return (
     <>
       <button className="flex items-center gap-2 rounded-md ps-2 pe-2 pt-1 pb-1 me-2 border border-slate-400 shadow-sm hover:pointer hover:shadow-md" 
@@ -62,7 +27,7 @@ export function ProductForm() {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form onSubmit={handleSubmit} className="flex flex-col">
+                  <form onSubmit={handleAddProduct} className="flex flex-col">
                     <label htmlFor="name">Name</label>
                     <input id="name" type="text" value={form.name} onChange={handleChange} className="bg-slate-100"></input>
                     <label htmlFor="protein">Protein</label>

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { ProductForm } from "../forms/AddProductForm";
+import { AddProductForm} from "../forms/AddProductForm";
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext } from "react-icons/md";
 import { MdNavigateBefore } from "react-icons/md";
-import { EditProductForm } from "../forms/EditProductForm";
+import { DropdownProductsForm } from "../forms/DropdownProductsForm";
 
 export function ProductsData() {
 
@@ -33,7 +33,6 @@ export function ProductsData() {
         setItemOffset(newOffset);
     };
     
-
     const handleDeleteProduct = id => {
         const requestOptions = {
           method: 'DELETE',
@@ -47,6 +46,59 @@ export function ProductsData() {
             }) 
     }
 
+    const handleUpdateProduct = id => {
+        const requestOptions = {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                name: form.name,
+                protein: form.protein,
+                carbohydrates: form.carbohydrates,
+                fat: form.fat,
+                calories: form.calories  })
+          }
+        fetch('http://127.0.0.1:8000/api/products/'+id+"/", requestOptions)
+            .then((response) => {
+                if(!response.ok) {
+                    throw new Error('Something went wrong')
+                }
+                setProducts(products.filter((item) => item.id !== id))
+            }) 
+    }
+
+        // post data to backend with submit
+        const handleAddProduct = () => {
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    name: form.name,
+                    protein: form.protein,
+                    carbohydrates: form.carbohydrates,
+                    fat: form.fat,
+                    calories: form.calories  })
+            };
+            fetch('http://127.0.0.1:8000/api/products/', requestOptions)
+                .then(response => response.json())
+                // .then(form => this.setState({ formId: form.id }));
+        }
+    
+    
+    const [form, setForm] = useState(useState({
+        name: "",
+        protein: 1,
+        carbohydrates: 0,
+        fat: 0,
+        calories: 0
+    }))
+
+    const handleChange = (event) => {
+        setForm({
+            ...form,
+        [event.target.id]: event.target.value,
+      })
+    };
+
     return (
         <>
         <div className="flex flex-col ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit ">
@@ -54,7 +106,7 @@ export function ProductsData() {
             <div className="flex justify-between p-4">
                 <span className="text-xl font-bold">Products</span>
                 <div className="flex text-center">
-                    <ProductForm />
+                    <AddProductForm handleAddProduct={handleAddProduct} form={form} handleChange={handleChange}/>
                 </div>
             </div>
             <table className="table-auto">
@@ -82,7 +134,7 @@ export function ProductsData() {
                                     <td className="p-2">{product.fat}</td>
                                     <td className="p-2">{product.calories}</td>
                                     {/* dropdown dots */}
-                                    <EditProductForm product={product} handleDeleteProduct={handleDeleteProduct} />
+                                    <DropdownProductsForm product={product} handleDeleteProduct={handleDeleteProduct} handleUpdateProduct={handleUpdateProduct} handleChange={handleChange} form={form} />
                                 </tr>
                                 :
                                 <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100 bg-slate-50" key={index}>
@@ -93,7 +145,7 @@ export function ProductsData() {
                                     <td className="p-2">{product.fat}</td>
                                     <td className="p-2">{product.calories}</td>
                                     {/* dropdown dots */}
-                                    <EditProductForm product={product} handleDeleteProduct={handleDeleteProduct}/>
+                                    <DropdownProductsForm product={product} handleDeleteProduct={handleDeleteProduct} handleUpdateProduct={handleUpdateProduct} handleChange={handleChange} form={form}/>
                                 </tr>
                                 } 
                             </>
