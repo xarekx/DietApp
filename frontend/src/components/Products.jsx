@@ -1,41 +1,52 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { ProductForm } from "../forms/AddProductForm";
-import { HiDotsHorizontal } from "react-icons/hi";
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext } from "react-icons/md";
 import { MdNavigateBefore } from "react-icons/md";
 import { EditProductForm } from "../forms/EditProductForm";
-
 
 export function ProductsData() {
 
     const [itemOffset, setItemOffset] = useState(0);
       
     const [products, setProducts] = useState([]);
-    
+
+    // get products from products rest api
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/api/products/")
+            .then((res) =>{
+                return res.json();
+        }).then((data) => {
+            setProducts(data);
+        })
+    },[]);
+
     // variables to pagination
     const itemsPerPage = 15;
     const endOffset = itemOffset + itemsPerPage;
     const currentItems = products.slice(itemOffset, endOffset);
     const pageCount = Math.ceil(products.length / itemsPerPage);
 
+    // Create pages based on items per page
     const handlePageClick = (event) => {
         const newOffset = (event.selected * itemsPerPage) % products.length;
-        console.log(
-        `User requested page number ${event.selected}, which is offset ${newOffset}`
-        );
         setItemOffset(newOffset);
     };
     
-    // get products from products rest api
-    useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/products/").then((res) =>{
-            return res.json();
-        }).then((data) => {
-            setProducts(data);
-        })
-    },[]);
- 
+
+    const handleDeleteProduct = id => {
+        const requestOptions = {
+          method: 'DELETE',
+          }
+        fetch('http://127.0.0.1:8000/api/products/'+id, requestOptions)
+            .then((response) => {
+                if(!response.ok) {
+                    throw new Error('Something went wrong')
+                }
+                setProducts(products.filter((item) => item.id !== id))
+            }) 
+    }
+
     return (
         <>
         <div className="flex flex-col ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit ">
@@ -59,11 +70,11 @@ export function ProductsData() {
                     </tr>
                 </thead>
                 <tbody>  
-                    {products && currentItems.map((product, index) => {
+                    {currentItems.map((product, index) => {
                         return (
                             <>
                             {index%2===0 ? 
-                                <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100" key={index} id={product.id}>
+                                <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100" key={index}>
                                     {/* table content */}                     
                                     <td className="ps-4">{product.name}</td>
                                     <td className="p-2">{product.protein}</td>
@@ -71,7 +82,7 @@ export function ProductsData() {
                                     <td className="p-2">{product.fat}</td>
                                     <td className="p-2">{product.calories}</td>
                                     {/* dropdown dots */}
-                                    <EditProductForm product={products[index]}/>
+                                    <EditProductForm product={product} handleDeleteProduct={handleDeleteProduct} />
                                 </tr>
                                 :
                                 <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100 bg-slate-50" key={index}>
@@ -82,7 +93,7 @@ export function ProductsData() {
                                     <td className="p-2">{product.fat}</td>
                                     <td className="p-2">{product.calories}</td>
                                     {/* dropdown dots */}
-                                    <EditProductForm product={products[index]}/>
+                                    <EditProductForm product={product} handleDeleteProduct={handleDeleteProduct}/>
                                 </tr>
                                 } 
                             </>

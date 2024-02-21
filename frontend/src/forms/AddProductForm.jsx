@@ -4,8 +4,10 @@ import { FaPlus } from "react-icons/fa";
 
 export function ProductForm() {
 
+    // hook to display add product modal
     const [toggle, setToggle] = useState(false);
 
+    // hook to add new product
     const [form, setForm] = useState(useState({
         name: "",
         protein: 0,
@@ -18,9 +20,10 @@ export function ProductForm() {
         setForm({
             ...form,
         [event.target.id]: event.target.value,
-    });
+      });
     };
 
+    // post data to backend with submit
     const handleSubmit = () => {
         const requestOptions = {
             method: 'POST',
@@ -34,12 +37,15 @@ export function ProductForm() {
         };
         fetch('http://127.0.0.1:8000/api/products/', requestOptions)
             .then(response => response.json())
-            .then(form => this.setState({ formId: form.id }));
+            // .then(form => this.setState({ formId: form.id }));
     }
+
+   
 
   return (
     <>
-      <button className="flex items-center gap-2 rounded-md ps-2 pe-2 pt-1 pb-1 me-2 border border-slate-400 shadow-sm hover:pointer hover:shadow-md" onClick={()=> setToggle(true)}>
+      <button className="flex items-center gap-2 rounded-md ps-2 pe-2 pt-1 pb-1 me-2 border border-slate-400 shadow-sm hover:pointer hover:shadow-md" 
+      onClick={()=> setToggle(true)}>
         <FaPlus className="w-3 h-3 text-slate-500"/>New
       </button>
       {toggle ? ( 
