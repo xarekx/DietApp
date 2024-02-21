@@ -9,7 +9,7 @@ from recipe.models import Recipe
 class Ingredient(models.Model):
     
     quantity = models.PositiveIntegerField(_("quantity"), default=1)
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True, related_name='ingredients')
     
     class Meta:
