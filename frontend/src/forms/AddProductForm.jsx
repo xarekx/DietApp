@@ -9,7 +9,7 @@ export function AddProductForm({form, handleAddProduct, handleChange}) {
   
   return (
     <>
-      <button className="flex items-center gap-2 rounded-md ps-2 pe-2 pt-1 pb-1 me-2 border border-slate-400 shadow-sm hover:pointer hover:shadow-md" 
+      <button className="flex items-center gap-2 rounded-md ps-2 pe-2 pt-1 pb-1 border border-slate-400 shadow-sm hover:pointer hover:shadow-md" 
       onClick={()=> setToggle(true)}>
         <FaPlus className="w-3 h-3 text-slate-500"/>New
       </button>
