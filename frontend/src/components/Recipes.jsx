@@ -17,25 +17,27 @@ export function RecipesData() {
     
     return (
         <>
-            <div className="grid grid-flow-col grid-cols-6 ms-auto me-auto">
-                {recipes.map((recipe, recipeIndex) => {
-                    return(
-                        <div class="max-w-sm h-fit rounded overflow-hidden shadow-lg " key={recipeIndex}>
-                            <img class="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains"/>
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2">{recipe.title}</div>
-                                <p class="text-gray-700 text-base">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                                </p>
-                                <p className="float-right ">
-                                    <button className="border border-black p-1">Click me</button>
-                                </p>
+            <div className="flex flex-col ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit">
+                {/* // TODO - filter buttons */}
+                <div className="h-10 w-full bg-black filterButton"></div>
+                {/* // TODO - card view */}
+                <div className="grid grid-flow-col grid-cols-4 gap-x-4 w-2/3 me-auto ms-auto h-full mt-[4vh] mb-8">
+                    {recipes.map((recipe, recipeIndex) => {
+                        return(
+                            <div class="max-w-sm h-fit rounded shadow-lg" key={recipeIndex}>
+                                <img class="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains"/>
+                                <div class="px-6 py-4">
+                                    <div class="font-bold text-md mb-2 text-center">{recipe.title}</div>
+                                    <p className="float-right mt-2 text-sm">
+                                        <button className="border border-slate-400 shadow-sm rounded-md ps-2 pe-2 pt-1 pb-1 hover:pointer hover:shadow-md">Show</button>
+                                    </p>
+                                </div>
+                                <div class="clear-both px-4 pt-2 pb-1">
+                                </div>
                             </div>
-                            <div class="clear-both   px-6 pt-4 pb-2">
-                            </div>
-                        </div>
-                    )
-                })};
+                        )
+                    })}
+                </div>
             </div>
         </>
     );

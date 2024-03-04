@@ -113,8 +113,8 @@ export function ProductsData() {
 
     return (
         <>
-        <div className="flex flex-col ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit ">
-            {/* card header */}
+        <div className="flex flex-col ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit">
+            {/* Content header */}
             <div className="flex justify-between p-4">
                 <span className="text-xl font-bold">Products</span>
                 <div className="flex text-center">
