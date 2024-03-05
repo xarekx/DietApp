@@ -7,6 +7,7 @@ import { RecipesData } from "./components/Recipes";
 import { Home } from "./components/Home";
 import { IoArrowDown } from "react-icons/io5";
 import { IoArrowForward } from "react-icons/io5";
+import { AddRecipeForm } from "./forms/AddRecipeForm";
 
 
 function App() {
@@ -43,7 +44,7 @@ function App() {
               ( 
                 <ul className="text-sm">
                   <Link to={'/recipes'} className="nav-link"><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40">Recipes List</li></Link>
-                  <li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40">Create Recipe</li>
+                  <Link to={'/recipes/add'}><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40">Create Recipe</li></Link>
                 </ul>
               ):null
               }
@@ -58,6 +59,7 @@ function App() {
               <Route path="/products/:productId" element={<ProductDetails />} />
               <Route path='/recipes' element={<RecipesData />}/>
               <Route path='/recipes/:recipeId' element={<RecipesData />}/>
+              <Route path='/recipes/add' element={<AddRecipeForm />}/>
           </Routes>
         </main>
     </Router>
