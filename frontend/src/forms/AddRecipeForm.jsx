@@ -3,34 +3,23 @@ import { useEffect, useState } from "react"
 
 export function AddRecipeForm() {
 
-    //  const newRecipe = {
-    //     "id": 2,
-    //     "title": "Naleśniki z serem i owocami",
-    //     "ingredients": [
-    //         {
-    //             "product_name": "Ser twarogowy chudy",
-    //             "quantity": 125
-    //         },
-    //         {
-    //             "product_name": "Naleśniki",
-    //             "quantity": 180
-    //         },
-    //         {
-    //             "product_name": "Jogurt naturalny",
-    //             "quantity": 100
-    //         },  
-    //         {
-    //             "product_name": "Truskawki",
-    //             "quantity": 75
-    //         }
-    //     ]
-    // }
+    const [recipeForm, setRecipeForm] = useState({
+        title: "",
+        ingredients: [] 
+    })
 
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState(products)
     const [ingredients, setIngredients] = useState([]);
-    const [productValue, setProductValue] = useState();
+    const [productValue, setProductValue] = useState('');
     const [quantityValue, setQuantityValue] = useState();
+
+    const handleTitleChange = (event) => {
+        setRecipeForm({
+            ...recipeForm,
+        [event.target.id]: event.target.value,
+      })
+    };
 
     const handleUpdateIngredientsList = (product) => {
         setProductValue(product);
@@ -38,29 +27,65 @@ export function AddRecipeForm() {
 
     }
 
-    // get products from products rest api
-    useEffect(() => {
+    const fetchProducts = () => {
         fetch("http://127.0.0.1:8000/api/products/")
             .then((res) =>{
                 return res.json();
         }).then((data) => {
             setProducts(data);
         })
+    }
+
+    // get products from products rest api
+    useEffect(() => {
+        fetchProducts();
     },[]);
 
     const handleFilter = (event) => {
-        setFilteredProducts(products.filter(d => (d.name.toLowerCase().includes(event.target.value))));
+        setFilteredProducts(products.filter(d => (d.name.toLowerCase().startsWith(event.target.value))));
     }
 
-    const handleIngredients = (e, product_name, quantity) => {
+    const handleIngredients = (e, product, quantity) => {
         e.preventDefault();
-        setIngredients([...ingredients, {product_name, quantity}]);
-        console.log(ingredients);
+
+        const newIngredient = {
+            product: product,
+            quantity: quantity
+        };
+
+        setRecipeForm(prevForm => ({
+            ...prevForm,
+            ingredients: [...prevForm.ingredients, newIngredient]
+        }));
+        
+        setIngredients([...ingredients, newIngredient]);
+
         setProductValue('');
         setQuantityValue('');
     }
 
-    // TODO - create recipe form
+    const handleCreateRecipe = () => {
+        fetch("http://127.0.0.1:8000/api/recipes/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(recipeForm)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Obsługa odpowiedzi
+            console.log('Recipe created:', data);
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    };
 
     return (
     <div className="flex flex-row ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit">
@@ -71,19 +96,22 @@ export function AddRecipeForm() {
                     className="ms-3 mt-2 mb-1 text-sm">Recipe Name</label>
                     
                     <input id="title" type="text"
-                    className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md" placeholder="Recipe Name"></input>
+                    className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md" placeholder="Recipe Name" onChange={handleTitleChange}>
+
+                    </input>
                 </div>
                 <div className="flex flex-col float-start w-2/3">
                     <label htmlFor="filterIngredients" 
                     className="ms-3 mt-2 mb-1 text-sm">Products</label>
 
                     <input id="filterIngredients" 
-                    className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md float-start" placeholder="Products"type="text" onChange={handleFilter} value={productValue}/>
+                    className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md float-start" placeholder="Products" type="text" onChange={handleFilter} value={productValue.name}/>
                         <div className="relative">
                             <ul className="absolute w-2/3">
                             {filteredProducts.map((product) => {
                                 return(
-                                <li className="bg-white p-2" onClick={(e)=>handleUpdateIngredientsList(product.name)}>{product.name}</li>)})}
+                                <li className="bg-white p-2" onClick={()=>handleUpdateIngredientsList(product)}>{product.name}</li>
+                                )})}
                             </ul>
                         </div>
                 </div>
@@ -109,14 +137,14 @@ export function AddRecipeForm() {
                     <tbody>
                         {ingredients.map((ingredient, index)=> (
                             <tr key={index}>
-                                <td className="border ps-6">{ingredient.product_name}</td>
+                                <td className="border ps-6">{ingredient.product.name}</td>
                                 <td className="border ps-6">{ingredient.quantity}</td>
                             </tr>
                         ))}
                     </tbody>
                 </table>                  
             </div>
-            <button className="text-sm text-white border float-right m-3 p-2 rounded-md bg-emerald-500 hover:shadow-md">Create Recipe</button>
+            <button className="text-sm text-white border float-right m-3 p-2 rounded-md bg-emerald-500 hover:shadow-md" onClick={handleCreateRecipe}>Create Recipe</button>
         </div>
         
     </div>)
