@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
 
 
 export function AddRecipeForm() {
@@ -9,10 +11,11 @@ export function AddRecipeForm() {
     })
 
     const [products, setProducts] = useState([]);
-    const [filteredProducts, setFilteredProducts] = useState(products)
+    const [filteredProducts, setFilteredProducts] = useState(products);
     const [ingredients, setIngredients] = useState([]);
-    const [productValue, setProductValue] = useState('');
-    const [quantityValue, setQuantityValue] = useState();
+    const [productValue, setProductValue] = useState("");
+    const [quantityValue, setQuantityValue] = useState(0);
+    const [postRequestValue, setPostRequestValue] = useState(false);
 
     const handleTitleChange = (event) => {
         setRecipeForm({
@@ -21,10 +24,16 @@ export function AddRecipeForm() {
       })
     };
 
+    const clearInputs = () => {
+        const productInput = document.getElementById("filterIngredients");
+        const quantityInput = document.getElementById("quantityInput");
+        productInput.value = "";
+        quantityInput.value = 0;
+    }
+
     const handleUpdateIngredientsList = (product) => {
         setProductValue(product);
         setFilteredProducts([]);
-
     }
 
     const fetchProducts = () => {
@@ -42,7 +51,12 @@ export function AddRecipeForm() {
     },[]);
 
     const handleFilter = (event) => {
-        setFilteredProducts(products.filter(d => (d.name.toLowerCase().startsWith(event.target.value))));
+        if (event.target.value === '' ){
+            setFilteredProducts([])
+        } else {
+            setFilteredProducts(products.filter(d => (d.name.toLowerCase().startsWith(event.target.value))));
+        }
+        
     }
 
     const handleIngredients = (e, product, quantity) => {
@@ -59,9 +73,9 @@ export function AddRecipeForm() {
         }));
         
         setIngredients([...ingredients, newIngredient]);
-
-        setProductValue('');
-        setQuantityValue('');
+        setProductValue("");
+        clearInputs();
+        
     }
 
     const handleCreateRecipe = () => {
@@ -81,6 +95,11 @@ export function AddRecipeForm() {
         .then(data => {
             // Obsługa odpowiedzi
             console.log('Recipe created:', data);
+            setPostRequestValue(true);
+            setTimeout(function() {
+                setPostRequestValue(false);
+            }, 2000)
+            setIngredients([]);
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
@@ -97,27 +116,27 @@ export function AddRecipeForm() {
                     
                     <input id="title" type="text"
                     className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md" placeholder="Recipe Name" onChange={handleTitleChange}>
-
                     </input>
+
                 </div>
                 <div className="flex flex-col float-start w-2/3">
                     <label htmlFor="filterIngredients" 
                     className="ms-3 mt-2 mb-1 text-sm">Products</label>
 
                     <input id="filterIngredients" 
-                    className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md float-start" placeholder="Products" type="text" onChange={handleFilter} value={productValue.name}/>
+                    className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md float-start" placeholder="Products" type="text" onChange={handleFilter} autoComplete="off" value={productValue.name}/>
                         <div className="relative">
                             <ul className="absolute w-2/3">
                             {filteredProducts.map((product) => {
                                 return(
-                                <li className="bg-white p-2" onClick={()=>handleUpdateIngredientsList(product)}>{product.name}</li>
+                                <li className="bg-white p-2" key={product.id} onClick={()=>handleUpdateIngredientsList(product)}>{product.name}</li>
                                 )})}
                             </ul>
                         </div>
                 </div>
                 <div className="flex flex-col w-1/3 float-right">
                     <label htmlFor="quantity" className="ms-3 mt-2 mb-1 text-sm">Quantity</label>   
-                    <input type="number" placeholder="Quantity" onChange={(e)=> setQuantityValue(e.target.value)} defaultValue={0} 
+                    <input id="quantityInput" type="number" placeholder="Quantity" onChange={(e)=> setQuantityValue(e.target.value)} defaultValue={0} 
                     className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md"/>
                 </div>
                 <button className="text-sm text-white border float-right m-3 p-2 rounded-md bg-emerald-500 hover:shadow-md" onClick={(e)=> handleIngredients(e,productValue,quantityValue)}>Add Ingredient</button>
@@ -144,7 +163,18 @@ export function AddRecipeForm() {
                     </tbody>
                 </table>                  
             </div>
-            <button className="text-sm text-white border float-right m-3 p-2 rounded-md bg-emerald-500 hover:shadow-md" onClick={handleCreateRecipe}>Create Recipe</button>
+            <button 
+                className="text-sm text-white border float-right m-3 p-2 rounded-md bg-emerald-500 hover:shadow-md" 
+                onClick={handleCreateRecipe}>Create Recipe
+            </button>
+            {postRequestValue ? 
+            ( 
+            <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+            Here is a gentle confirmation that your action was successful.
+            </Alert>
+            )
+            :null}
+            
         </div>
         
     </div>)
