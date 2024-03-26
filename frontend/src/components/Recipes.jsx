@@ -12,23 +12,23 @@ export function RecipesData() {
             setRecipes(data);
         });
     }, []);
-    
+
     return (
         <>
-            <div className="flex flex-col ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit">
+            <div className="flex flex-col ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit md:text-sm lg:text-lg">
                 {/* // TODO - filter buttons */}
                 <div className="h-10 w-full bg-black filterButton"></div>
                 {/* // TODO - card view */}
-                <div className="grid grid-flow-col grid-cols-4 gap-x-4 w-2/3 me-auto ms-auto h-full mt-[4vh] mb-8">
+                <div className="grid grid-cols-4 gap-x-8 w-5/6 me-auto ms-auto mt-[4vh] mb-8 gap-y-8">
                     {recipes.map((recipe, recipeIndex) => {
-                        return(
-                            <div className="max-w-sm h-fit rounded shadow-lg" key={recipeIndex}>
-                                <img className="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains"/>
-                                <div className="px-6 py-4">
-                                    <div class="font-bold text-md mb-2 text-center">{recipe.title}</div>
-                                    <p className="float-right mt-2 text-sm">
-                                        <button className="border border-slate-400 shadow-sm rounded-md ps-2 pe-2 pt-1 pb-1 hover:pointer hover:shadow-md">Show</button>
-                                    </p>
+                        return (
+                            <div className="relative max-w-sm rounded shadow-lg" key={recipeIndex}>
+                                <img className="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
+                                <div className="">
+                                    <div class="font-bold md:mb-8 lg:mb-16 text-center text-wrap md:p-0.5 lg:p-2">{recipe.title}</div>
+                                    <button className="absolute bottom-2 right-2 md:p-0.5 lg:p-1 lg:bottom-4 lg:right-4 border border-slate-400 shadow-sm rounded-md hover:pointer hover:shadow-md">
+                                        Show
+                                    </button>
                                 </div>
                                 <div className="clear-both px-4 pt-2 pb-1">
                                 </div>
