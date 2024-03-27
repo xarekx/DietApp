@@ -3,9 +3,9 @@ from .models import Ingredient
 from product.serializers import ProductSerializer
 
 class IngredientSerializer(serializers.ModelSerializer):
-    
-    product_name = serializers.CharField(source='product.name')
+ 
+    product = ProductSerializer()
     
     class Meta:
         model = Ingredient
-        fields = ['product_name', 'quantity']
+        fields = ['product', 'quantity']
