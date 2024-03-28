@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
+import EditIcon from '@mui/icons-material/Edit';
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 export function AddRecipeForm() {
@@ -16,6 +18,8 @@ export function AddRecipeForm() {
     const [productValue, setProductValue] = useState("");
     const [quantityValue, setQuantityValue] = useState(0);
     const [postRequestValue, setPostRequestValue] = useState(false);
+
+    console.log(recipeForm);
 
     const handleTitleChange = (event) => {
         setRecipeForm({
@@ -106,6 +110,15 @@ export function AddRecipeForm() {
         });
     };
 
+    const handleDeleteProductFromRecipe = (productId) => {
+        const updatedIngredients = ingredients.filter(ingredient => ingredient.product.id !== productId);
+        setIngredients(updatedIngredients);
+        setRecipeForm(prevForm => ({
+            ...prevForm,
+            ingredients: recipeForm.ingredients.filter(ingredient => ingredient.product.id !== productId)
+        }));
+    }
+
     return (
     <div className="flex flex-row ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit">
         <div className="flex flex-col w-full">
@@ -151,6 +164,7 @@ export function AddRecipeForm() {
                             {/* table headers */}
                             <th className="border text-start ps-4 w-2/3">Product</th>
                             <th className="border text-start p-2 w-1/3">Quantity</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -158,6 +172,10 @@ export function AddRecipeForm() {
                             <tr key={index}>
                                 <td className="border ps-6">{ingredient.product.name}</td>
                                 <td className="border ps-6">{ingredient.quantity}</td>
+                                <td className="border flex justify-between">
+                                    <EditIcon className="text-emerald-600 hover:cursor-pointer"/>
+                                    <ClearIcon className="text-red-600 hover:cursor-pointer" onClick={() => handleDeleteProductFromRecipe(ingredient.product.id)}/>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
