@@ -18,8 +18,8 @@ export function AddRecipeForm() {
     const [productValue, setProductValue] = useState("");
     const [quantityValue, setQuantityValue] = useState(0);
     const [postRequestValue, setPostRequestValue] = useState(false);
-
-    console.log(recipeForm);
+    const [editModalToggle, setEditModalToggle] = useState(false);
+    const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(null);
 
     const handleTitleChange = (event) => {
         setRecipeForm({
@@ -49,7 +49,7 @@ export function AddRecipeForm() {
         })
     }
 
-    // get products from products rest api
+    // get products from database
     useEffect(() => {
         fetchProducts();
     },[]);
@@ -82,6 +82,7 @@ export function AddRecipeForm() {
         
     }
 
+    // post request - creating new recipe
     const handleCreateRecipe = () => {
         fetch("http://127.0.0.1:8000/api/recipes/", {
             method: "POST",
@@ -97,7 +98,7 @@ export function AddRecipeForm() {
             return response.json();
         })
         .then(data => {
-            // Obsługa odpowiedzi
+            // handle response
             console.log('Recipe created:', data);
             setPostRequestValue(true);
             setTimeout(function() {
@@ -112,11 +113,52 @@ export function AddRecipeForm() {
 
     const handleDeleteProductFromRecipe = (productId) => {
         const updatedIngredients = ingredients.filter(ingredient => ingredient.product.id !== productId);
+        
         setIngredients(updatedIngredients);
+
         setRecipeForm(prevForm => ({
             ...prevForm,
-            ingredients: recipeForm.ingredients.filter(ingredient => ingredient.product.id !== productId)
-        }));
+            ingredients: updatedIngredients
+        }));   
+    }
+
+    // set editing ingredient 
+    const handleUpdateQuantity = (productId) => {
+
+        setEditModalToggle(true);
+
+        const ingredientIndex = ingredients.findIndex(ingredient => ingredient.product.id === productId);
+        
+        setSelectedIngredientIndex(ingredientIndex);
+        
+    }
+
+    // set new value of quantity
+    const saveQuantity = (event) => {
+        event.preventDefault();
+
+        if (selectedIngredientIndex !== -1)  {
+            // creating copy of ingredient object
+            const updatedIngredient = {...ingredients[selectedIngredientIndex]};
+        
+            // update value of quantity from the quantity modal input
+            updatedIngredient.quantity = event.currentTarget.quantity.value;
+
+            // find changed ingredient in the ingredients
+            const updatedIngredients = [...ingredients];
+            updatedIngredients[selectedIngredientIndex] = updatedIngredient;
+
+            // update ingredients
+            setIngredients(updatedIngredients);
+
+            // update form to post data 
+            setRecipeForm(prevForm => ({
+                ...prevForm,
+                ingredients:updatedIngredients
+            })); 
+        }
+
+        setEditModalToggle(false);
     }
 
     return (
@@ -173,7 +215,48 @@ export function AddRecipeForm() {
                                 <td className="border ps-6">{ingredient.product.name}</td>
                                 <td className="border ps-6">{ingredient.quantity}</td>
                                 <td className="border flex justify-between">
-                                    <EditIcon className="text-emerald-600 hover:cursor-pointer"/>
+                                    <EditIcon className="text-emerald-600 hover:cursor-pointer" onClick={()=>handleUpdateQuantity(ingredient.product.id)}/>
+                                    {editModalToggle ? 
+                                    (
+                                        <>
+                                            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+                                                <div className="relative w-auto my-6 mx-auto max-w-sm">
+                                                    {/*content*/}
+                                                    <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                                                        {/*header*/}
+                                                        <div className="flex p-5 border-b border-solid border-blueGray-200 rounded-t w-full justify-center">
+                                                            <h3 className="text-3xl font-semibold">
+                                                            Edit Product
+                                                            </h3>
+                                                        </div>
+                                                        {/*body*/}
+                                                        <div className="relative p-6 flex-auto">
+                                                            <form onSubmit={(event)=> saveQuantity(event)} className="flex flex-col">
+                                                                <label htmlFor="quantity">Name</label>
+                                                                <input id="quantity" type="text" defaultValue={ingredients[selectedIngredientIndex].quantity} className="bg-slate-100"></input>
+                                                                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                                                                    <button
+                                                                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                                        type="button" onClick={() => setEditModalToggle(false)}>
+                                                                        Close
+                                                                    </button>
+                                                                    <button
+                                                                        className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                                        type="submit"
+                                                                        >
+                                                                        Save Changes
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        {/*footer*/}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                                        </>
+                                    ): false
+                                }
                                     <ClearIcon className="text-red-600 hover:cursor-pointer" onClick={() => handleDeleteProductFromRecipe(ingredient.product.id)}/>
                                 </td>
                             </tr>
@@ -191,10 +274,7 @@ export function AddRecipeForm() {
             Here is a gentle confirmation that your action was successful.
             </Alert>
             )
-            :null}
-            
-        </div>
-        
+            :null}     
+        </div>   
     </div>)
-  
 }
