@@ -12,6 +12,9 @@ export function ProductsData() {
     const [itemOffset, setItemOffset] = useState(0);
     const [toggleDropdown, setToggleDropdown] = useState(false);
     const [products, setProducts] = useState([]);
+    const [selectedProduct, setSelectedProduct ] = useState([]);
+    const [toggleModal, setToggleModal] = useState(false);
+    
     const [form, setForm] = useState(useState({
         name: "",
         protein: 0,
@@ -110,6 +113,20 @@ export function ProductsData() {
         });
         console.log('clicked', index);
     };
+    
+    // setSelectedProducts to be able load data in EditProductForm Modal
+    
+    const handleSelectProduct = (product) => {
+        setSelectedProduct(product);
+        setToggleModal(true); 
+        setToggleDropdown(false);
+    };
+
+    // get the modal state from child ( EditProductForm )
+
+    const handleCloseModal = (modalStatus) => {
+        setToggleModal(modalStatus);
+      }
 
     return (
         <>
@@ -150,12 +167,14 @@ export function ProductsData() {
                                         <HiDotsHorizontal className="h-[2rem] w-[1.5em] me-auto ms-auto hover:shadow-md hover:shadow-slate-200 hover:rounded-md hover:cursor-pointer" onClick={()=> clickHandler(index)}/>
                                         <div className={toggleDropdown === index ? '' : 'hidden'} >
                                             <div className="absolute text-sm text-black border rounded-md shadow-md bg-white ring-inset pe-8 p-2 ps-4 right-[11vw]" >
-                                                <EditProductForm product={product} handleUpdateProduct={handleUpdateProduct} handleChange={handleChange} form={form}/>
+                                            <div className="block hover:cursor-pointer" onClick={() => handleSelectProduct(product)}>Edit</div>
                                                 <DeleteProductForm product={product} handleDeleteProduct={handleDeleteProduct}/>
                                             </div>
                                         </div>
                                     </td> 
                                 </tr>
+                                
+                                
                                 :
                                 <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100 bg-slate-50" key={index}>
                                     {/* table content */}
@@ -169,7 +188,7 @@ export function ProductsData() {
                                         <HiDotsHorizontal className="h-[2rem] w-[1.5em] me-auto ms-auto hover:shadow-md hover:shadow-slate-200 hover:rounded-md hover:cursor-pointer " onClick={()=> clickHandler(index)}/>
                                         <div className={toggleDropdown === index ? '' : 'hidden'}>
                                             <div className="absolute text-sm text-black border rounded-md shadow-md bg-white ring-inset pe-8 p-2 ps-4 right-[11vw]" >
-                                                <EditProductForm product={product} handleUpdateProduct={handleUpdateProduct} handleChange={handleChange} form={form}/>
+                                                <div className="block hover:cursor-pointer" onClick={() => handleSelectProduct(product)}>Edit</div>
                                                 <DeleteProductForm product={product} handleDeleteProduct={handleDeleteProduct}/>
                                             </div>
                                         </div>
@@ -181,6 +200,10 @@ export function ProductsData() {
                     })}
                 </tbody>
             </table>
+            {toggleModal ? (
+                <EditProductForm product={selectedProduct} handleUpdateProduct={handleUpdateProduct} handleChange={handleChange} form={form} sendModalStatusToParent={handleCloseModal}/>)
+            :false
+            }
             <ReactPaginate
                 breakLabel="..."
                 nextLabel={<MdNavigateNext className="border w-[43px] h-[29px] text-2xl hover:shadow-md rounded-md"/>}
