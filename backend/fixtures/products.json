@@ -1,0 +1,552 @@
+[
+    {
+        "model": "product.product",
+        "pk": 1,
+        "fields": {
+            "name": "Jajko",
+            "protein": 6,
+            "carbohydrates": 1,
+            "fat": 5,
+            "calories": 70
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 2,
+        "fields": {
+            "name": "Kurczak (piers bez skóry)",
+            "protein": 31,
+            "carbohydrates": 0,
+            "fat": 3,
+            "calories": 165
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 3,
+        "fields": {
+            "name": "Tuńczyk w wodzie",
+            "protein": 26,
+            "carbohydrates": 0,
+            "fat": 1,
+            "calories": 120
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 4,
+        "fields": {
+            "name": "Chude mleko",
+            "protein": 8,
+            "carbohydrates": 12,
+            "fat": 0.5,
+            "calories": 80
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 5,
+        "fields": {
+            "name": "Chude jogurt naturalny",
+            "protein": 10,
+            "carbohydrates": 7,
+            "fat": 0.4,
+            "calories": 60
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 6,
+        "fields": {
+            "name": "Twaróg chudy",
+            "protein": 18,
+            "carbohydrates": 3,
+            "fat": 0.6,
+            "calories": 80
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 7,
+        "fields": {
+            "name": "Wołowina (polędwica)",
+            "protein": 36,
+            "carbohydrates": 0,
+            "fat": 5,
+            "calories": 200
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 8,
+        "fields": {
+            "name": "Szpinak",
+            "protein": 2.9,
+            "carbohydrates": 3.6,
+            "fat": 0.4,
+            "calories": 23
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 9,
+        "fields": {
+            "name": "Brokuły",
+            "protein": 2.8,
+            "carbohydrates": 6,
+            "fat": 0.4,
+            "calories": 34
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 10,
+        "fields": {
+            "name": "Łosoś",
+            "protein": 20,
+            "carbohydrates": 0,
+            "fat": 13,
+            "calories": 200
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 11,
+        "fields": {
+            "name": "Tofu",
+            "protein": 8,
+            "carbohydrates": 2,
+            "fat": 4,
+            "calories": 70
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 12,
+        "fields": {
+            "name": "Ciecierzyca",
+            "protein": 8.9,
+            "carbohydrates": 27.4,
+            "fat": 2.6,
+            "calories": 164
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 13,
+        "fields": {
+            "name": "Makaron pełnoziarnisty",
+            "protein": 8,
+            "carbohydrates": 39,
+            "fat": 2,
+            "calories": 200
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 14,
+        "fields": {
+            "name": "Brązowy ryż",
+            "protein": 5,
+            "carbohydrates": 45,
+            "fat": 1.5,
+            "calories": 216
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 15,
+        "fields": {
+            "name": "Banan",
+            "protein": 1.3,
+            "carbohydrates": 27,
+            "fat": 0.4,
+            "calories": 105
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 16,
+        "fields": {
+            "name": "Jabłko",
+            "protein": 0.5,
+            "carbohydrates": 25,
+            "fat": 0.3,
+            "calories": 95
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 17,
+        "fields": {
+            "name": "Pomarańcza",
+            "protein": 1,
+            "carbohydrates": 21,
+            "fat": 0.2,
+            "calories": 62
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 18,
+        "fields": {
+            "name": "Orzechy włoskie",
+            "protein": 4,
+            "carbohydrates": 4,
+            "fat": 19,
+            "calories": 185
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 19,
+        "fields": {
+            "name": "Awokado",
+            "protein": 2,
+            "carbohydrates": 12,
+            "fat": 15,
+            "calories": 160
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 20,
+        "fields": {
+            "name": "Oliwa z oliwek",
+            "protein": 0,
+            "carbohydrates": 0,
+            "fat": 14,
+            "calories": 120
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 21,
+        "fields": {
+            "name": "Marchew",
+            "protein": 0.6,
+            "carbohydrates": 7,
+            "fat": 0.3,
+            "calories": 30
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 22,
+        "fields": {
+            "name": "Papryka",
+            "protein": 0.9,
+            "carbohydrates": 6,
+            "fat": 0.3,
+            "calories": 24
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 23,
+        "fields": {
+            "name": "Czosnek",
+            "protein": 1.8,
+            "carbohydrates": 33,
+            "fat": 0.5,
+            "calories": 149
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 24,
+        "fields": {
+            "name": "Soja",
+            "protein": 36,
+            "carbohydrates": 29,
+            "fat": 20,
+            "calories": 337
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 25,
+        "fields": {
+            "name": "Chia",
+            "protein": 16,
+            "carbohydrates": 44,
+            "fat": 31,
+            "calories": 490
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 26,
+        "fields": {
+            "name": "Jogurt grecki",
+            "protein": 10,
+            "carbohydrates": 3,
+            "fat": 10,
+            "calories": 150
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 27,
+        "fields": {
+            "name": "Mleko kokosowe",
+            "protein": 1.1,
+            "carbohydrates": 2.8,
+            "fat": 21,
+            "calories": 230
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 28,
+        "fields": {
+            "name": "Kurkuma",
+            "protein": 3.1,
+            "carbohydrates": 64.9,
+            "fat": 3.1,
+            "calories": 354
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 29,
+        "fields": {
+            "name": "Makrela",
+            "protein": 19,
+            "carbohydrates": 0,
+            "fat": 13,
+            "calories": 200
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 30,
+        "fields": {
+            "name": "Bob",
+            "protein": 9,
+            "carbohydrates": 21,
+            "fat": 1,
+            "calories": 118
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 31,
+        "fields": {
+            "name": "Makaron konjac",
+            "protein": 0,
+            "carbohydrates": 0,
+            "fat": 0,
+            "calories": 3
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 32,
+        "fields": {
+            "name": "Migdały",
+            "protein": 21,
+            "carbohydrates": 22,
+            "fat": 50,
+            "calories": 575
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 33,
+        "fields": {
+            "name": "Chleb żytni",
+            "protein": 6,
+            "carbohydrates": 43,
+            "fat": 1.3,
+            "calories": 200
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 34,
+        "fields": {
+            "name": "Otręby",
+            "protein": 17,
+            "carbohydrates": 43,
+            "fat": 7,
+            "calories": 308
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 35,
+        "fields": {
+            "name": "Natka pietruszki",
+            "protein": 3.7,
+            "carbohydrates": 7.3,
+            "fat": 0.4,
+            "calories": 47
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 36,
+        "fields": {
+            "name": "Jogurt naturalny",
+            "protein": 3.5,
+            "carbohydrates": 4.7,
+            "fat": 3.3,
+            "calories": 61
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 37,
+        "fields": {
+            "name": "Jogurt pitny",
+            "protein": 2.7,
+            "carbohydrates": 8.3,
+            "fat": 2.2,
+            "calories": 63
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 38,
+        "fields": {
+            "name": "Bryndza",
+            "protein": 17,
+            "carbohydrates": 2,
+            "fat": 20,
+            "calories": 290
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 39,
+        "fields": {
+            "name": "Oscypek",
+            "protein": 19,
+            "carbohydrates": 1,
+            "fat": 24,
+            "calories": 320
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 40,
+        "fields": {
+            "name": "Kefir",
+            "protein": 3.3,
+            "carbohydrates": 4.7,
+            "fat": 3.5,
+            "calories": 58
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 41,
+        "fields": {
+            "name": "Mąka pszenna",
+            "protein": 10,
+            "carbohydrates": 70,
+            "fat": 1,
+            "calories": 344
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 42,
+        "fields": {
+            "name": "Ryż basmati",
+            "protein": 8,
+            "carbohydrates": 77,
+            "fat": 1,
+            "calories": 360
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 43,
+        "fields": {
+            "name": "Soczewica",
+            "protein": 9,
+            "carbohydrates": 20,
+            "fat": 1,
+            "calories": 116
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 44,
+        "fields": {
+            "name": "Oliwki",
+            "protein": 0.8,
+            "carbohydrates": 6,
+            "fat": 10,
+            "calories": 115
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 45,
+        "fields": {
+            "name": "Groch",
+            "protein": 9,
+            "carbohydrates": 60,
+            "fat": 1,
+            "calories": 300
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 46,
+        "fields": {
+            "name": "Papaja",
+            "protein": 0.5,
+            "carbohydrates": 11,
+            "fat": 0.3,
+            "calories": 43
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 47,
+        "fields": {
+            "name": "Ananas",
+            "protein": 0.5,
+            "carbohydrates": 13,
+            "fat": 0.1,
+            "calories": 50
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 48,
+        "fields": {
+            "name": "Mango",
+            "protein": 0.8,
+            "carbohydrates": 14,
+            "fat": 0.6,
+            "calories": 60
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 49,
+        "fields": {
+            "name": "Granat",
+            "protein": 1.7,
+            "carbohydrates": 18.7,
+            "fat": 0.7,
+            "calories": 83
+        }
+    },
+    {
+        "model": "product.product",
+        "pk": 50,
+        "fields": {
+            "name": "Kiwi",
+            "protein": 1.1,
+            "carbohydrates": 14,
+            "fat": 0.5,
+            "calories": 61
+        }
+    }
+]
