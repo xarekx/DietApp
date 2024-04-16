@@ -22,6 +22,7 @@ class Diet(models.Model):
     lunch = models.ForeignKey(Recipe, related_name='lunch_recipe', on_delete=models.CASCADE, null=True, blank=True)
     afternoon_meal = models.ForeignKey(Recipe, related_name='afternoon_meal_recipe', on_delete=models.CASCADE, null=True, blank=True)
     dinner = models.ForeignKey(Recipe, related_name='dinner_recipe', on_delete=models.CASCADE, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = _("Diet")
