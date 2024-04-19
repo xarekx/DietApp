@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'recipe',
+    'diets',
     'ingredients',
     'django_extensions'
 ]

@@ -1,0 +1,37 @@
+[
+{
+    "model": "recipe.recipe",
+    "pk": 22,
+    "fields": {
+        "title": "Kanapka z jajkiem"
+    }
+},
+{
+    "model": "recipe.recipe",
+    "pk": 23,
+    "fields": {
+        "title": "Budyń ryżowy"
+    }
+},
+{
+    "model": "recipe.recipe",
+    "pk": 24,
+    "fields": {
+        "title": "Tortilla z ciecierzycą, cukinią i awokado"
+    }
+},
+{
+    "model": "recipe.recipe",
+    "pk": 25,
+    "fields": {
+        "title": "Jajecznica z pieczarkami, cebulą i pieczywem"
+    }
+},
+{
+    "model": "recipe.recipe",
+    "pk": 26,
+    "fields": {
+        "title": "Skyr pitny waniliowy Piątnica + jabłko"
+    }
+}
+]

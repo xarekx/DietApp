@@ -1,19 +1,14 @@
 import { useState } from "react"
-import { FaPlus } from "react-icons/fa";
 
+export function AddProductForm({form, handleAddProduct, handleChange, sendModalStatusToParent}) {
 
-export function AddProductForm({form, handleAddProduct, handleChange}) {
+  const [ closeModalStatus] = useState(false);
 
-    // hook to display add product modal
-    const [toggle, setToggle] = useState(false);
+  function closeModal() {
+      sendModalStatusToParent(closeModalStatus);
+  }
   
   return (
-    <>
-      <button className="flex items-center gap-2 ps-2 pe-2 pt-1 pb-1 border border-slate-400 shadow-sm rounded-md hover:pointer hover:shadow-md" 
-      onClick={()=> setToggle(true)}>
-        <FaPlus className="w-3 h-3 text-slate-500"/>New
-      </button>
-      {toggle ? ( 
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-sm">
@@ -27,7 +22,7 @@ export function AddProductForm({form, handleAddProduct, handleChange}) {
                 </div>
                 {/*body*/}
                 <div className="relative p-6 flex-auto">
-                  <form onSubmit={handleAddProduct} className="flex flex-col">
+                  <form onSubmit={(event)=> handleAddProduct(event)} className="flex flex-col">
                     <label htmlFor="name">Name</label>
                     <input id="name" type="text" value={form.name} onChange={handleChange} className="bg-slate-100"></input>
                     <label htmlFor="protein">Protein</label>
@@ -42,7 +37,7 @@ export function AddProductForm({form, handleAddProduct, handleChange}) {
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
-                        onClick={() => setToggle(false)}>
+                        onClick={closeModal}>
                         Close
                       </button>
                       <button
@@ -59,7 +54,5 @@ export function AddProductForm({form, handleAddProduct, handleChange}) {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </> 
-        ): null}
-    </>
   );
 }

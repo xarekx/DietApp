@@ -20,11 +20,13 @@ from rest_framework import routers
 from product import views as product_views
 from recipe import views as recipe_views
 from ingredients import views as ingredients_views
+from diets import views as diets_views
 
 router = routers.DefaultRouter()
 router.register(r'products', product_views.ProductView, 'product'),
 router.register(r'recipes', recipe_views.RecipeView, 'recipe')
 router.register(r'ingredients', ingredients_views.IngredientView, 'ingredients')
+router.register(r'diets', diets_views.DietView, 'diets')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

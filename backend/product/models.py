@@ -6,10 +6,10 @@ from django.urls import reverse
 class Product(models.Model):
     
     name = models.CharField(_("name"), max_length=64)
-    protein = models.PositiveIntegerField(_("protein"), default=0, help_text="protein per 100g")
-    carbohydrates = models.PositiveIntegerField(_("carbohydrates"), default=0, help_text="carbohydrates per 100g")
-    fat = models.PositiveIntegerField(_("fat"), default=0, help_text="fat per 100g")
-    calories = models.PositiveIntegerField(_("calories"), default=0, help_text="calories per 100g")
+    protein = models.DecimalField(_("protein"), help_text="protein per 100g", max_digits=18, decimal_places=2)
+    carbohydrates = models.DecimalField(_("carbohydrates"),  help_text="carbohydrates per 100g", max_digits=18, decimal_places=2)
+    fat = models.DecimalField(_("fat"),  help_text="fat per 100g", max_digits=18, decimal_places=2)
+    calories = models.DecimalField(_("calories"), help_text="calories per 100g", max_digits=18, decimal_places=2)
     
     class Meta:
         verbose_name = _("Product")
