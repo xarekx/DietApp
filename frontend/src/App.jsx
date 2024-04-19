@@ -20,16 +20,16 @@ function App() {
           <nav className="flex flex-col bg-slate-300 text-sm md:text-xl px-10 items-stretch 
           w-1/6 ms-10">
           <div className="logo text-black text-center mt-8">
-            <Link to="/">
+            <Link to="/" onClick={()=>recipeSetToggle(false)}>
               <PiBowlFoodFill className="w-full h-full"/>
             </Link>
           </div>
           <ul className="logo text-black text-left mt-8">
             <li>
-              <Link to={'/'} className="nav-link">Home</Link>
+              <Link to={'/'} className="nav-link" onClick={()=>recipeSetToggle(false)}>Home</Link>
             </li>
             <li>
-              <Link to={'/products'} className="nav-link">Products</Link>
+              <Link to={'/products'} className="nav-link" onClick={()=>recipeSetToggle(false)}>Products</Link>
             </li>
             <li>
               <span className="flex hover:cursor-pointer items-center justify-between" onClick={()=> recipeSetToggle(!recipeToggle)}>Recipes
