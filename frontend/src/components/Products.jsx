@@ -163,7 +163,7 @@ export function ProductsData() {
                 <span className="text-xl font-bold">Products</span>
                 <div className="flex text-center">
                 <button className="flex items-center gap-2 ps-2 pe-2 pt-1 pb-1 border border-slate-400 shadow-sm rounded-md hover:pointer hover:shadow-md" 
-                onClick={(event) => {setSelectedForm(event.currentTarget.textContent); setToggleModal(true);}}>
+                onClick={(event) => {setSelectedForm(event.currentTarget.textContent); setToggleModal(true); setToggleDropdown(false);}}>
                     <FaPlus className="w-3 h-3 text-slate-500"/>New
                 </button>
                 </div>
