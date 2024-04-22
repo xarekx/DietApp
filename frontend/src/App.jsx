@@ -8,6 +8,7 @@ import { Home } from "./components/Home";
 import { IoArrowDown } from "react-icons/io5";
 import { IoArrowForward } from "react-icons/io5";
 import { AddRecipeForm } from "./forms/AddRecipeForm";
+import { RecipeDetails } from "./components/RecipeDetails";
 
 
 function App() {
@@ -65,7 +66,7 @@ function App() {
               <Route path='/products' element={<ProductsData />}/>
               <Route path="/products/:productId" element={<ProductDetails />} />
               <Route path='/recipes' element={<RecipesData />}/>
-              <Route path='/recipes/:recipeId' element={<RecipesData />}/>
+              <Route path='/recipes/:recipeId' element={<RecipeDetails />}/>
               <Route path='/recipes/add' element={<AddRecipeForm />}/>
           </Routes>
         </main>
