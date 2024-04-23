@@ -12,6 +12,10 @@ export function RecipeDetails() {
 
     const [recipeDetails, setRecipeDetails] = useState(null);
     const [countPortion, setCountPortion] = useState(1);
+    const [protein, setProtein] = useState(0);
+    const [carbohydrates, setCarbohydrates] = useState(0);
+    const [fat, setFat] = useState(0);
+    const [calories, setCalories] = useState(0);
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/recipes/"+params.recipeId)
@@ -24,15 +28,38 @@ export function RecipeDetails() {
     if (!recipeDetails) {
         return <div>Loading...</div>;
     }
-    
+
+    const handleNutritionalValue = () => {
+        // let finalProtein = 0;
+        let nutritions = {
+            "protein":0,
+            "carbohydrates":0,
+            "fat":0,
+            "calories":0
+        }
+
+        recipeDetails.ingredients.map((ingredient)=> {
+                nutritions.protein += Math.round(Number((ingredient.product.protein*ingredient.quantity)/100))
+                nutritions.carbohydrates += Number((ingredient.product.carbohydrates*ingredient.quantity)/100)
+                nutritions.fat += Number((ingredient.product.fat*ingredient.quantity)/100)
+                nutritions.calories += Number((ingredient.product.calories*ingredient.quantity)/100)
+        })
+
+        setProtein(nutritions.protein);
+        setCarbohydrates(nutritions.carbohydrates);
+        setFat(nutritions.fat);
+        setCalories(nutritions.calories);
+
+    }
+      
     return (
-        <div className="w-full flex flex-col">
-            <img className="w-3/4 h-1/3 ms-auto me-auto" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
+        <div className="flex flex-col ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit md:text-sm lg:text-lg">
+            <img className="w-4/5 h-1/4 ms-auto me-auto" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
             <div className="w-2/3 ms-auto me-auto mt-4">
                 <span className="font-bold text-3xl ">{recipeDetails.title}</span>
-                <div className="mt-4 text-lg">Liczba porcji :
+                <div className="mt-4 text-lg">Portions : 
                     {countPortion} 
-                    <Fab size="small" color="secondary" aria-label="add" style={{marginRight:'1em', marginLeft:'1em'}} onClick={()=>setCountPortion(countPortion+1)}>
+                    <Fab size="small" color="secondary" aria-label="add" style={{marginRight:'1em', marginLeft:'1em'}} onClick={()=>{setCountPortion(countPortion+1)}}>
                         <AddIcon />
                     </Fab>
                     <Fab size="small" color="secondary" aria-label="sub" className="ml-4" onClick={()=>setCountPortion(countPortion-1)}>
@@ -40,16 +67,27 @@ export function RecipeDetails() {
                     </Fab>
                 </div>
             </div>
-            <div className="w-2/3 ms-auto me-auto">
-                <span className="font-bold">Składniki</span>
-                <ul className="flex flex-col mt-4">
-                    {recipeDetails.ingredients.map((ingredient, index) => (
-                        <li key={index}>
-                            <p>{ingredient.product.name}</p>
-                            <p className="ms-2 text-sm">{ingredient.quantity}g</p>
-                        </li>
-                    ))}
-                </ul>
+            <div className="flex justify-between w-2/3 ms-auto me-auto">
+                <div className="flex flex-col">
+                    <span>Ingredients</span>
+                    <ul className="flex flex-col mt-4">
+                        {recipeDetails.ingredients.map((ingredient, index) => (
+                            <li key={index}>
+                                <p>{ingredient.product.name}</p>
+                                <p className="ms-2 text-sm">{ingredient.quantity}g</p>
+                            </li>
+                        ))}
+                    </ul> 
+                </div>
+                <div className="flex flex-col w-1/2">
+                    <span>Nutritional values</span>
+                    <div className="flex justify-between me-2">
+                        <span>Protein: {protein}</span>
+                        <span>Carbohydrates: {carbohydrates}</span>
+                        <span>Fat: {fat}</span>
+                        <span>Calories: {calories}</span>
+                    </div>
+                </div>
             </div>  
         </div>
     );

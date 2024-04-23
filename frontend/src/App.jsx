@@ -18,8 +18,8 @@ function App() {
   return (
     <Router>
         <main className="flex bg-slate-200 min-h-screen">
-          <nav className="flex flex-col bg-slate-300 text-sm md:text-xl px-10 items-stretch 
-          w-1/6 ms-10">
+          <nav className="flex flex-col text-sm md:text-xl px-10 items-stretch 
+          min-w-[15vw] ms-10">
           <div className="logo text-black text-center mt-8">
             <Link to="/" onClick={()=>recipeSetToggle(false)}>
               <PiBowlFoodFill className="w-full h-full"/>
