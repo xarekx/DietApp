@@ -22,14 +22,19 @@ export function RecipeDetails() {
             .then((res) => res.json())
             .then((data) => {
                 setRecipeDetails(data);
-            });
+            })
+            .catch((error) => {console.error('Error fetching recipe details:', error)});
+           
     }, [params.recipeId]);
 
-    if (!recipeDetails) {
-        return <div>Loading...</div>;
-    }
+    useEffect(() => {
+        if (recipeDetails) {
+            handleNutritionalValue(countPortion);
+        }
+        // eslint-disable-next-line
+    }, [recipeDetails]);
 
-    const handleNutritionalValue = () => {
+    const handleNutritionalValue = (portions) => {
         // let finalProtein = 0;
         let nutritions = {
             "protein":0,
@@ -38,11 +43,11 @@ export function RecipeDetails() {
             "calories":0
         }
 
-        recipeDetails.ingredients.map((ingredient)=> {
-                nutritions.protein += Math.round(Number((ingredient.product.protein*ingredient.quantity)/100))
-                nutritions.carbohydrates += Number((ingredient.product.carbohydrates*ingredient.quantity)/100)
-                nutritions.fat += Number((ingredient.product.fat*ingredient.quantity)/100)
-                nutritions.calories += Number((ingredient.product.calories*ingredient.quantity)/100)
+        recipeDetails.ingredients.forEach((ingredient)=> {
+                nutritions.protein += Number(((ingredient.product.protein*ingredient.quantity)*portions)/100)
+                nutritions.carbohydrates += Number(((ingredient.product.carbohydrates*ingredient.quantity)*portions)/100)
+                nutritions.fat += Number(((ingredient.product.fat*ingredient.quantity)*portions)/100)
+                nutritions.calories += Number(((ingredient.product.calories*ingredient.quantity)*portions)/100)
         })
 
         setProtein(nutritions.protein);
@@ -50,6 +55,10 @@ export function RecipeDetails() {
         setFat(nutritions.fat);
         setCalories(nutritions.calories);
 
+    }
+
+    if (!recipeDetails) {
+        return <div>Loading...</div>;
     }
       
     return (
@@ -59,10 +68,10 @@ export function RecipeDetails() {
                 <span className="font-bold text-3xl ">{recipeDetails.title}</span>
                 <div className="mt-4 text-lg">Portions : 
                     {countPortion} 
-                    <Fab size="small" color="secondary" aria-label="add" style={{marginRight:'1em', marginLeft:'1em'}} onClick={()=>{setCountPortion(countPortion+1)}}>
+                    <Fab size="small" color="secondary" aria-label="add" style={{marginRight:'1em', marginLeft:'1em'}} onClick={()=>{setCountPortion(countPortion+1); handleNutritionalValue(countPortion+1);}}>
                         <AddIcon />
                     </Fab>
-                    <Fab size="small" color="secondary" aria-label="sub" className="ml-4" onClick={()=>setCountPortion(countPortion-1)}>
+                    <Fab size="small" color="secondary" aria-label="sub" className="ml-4" onClick={()=>{setCountPortion(countPortion-1);handleNutritionalValue(countPortion-1);}}>
                         <RemoveIcon />
                     </Fab>
                 </div>
@@ -74,7 +83,7 @@ export function RecipeDetails() {
                         {recipeDetails.ingredients.map((ingredient, index) => (
                             <li key={index}>
                                 <p>{ingredient.product.name}</p>
-                                <p className="ms-2 text-sm">{ingredient.quantity}g</p>
+                                <p className="ms-2 text-sm">{ingredient.quantity*countPortion}g</p>
                             </li>
                         ))}
                     </ul> 
@@ -82,10 +91,10 @@ export function RecipeDetails() {
                 <div className="flex flex-col w-1/2">
                     <span>Nutritional values</span>
                     <div className="flex justify-between me-2">
-                        <span>Protein: {protein}</span>
-                        <span>Carbohydrates: {carbohydrates}</span>
-                        <span>Fat: {fat}</span>
-                        <span>Calories: {calories}</span>
+                        <span>Protein: {protein.toFixed(0)}</span>
+                        <span>Carbohydrates: {carbohydrates.toFixed(0)}</span>
+                        <span>Fat: {fat.toFixed(0)}</span>
+                        <span>Calories: {calories.toFixed(0)}</span>
                     </div>
                 </div>
             </div>  
