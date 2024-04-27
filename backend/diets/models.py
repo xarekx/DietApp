@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from recipe.models import Recipe
 from django.contrib.auth.models import User
+from user_api.models import AppUser
 # Create your models here.
 class Diet(models.Model):
 
@@ -15,7 +16,7 @@ class Diet(models.Model):
         ('sunday', 'Sunday'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(AppUser, on_delete=models.CASCADE, null=True)
     day = models.CharField(max_length=20, choices=DAY_OF_WEEK_CHOICES, default=DAY_OF_WEEK_CHOICES[0])
     breakfast = models.ForeignKey(Recipe, related_name='breakfast_recipe', on_delete=models.CASCADE, null=True, blank=True)
     second_breakfast = models.ForeignKey(Recipe, related_name='second_breakfast_recipe', on_delete=models.CASCADE, null=True, blank=True)
