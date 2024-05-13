@@ -8,7 +8,7 @@ import { DeleteProductForm } from "../forms/DeleteProductForm";
 import { EditProductForm } from "../forms/EditProductForm";
 import { FaPlus } from "react-icons/fa";
 
-export function ProductsData() {
+export function ProductsData({getCookie}) {
 
     const [itemOffset, setItemOffset] = useState(0);
     const [toggleDropdown, setToggleDropdown] = useState(false);
@@ -27,7 +27,14 @@ export function ProductsData() {
 
     // get products from products rest api
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/products/")
+        const csrftoken = getCookie('csrftoken');
+        fetch("http://127.0.0.1:8000/api/products/", {
+            method:"GET",
+            headers: {
+            "Content-Type": "application/json",
+            'X-CSRFToken': csrftoken
+        },
+        credentials: 'include',})
         .then(res =>res.json())
         .then(data => setProducts(data))
         .catch(error => console.error('Error fetching products: ', error));
@@ -48,10 +55,14 @@ export function ProductsData() {
     
     // delete request
     const handleDeleteProduct = id => {
-        const requestOptions = {
-          method: 'DELETE',
-          }
-        fetch('http://127.0.0.1:8000/api/products/'+id, requestOptions)
+        const csrftoken = getCookie('csrftoken');
+        fetch('http://127.0.0.1:8000/api/products/'+id, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                'X-CSRFToken': csrftoken
+            },
+            credentials: 'include'})
             .then((response) => {
                 if(!response.ok) {
                     throw new Error('Something went wrong')
@@ -64,6 +75,7 @@ export function ProductsData() {
     const handleUpdateProduct = (event, id) => {
         event.preventDefault();
         const updatedFields = {};
+        const csrftoken = getCookie('csrftoken');
         
         Object.keys(form).forEach((key) => {
             if (form[key] !== selectedProduct[key]) {
@@ -71,13 +83,14 @@ export function ProductsData() {
             }
         });
 
-        const requestOptions = {
+        fetch('http://127.0.0.1:8000/api/products/'+id+"/", {
             method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedFields)
-        };
-
-        fetch('http://127.0.0.1:8000/api/products/'+id+"/", requestOptions)
+            headers: {
+                "Content-Type": "application/json",
+                'X-CSRFToken': csrftoken
+            },
+            credentials: 'include',
+            body: JSON.stringify(updatedFields)})
             .then((response) => {
                 if(!response.ok) {
                     throw new Error('Something went wrong')
@@ -100,19 +113,29 @@ export function ProductsData() {
     // post data to backend with submit
     const handleAddProduct = (event) => {
         event.preventDefault();
+        const csrftoken = getCookie('csrftoken');
 
-        const requestOptions = {
+        fetch('http://127.0.0.1:8000/api/products/', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                "Content-Type": "application/json",
+                'X-CSRFToken': csrftoken
+            },
+            credentials: 'include',
             body: JSON.stringify({ 
                 name: form.name,
                 protein: form.protein,
                 carbohydrates: form.carbohydrates,
                 fat: form.fat,
                 calories: form.calories  })
-        };
-        fetch('http://127.0.0.1:8000/api/products/', requestOptions)
-        .then(response => response.json())
+            })
+        .then(response => {
+            if(!response.ok) {
+                console.log(response.json());
+                throw new Error('Something went wrong');
+            } else 
+            response.json()
+        })
         .then(data => {
             // Update the products state with the new product
             setProducts([...products, data]);
@@ -154,7 +177,6 @@ export function ProductsData() {
         setToggleModal(modalStatus);
       }
 
-    console.log(selectedForm);
     return (
         <>
         <div className="flex flex-col ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit">

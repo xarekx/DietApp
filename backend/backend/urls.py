@@ -21,6 +21,7 @@ from product import views as product_views
 from recipe import views as recipe_views
 from ingredients import views as ingredients_views
 from diets import views as diets_views
+from user_api import urls as user_urls
 
 router = routers.DefaultRouter()
 router.register(r'products', product_views.ProductView, 'product'),
@@ -30,5 +31,6 @@ router.register(r'diets', diets_views.DietView, 'diets')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('api/user/', include(user_urls))
 ]

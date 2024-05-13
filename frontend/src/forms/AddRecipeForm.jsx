@@ -12,6 +12,7 @@ export function AddRecipeForm() {
         ingredients: [] 
     })
 
+    
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState(products);
     const [ingredients, setIngredients] = useState([]);
@@ -29,6 +30,7 @@ export function AddRecipeForm() {
     };
 
     const clearInputs = () => {
+        
         const productInput = document.getElementById("filterIngredients");
         const quantityInput = document.getElementById("quantityInput");
         productInput.value = "";
@@ -105,11 +107,20 @@ export function AddRecipeForm() {
                 setPostRequestValue(false);
             }, 2000)
             setIngredients([]);
+            setRecipeForm({
+                title: "",
+                ingredients: [] 
+            });
+            // clear input value of recipe title
+            const recipeNameInput = document.getElementById("title");
+            recipeNameInput.value = "";
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
     };
+
+    console.log(recipeForm);
 
     const handleDeleteProductFromRecipe = (productId) => {
         const updatedIngredients = ingredients.filter(ingredient => ingredient.product.id !== productId);

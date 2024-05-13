@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import React from 'react';
+import { Link } from "react-router-dom";
 
 export function RecipesData() {
 
@@ -10,8 +11,11 @@ export function RecipesData() {
             return res.json();
         }).then((data) => {
             setRecipes(data);
+            console.log(data);
         });
     }, []);
+
+    console.log(recipes);
 
     return (
         <>
@@ -26,9 +30,10 @@ export function RecipesData() {
                                 <img className="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
                                 <div className="">
                                     <div class="font-bold md:mb-8 lg:mb-16 text-center text-wrap md:p-0.5 lg:p-2">{recipe.title}</div>
-                                    <button className="absolute bottom-2 right-2 md:p-0.5 lg:p-1 lg:bottom-4 lg:right-4 border border-slate-400 shadow-sm rounded-md hover:pointer hover:shadow-md">
+                                    <Link to={`/recipes/${recipe.id}`} className="absolute bottom-2 right-2 md:p-0.5 lg:p-1 lg:bottom-4 lg:right-4 border 
+                                    border-slate-400 shadow-sm rounded-md hover:pointer hover:shadow-md hover:cursor-pointer">
                                         Show
-                                    </button>
+                                    </Link>
                                 </div>
                                 <div className="clear-both px-4 pt-2 pb-1">
                                 </div>
