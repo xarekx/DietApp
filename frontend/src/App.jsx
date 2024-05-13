@@ -11,38 +11,20 @@ import { AddRecipeForm } from "./forms/AddRecipeForm";
 import { RecipeDetails } from "./components/RecipeDetails";
 import { UserLogin } from "./components/Login";
 
-// baseURL = 'http://127.0.0.1:8000';
-
 
 function App() {
 
   const [ recipeToggle, recipeSetToggle ] = useState(false);
-  const [ currentUser, setCurrentUser ] = useState();
-  const [ registrationToggle, setRegistrationToggle ] = useState(false);
-  const [ email, setEmail ] = useState('');
-  const [ username, setUsername ] = useState('');
-  const [ password, setPassword ] = useState('');
-
-
-  {/* // TODO - create connecting with the backend based on user ( sessions ) */}
-  // useEffect(() => {
-  //   fetchData();
-  // }, [])
-
-  // const fetchData = async () => {
-  //   try {
-  //     const csrftoken = getCookie('csrftoken');
-  //     const response = await fetch(baseURL+'')
-  //   }
-
-  // }
-
+  const [ cookie, setCookie ] = useState('');
+  
   const getCookie = (name) => {
-    const value = '; ${document.cookie}';
-    const parts = value.split('; ${name}=');
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
     
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  } 
+    if (parts.length === 2) 
+      return parts.pop().split(';').shift();
+  }
+
 
   return (<>
 
@@ -58,8 +40,8 @@ function App() {
                     </Link>
                   </div>
                   <div className="flex items-center">
-                    <Link to={'/login'} className="text-gray-800 text-sm mr-4" onClick={()=>setRegistrationToggle(true)}>LOGIN</Link> 
-                    <Link to={'/register'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm" onClick={()=>setRegistrationToggle(true)}>SIGN UP</Link> 
+                    <Link to={'/login'} className="text-gray-800 text-sm mr-4">LOGIN</Link> 
+                    <Link to={'/register'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm">SIGN UP</Link> 
                   </div>
                 </div>
               </div>
@@ -104,12 +86,12 @@ function App() {
             </nav>
           <Routes>
               <Route exact path='/' element={<Home />}/>
-              <Route path='/products' element={<ProductsData />}/>
-              <Route path="/products/:productId" element={<ProductDetails />} />
-              <Route path='/recipes' element={<RecipesData />}/>
-              <Route path='/recipes/:recipeId' element={<RecipeDetails />}/>
-              <Route path='/recipes/add' element={<AddRecipeForm />}/>
-              <Route path='/login' element={<UserLogin />}/>
+              <Route path='/products' element={<ProductsData getCookie={getCookie}/>}/>
+              <Route path="/products/:productId" element={<ProductDetails cookie={cookie} />} />
+              <Route path='/recipes' element={<RecipesData cookie={cookie} />}/>
+              <Route path='/recipes/:recipeId' element={<RecipeDetails cookie={cookie} />}/>
+              <Route path='/recipes/add' element={<AddRecipeForm cookie={cookie} />}/>
+              <Route path='/login' element={<UserLogin getCookie={getCookie}/>}/>
           </Routes>
           </div>
         </main>

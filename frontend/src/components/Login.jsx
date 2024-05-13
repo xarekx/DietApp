@@ -1,25 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
+import { ProductsData } from "./Products";
 
 
-export function UserLogin() {
+
+export function UserLogin({getCookie}) {
+
+  const [ currentUser, setCurrentUser ] = useState();
+  const [ registrationToggle, setRegistrationToggle ] = useState(false);
+  const [ email, setEmail ] = useState('');
+  const [ username, setUsername ] = useState('');
+  const [ password, setPassword ] = useState('');
+
+  const submitLogin = (e) => {
+    e.preventDefault();
+    const csrftoken = getCookie('csrftoken');
+    fetch("http://127.0.0.1:8000/api/user/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'X-CSRFToken': csrftoken
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+              email: email,
+              password: password
+            })
+        }
+      ).then((response) => {
+        if (response.ok) {
+          setCurrentUser(true);
+        } else {
+          console.log('Incorrect email or password.');
+        }
+        }
+      ).catch((err) => console.error("There was a problem with post request", err))
 
 
-    return(
-            <div className="flex justify-center ms-auto me-auto">
-             <div className="py-6 px-8 h-80 mt-20 bg-white rounded shadow-xl">
-               <form action="">
-                 <div className="mb-6">
-                   <label for="name" className="block text-gray-800 font-bold">Name:</label>
-                   <input type="text" name="name" id="name" placeholder="username" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" />
-                 </div>
-                 <div>
-                   <label for="email" className="block text-gray-800 font-bold">Email:</label>
-                   <input type="text" name="email" id="email" placeholder="@email" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" />
-                   <a href="#" className="text-sm font-thin text-gray-800 hover:underline mt-2 inline-block hover:text-indigo-600">Forget Password</a>
-                 </div>
-                 <butt className="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded">Login</butt>
-               </form>
-             </div>
-           </div>
-    )
+
+  }
+
+  if (!currentUser) {
+    return (
+      <div className="flex justify-center ms-auto me-auto">
+        <div className="py-6 px-8 h-80 mt-20 bg-white rounded shadow-xl">
+          <form onSubmit={(e) => submitLogin(e)}>
+            <div>
+              <label htmlFor="email" className="block text-gray-800 font-bold">Email:</label>
+              <input type="text" name="email" id="email" placeholder="@email" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" onChange={e => setEmail(e.target.value)} />
+            </div>
+            <div className="mb-6">
+              <label htmlFor="password" className="block text-gray-800 font-bold">Password</label>
+              <input type="password" name="password" id="password" placeholder="Password" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" onChange={e => setPassword(e.target.value)} />
+              <a href="#" className="text-sm font-thin text-gray-800 hover:underline mt-2 inline-block hover:text-indigo-600">Forget Password</a>
+            </div>
+            <button className="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded" type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+    );
+  } 
+  // else {
+  //   // Użytkownik jest zalogowany, więc możesz wykonać żądanie GET na produkty
+  //   return <ProductsData />;
+  // }
+
+    // return(
+    //         <div className="flex justify-center ms-auto me-auto">
+    //          <div className="py-6 px-8 h-80 mt-20 bg-white rounded shadow-xl">
+    //            <form onSubmit={(e)=>submitLogin(e)}>
+    //              <div>
+    //                 <label for="email" className="block text-gray-800 font-bold">Email:</label>
+    //                 <input type="text" name="email" id="email" placeholder="@email" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" onChange={e => setEmail(e.target.value)}/>
+    //              </div>
+    //              <div className="mb-6">
+    //                 <label for="password" className="block text-gray-800 font-bold">Password</label>
+    //                 <input type="password" name="password" id="password" placeholder="Password" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" onChange={e => setPassword(e.target.value)} />
+    //                 <a href="#" className="text-sm font-thin text-gray-800 hover:underline mt-2 inline-block hover:text-indigo-600">Forget Password</a>
+    //              </div>
+    //              <button className="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded" type="submit">Login</button>
+    //            </form>
+    //          </div>
+    //        </div>
+    // )
 }
