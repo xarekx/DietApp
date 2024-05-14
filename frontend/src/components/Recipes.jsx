@@ -2,20 +2,27 @@ import { useState, useEffect } from "react";
 import React from 'react';
 import { Link } from "react-router-dom";
 
-export function RecipesData() {
+export function RecipesData({getCookie}) {
 
     const [recipes, setRecipes] = useState([]);
+    const csrftoken = getCookie('csrftoken');
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/api/recipes/').then((res) => {
+        fetch('http://127.0.0.1:8000/api/recipes/',
+        {
+            method:"GET",
+            headers: {
+                "Content-Type": "application/json",
+                'X-CSRFToken': csrftoken
+            },
+            credentials: 'include'
+            }
+        ).then((res) => {
             return res.json();
         }).then((data) => {
             setRecipes(data);
-            console.log(data);
-        });
-    }, []);
-
-    console.log(recipes);
+        }).catch((error) => console.error('Something went wrong with fetching recipes', error));
+    }, [csrftoken]);
 
     return (
         <>

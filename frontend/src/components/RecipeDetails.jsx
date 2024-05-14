@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
 
-export function RecipeDetails() {
+export function RecipeDetails({getCookie}) {
     // we're handling recipeId from the path
     const params = useParams();
 
@@ -16,16 +16,25 @@ export function RecipeDetails() {
     const [carbohydrates, setCarbohydrates] = useState(0);
     const [fat, setFat] = useState(0);
     const [calories, setCalories] = useState(0);
+    const csrftoken = getCookie('csrftoken');
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/recipes/"+params.recipeId)
+        fetch("http://127.0.0.1:8000/api/recipes/"+params.recipeId,
+            {
+            method:"GET",
+            headers: {
+                "Content-Type": "application/json",
+                'X-CSRFToken': csrftoken
+            },
+            credentials: 'include'
+            })
             .then((res) => res.json())
             .then((data) => {
                 setRecipeDetails(data);
             })
             .catch((error) => {console.error('Error fetching recipe details:', error)});
            
-    }, [params.recipeId]);
+    },[params.recipeId, csrftoken]);
 
     useEffect(() => {
         if (recipeDetails) {
