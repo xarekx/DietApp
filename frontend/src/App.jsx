@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { PiBowlFoodFill } from "react-icons/pi";
 import { ProductDetails } from "./components/ProductDetails";
@@ -15,7 +15,6 @@ import { UserLogin } from "./components/Login";
 function App() {
 
   const [ recipeToggle, recipeSetToggle ] = useState(false);
-  const [ cookie, setCookie ] = useState('');
   
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -87,10 +86,10 @@ function App() {
           <Routes>
               <Route exact path='/' element={<Home />}/>
               <Route path='/products' element={<ProductsData getCookie={getCookie}/>}/>
-              <Route path="/products/:productId" element={<ProductDetails cookie={cookie} />} />
-              <Route path='/recipes' element={<RecipesData cookie={cookie} />}/>
-              <Route path='/recipes/:recipeId' element={<RecipeDetails cookie={cookie} />}/>
-              <Route path='/recipes/add' element={<AddRecipeForm cookie={cookie} />}/>
+              <Route path="/products/:productId" element={<ProductDetails getCookie={getCookie} />} />
+              <Route path='/recipes' element={<RecipesData getCookie={getCookie} />}/>
+              <Route path='/recipes/:recipeId' element={<RecipeDetails getCookie={getCookie} />}/>
+              <Route path='/recipes/add' element={<AddRecipeForm getCookie={getCookie} />}/>
               <Route path='/login' element={<UserLogin getCookie={getCookie}/>}/>
           </Routes>
           </div>
