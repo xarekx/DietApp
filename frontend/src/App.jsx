@@ -10,12 +10,14 @@ import { IoArrowForward } from "react-icons/io5";
 import { AddRecipeForm } from "./forms/AddRecipeForm";
 import { RecipeDetails } from "./components/RecipeDetails";
 import { UserLogin } from "./components/Login";
+import { UserRegister } from "./components/Register";
 
 
 function App() {
 
   const [ recipeToggle, recipeSetToggle ] = useState(false);
   const [ currentUser, setCurrentUser] = useState(false);
+  
   
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -55,7 +57,7 @@ function App() {
           <header>
             <nav>
               <div className="w-full">
-                <div className="flex justify-between h-16 px-10 shadow ">
+                <div className="flex justify-between h-16 px-10 shadow">
                   <div className="flex items-center">
                     <Link to="/" onClick={()=>recipeSetToggle(false)}>
                       <PiBowlFoodFill className="w-10 h-10"/>
@@ -125,6 +127,7 @@ function App() {
               <Route path='/recipes/:recipeId' element={<RecipeDetails getCookie={getCookie} />}/>
               <Route path='/recipes/add' element={<AddRecipeForm getCookie={getCookie} />}/>
               <Route path='/login' element={<UserLogin getCookie={getCookie} userStatus={handleCurrentUser} />}/>
+              <Route path='/register' element={<UserRegister getCookie={getCookie}/>}/>
           </Routes>
           </div>
         </main>

@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 export function UserLogin({getCookie, userStatus}) {
 
   const [ email, setEmail ] = useState('');
-  // const [ userStatus, setUserStatus ] = useState(false);
   const [ password, setPassword ] = useState('');
   const navigate = useNavigate();
 
@@ -35,8 +34,8 @@ export function UserLogin({getCookie, userStatus}) {
         }
       ).catch((err) => console.error("There was a problem with post request", err))
   }
-   
-  return (
+  
+return (
       <div className="flex justify-center ms-auto me-auto">
         <div className="py-6 px-8 h-80 mt-20 bg-white rounded shadow-xl">
           <form onSubmit={(e) => submitLogin(e)}>
