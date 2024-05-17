@@ -11,12 +11,14 @@ import { AddRecipeForm } from "./forms/AddRecipeForm";
 import { RecipeDetails } from "./components/RecipeDetails";
 import { UserLogin } from "./components/Login";
 import { UserRegister } from "./components/Register";
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 function App() {
 
   const [ recipeToggle, recipeSetToggle ] = useState(false);
   const [ currentUser, setCurrentUser] = useState(false);
+  const [ toggleMenu, setToggleMenu ] = useState(false);
   
   
   const getCookie = (name) => {
@@ -50,40 +52,51 @@ function App() {
       }).catch((error) => {console.error("Something went wrong with logout", error)})
   }
 
+  // TODO: End navbar, need vertical expanding
+  const handleMenu = () => {
+    const menuNavBar = document.getElementById("menuNavBar");
+    if(toggleMenu) {
+      console.log(toggleMenu);
+      menuNavBar.classList.remove('hidden');
+      menuNavBar.classList.add('flex');
+    } else {
+      menuNavBar.classList.remove('flex');
+      menuNavBar.classList.add('hidden');
+    }
+  }
+
   return (<>
 
     <Router>
         <main className="flex flex-col bg-slate-200 min-h-screen">
-          <header>
             <nav>
-              <div className="w-full">
-                <div className="flex justify-between h-16 px-10 shadow">
-                  <div className="flex items-center">
+              <div className="w-full flex justify-between shadow">
+                <div className="flex h-16 items-center">
+                  <div className="flex ms-4 md:hidden">
+                    <MenuIcon/>
+                  </div>
+                  <div className="flex ms-4">
                     <Link to="/" onClick={()=>recipeSetToggle(false)}>
                       <PiBowlFoodFill className="w-10 h-10"/>
                     </Link>
                   </div>
+                </div>
+                <div className="flex items-center me-2">
                   {currentUser ? 
                   ( 
                     (<>
-                    <div className="flex items-center">
                       <div className="text-gray-800 text-sm mr-4">USERNAME</div> 
                       <Link to={'/logout'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm" onClick={(e)=> submitLogout(e)}>Logout</Link> 
-                    </div>
                     </>)):
-                  (
-                    <div className="flex items-center">
+                  (<>
                       <Link to={'/login'} className="text-gray-800 text-sm mr-4">LOGIN</Link> 
                       <Link to={'/register'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm">SIGN UP</Link> 
-                    </div>
-                  )}
-                  
+                    </>
+                  )}   
                 </div>
               </div>
             </nav>
-          </header>
-          <div id="content" className="flex">
-            <nav className="flex flex-col text-sm md:text-xl px-10 items-stretch min-w-[10vw] ms-10">
+            <nav className="flex-col text-sm ms-4 items-stretch hidden" id="menuNavBar">
               <ul className="logo text-black text-left mt-8">
                 <li>
                   <Link to={'/'} className="nav-link" onClick={()=>recipeSetToggle(false)}>Home</Link>
@@ -119,6 +132,8 @@ function App() {
                 </li>        
               </ul>
             </nav>
+          <div id="content" className="flex">
+            
           <Routes>
               <Route exact path='/' element={<Home />}/>
               <Route path='/products' element={<ProductsData getCookie={getCookie}/>}/>
