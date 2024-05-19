@@ -61,9 +61,9 @@ function App() {
     const menuNavBar = document.getElementById("menuNavBar");
     if (toggleMenu) {
       menuNavBar.classList.remove('hidden');
-      menuNavBar.classList.add('flex');
+      menuNavBar.classList.add('absolute');
     }  else {
-      menuNavBar.classList.remove('flex');
+      menuNavBar.classList.remove('absolute');
       menuNavBar.classList.add('hidden');
     }
   }, [toggleMenu]);
@@ -99,7 +99,7 @@ function App() {
                 </div>
               </div>
             </nav>
-            <nav className="flex-col text-sm ms-4 items-stretch hidden md:flex" id="menuNavBar">
+            <nav className="absolute w-full bg-white top-16 text-sm ps-4 h-screen hidden transit md:flex md:absolute" id="menuNavBar">
               <ul className="logo text-black text-left mt-8">
                 <li>
                   <Link to={'/'} className="nav-link" onClick={()=>recipeSetToggle(false)}>Home</Link>
