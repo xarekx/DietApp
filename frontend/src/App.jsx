@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { PiBowlFoodFill } from "react-icons/pi";
 import { ProductDetails } from "./components/ProductDetails";
@@ -54,16 +54,19 @@ function App() {
 
   // TODO: End navbar, need vertical expanding
   const handleMenu = () => {
+    setToggleMenu((prev) => !prev);
+  };
+
+  useEffect(() => {
     const menuNavBar = document.getElementById("menuNavBar");
-    if(toggleMenu) {
-      console.log(toggleMenu);
+    if (toggleMenu) {
       menuNavBar.classList.remove('hidden');
       menuNavBar.classList.add('flex');
-    } else {
+    }  else {
       menuNavBar.classList.remove('flex');
       menuNavBar.classList.add('hidden');
     }
-  }
+  }, [toggleMenu]);
 
   return (<>
 
@@ -72,7 +75,7 @@ function App() {
             <nav>
               <div className="w-full flex justify-between shadow">
                 <div className="flex h-16 items-center">
-                  <div className="flex ms-4 md:hidden">
+                  <div className="flex ms-4 md:hidden" onClick={handleMenu}>
                     <MenuIcon/>
                   </div>
                   <div className="flex ms-4">
@@ -96,7 +99,7 @@ function App() {
                 </div>
               </div>
             </nav>
-            <nav className="flex-col text-sm ms-4 items-stretch hidden" id="menuNavBar">
+            <nav className="flex-col text-sm ms-4 items-stretch hidden md:flex" id="menuNavBar">
               <ul className="logo text-black text-left mt-8">
                 <li>
                   <Link to={'/'} className="nav-link" onClick={()=>recipeSetToggle(false)}>Home</Link>
@@ -105,16 +108,16 @@ function App() {
                   <Link to={'/products'} className="nav-link" onClick={()=>recipeSetToggle(false)}>Products</Link>
                 </li>
                 <li>
-                  <span className="flex hover:cursor-pointer items-center justify-between" onClick={()=> recipeSetToggle(!recipeToggle)}>Recipes
+                  <span className="flex hover:cursor-pointer items-center" onClick={()=> recipeSetToggle(!recipeToggle)}>Recipes
                     { recipeToggle === false ? 
                     (
                       <>
-                        <IoArrowForward className="text-base mt-1 me-2"/> 
+                        <IoArrowForward className="text-base ms-5 mt-1 me-2"/> 
                       </>
                     ): 
                     (
                       <>
-                        <IoArrowDown className="text-base mt-1 me-2"/>
+                        <IoArrowDown className="text-base ms-5 mt-1 me-2"/>
                       </>) 
                     }
                   </span>
