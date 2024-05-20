@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { PiBowlFoodFill } from "react-icons/pi";
 import { ProductDetails } from "./components/ProductDetails";
@@ -11,12 +11,14 @@ import { AddRecipeForm } from "./forms/AddRecipeForm";
 import { RecipeDetails } from "./components/RecipeDetails";
 import { UserLogin } from "./components/Login";
 import { UserRegister } from "./components/Register";
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 function App() {
 
   const [ recipeToggle, recipeSetToggle ] = useState(false);
   const [ currentUser, setCurrentUser] = useState(false);
+  const [ toggleMenu, setToggleMenu ] = useState(false);
   
   
   const getCookie = (name) => {
@@ -50,67 +52,81 @@ function App() {
       }).catch((error) => {console.error("Something went wrong with logout", error)})
   }
 
+  // TODO: End navbar, need vertical expanding
+  const handleMenu = () => {
+    setToggleMenu((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const menuNavBar = document.getElementById("menuNavBar");
+    if (toggleMenu) {
+      menuNavBar.classList.remove('hidden');
+      menuNavBar.classList.add('absolute');
+    }  else {
+      menuNavBar.classList.remove('absolute');
+      menuNavBar.classList.add('hidden');
+    }
+  }, [toggleMenu]);
+
   return (<>
 
     <Router>
         <main className="flex flex-col bg-slate-200 min-h-screen">
-          <header>
             <nav>
-              <div className="w-full">
-                <div className="flex justify-between h-16 px-10 shadow">
-                  <div className="flex items-center">
-                    <Link to="/" onClick={()=>recipeSetToggle(false)}>
+              <div className="w-full flex justify-between shadow">
+                <div className="flex h-16 items-center">
+                  <div className="flex ms-4 md:hidden" onClick={handleMenu}>
+                    <MenuIcon/>
+                  </div>
+                  <div className="flex ms-4">
+                    <Link to="/" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>
                       <PiBowlFoodFill className="w-10 h-10"/>
                     </Link>
                   </div>
+                </div>
+                <div className="flex items-center me-2">
                   {currentUser ? 
                   ( 
                     (<>
-                    <div className="flex items-center">
                       <div className="text-gray-800 text-sm mr-4">USERNAME</div> 
                       <Link to={'/logout'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm" onClick={(e)=> submitLogout(e)}>Logout</Link> 
-                    </div>
                     </>)):
-                  (
-                    <div className="flex items-center">
-                      <Link to={'/login'} className="text-gray-800 text-sm mr-4">LOGIN</Link> 
-                      <Link to={'/register'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm">SIGN UP</Link> 
-                    </div>
-                  )}
-                  
+                  (<>
+                      <Link to={'/login'} className="text-gray-800 text-sm mr-4" onClick={() => setToggleMenu(false)}>LOGIN</Link> 
+                      <Link to={'/register'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm" onClick={() => setToggleMenu(false)}>SIGN UP</Link> 
+                    </>
+                  )}   
                 </div>
               </div>
             </nav>
-          </header>
-          <div id="content" className="flex">
-            <nav className="flex flex-col text-sm md:text-xl px-10 items-stretch min-w-[10vw] ms-10">
+            <nav className="absolute w-full md:w-fit bg-white top-16 text-sm ps-4 h-screen md:h-fit hidden transit md:flex md:absolute md:bg-transparent" id="menuNavBar">
               <ul className="logo text-black text-left mt-8">
                 <li>
-                  <Link to={'/'} className="nav-link" onClick={()=>recipeSetToggle(false)}>Home</Link>
+                  <Link to={'/'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Home</Link>
                 </li>
                 <li>
-                  <Link to={'/products'} className="nav-link" onClick={()=>recipeSetToggle(false)}>Products</Link>
+                  <Link to={'/products'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Products</Link>
                 </li>
                 <li>
-                  <span className="flex hover:cursor-pointer items-center justify-between" onClick={()=> recipeSetToggle(!recipeToggle)}>Recipes
+                  <span className="flex hover:cursor-pointer items-center" onClick={()=> recipeSetToggle(!recipeToggle)}>Recipes
                     { recipeToggle === false ? 
                     (
                       <>
-                        <IoArrowForward className="text-base mt-1 me-2"/> 
+                        <IoArrowForward className="text-base ms-5 mt-1 me-2"/> 
                       </>
                     ): 
                     (
                       <>
-                        <IoArrowDown className="text-base mt-1 me-2"/>
+                        <IoArrowDown className="text-base ms-5 mt-1 me-2"/>
                       </>) 
                     }
                   </span>
                   {recipeToggle ?
                   ( 
                     <ul className="text-sm">
-                      <Link to={'/recipes'} className="nav-link"><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40">Recipes List</li>
+                      <Link to={'/recipes'} className="nav-link"><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40" onClick={()=> {setToggleMenu(false)}}>Recipes List</li>
                       </Link>
-                      <Link to={'/recipes/add'}><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40">Create Recipe</li>
+                      <Link to={'/recipes/add'}><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40" onClick={()=> {setToggleMenu(false)}}>Create Recipe</li>
                       </Link>
                     </ul>
                   ):null
@@ -119,6 +135,8 @@ function App() {
                 </li>        
               </ul>
             </nav>
+          <div id="content" className="flex">
+            
           <Routes>
               <Route exact path='/' element={<Home />}/>
               <Route path='/products' element={<ProductsData getCookie={getCookie}/>}/>
