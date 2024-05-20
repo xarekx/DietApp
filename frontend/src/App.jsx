@@ -99,7 +99,7 @@ function App() {
                 </div>
               </div>
             </nav>
-            <nav className="absolute w-full bg-white top-16 text-sm ps-4 h-screen md:h-fit hidden transit md:flex md:absolute md:bg-transparent" id="menuNavBar">
+            <nav className="absolute w-full md:w-fit bg-white top-16 text-sm ps-4 h-screen md:h-fit hidden transit md:flex md:absolute md:bg-transparent" id="menuNavBar">
               <ul className="logo text-black text-left mt-8">
                 <li>
                   <Link to={'/'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Home</Link>
