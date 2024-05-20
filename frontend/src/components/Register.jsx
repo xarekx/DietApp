@@ -42,8 +42,8 @@ export function UserRegister({getCookie}) {
     }
 
     return (
-    <div className="flex justify-center ms-auto me-auto">
-        <div className="py-6 px-8 h-100 mt-20 bg-white rounded shadow-xl w-96">
+    <div className="flex h-[70vh] justify-center items-center  me-auto ms-auto">
+        <div className="py-6 px-8 h-100 mt-20 bg-white rounded shadow-xl w-[85vw] sm:w-[65vw] md:w-[45vw] lg:w-[30vw] 2xl:w-[20vw]">
         <form onSubmit={(e) => submitRegister(e)}>
             <div>
                 <label htmlFor="email" className="block text-gray-800 font-bold">Email:</label>
@@ -59,7 +59,7 @@ export function UserRegister({getCookie}) {
             </div>
             <div className="mb-6">
                 <label htmlFor="repeat-password" className="block text-gray-800 font-bold">Password</label>
-                <input type="password" name="repeat-password" id="repeat-password" placeholder="repeat-password" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" onChange={e => setRepeatPassword(e.target.value)}/>
+                <input type="password" name="repeat-password" id="repeat-password" placeholder="Repeat password" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" onChange={e => setRepeatPassword(e.target.value)}/>
             </div>
             <button className="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold w-full text-center rounded" type="submit">Sign Up</button>
         </form>
