@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export function UserLogin({getCookie, userStatus}) {
+export function UserLogin({getCookie, userStatus, usernameBackend}) {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -13,27 +13,35 @@ export function UserLogin({getCookie, userStatus}) {
     e.preventDefault();
     const csrftoken = getCookie('csrftoken');
     fetch("http://127.0.0.1:8000/api/user/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'X-CSRFToken': csrftoken
-            },
-            credentials: 'include',
-            body: JSON.stringify({
-              email: email,
-              password: password
-            })
-        }
-      ).then((response) => {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'X-CSRFToken': csrftoken
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+            email: email,
+            password: password
+        })
+    })
+    .then((response) => {
         if (response.ok) {
-          userStatus(true);
-          navigate('/');
+            // Parsowanie danych JSON
+            return response.json();
         } else {
-          console.log('Incorrect email or password.');
+            console.log('Incorrect email or password.');
+            throw new Error('Incorrect email or password.');
         }
-        }
-      ).catch((err) => console.error("There was a problem with post request", err))
-  }
+    })
+    .then((data) => {
+        const username = data.user.username;
+
+        usernameBackend(username);
+        userStatus(true);
+        navigate('/');
+    })
+    .catch((err) => console.error("There was a problem with post request", err));
+};
   
 return (
     <div className="flex h-[70vh] justify-center items-center  me-auto ms-auto">

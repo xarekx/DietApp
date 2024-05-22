@@ -173,7 +173,7 @@ export function AddRecipeForm() {
     }
 
     return (
-    <div className="flex flex-row ms-auto me-auto w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit">
+    <div className="flex flex-row md:ms-auto md:me-auto w-full m-2 md:w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit">
         <div className="flex flex-col w-full">
             <form className="text-black font-medium">
                 <div className="flex flex-col">
@@ -205,9 +205,9 @@ export function AddRecipeForm() {
                     <input id="quantityInput" type="number" placeholder="Quantity" onChange={(e)=> setQuantityValue(e.target.value)} defaultValue={0} 
                     className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md"/>
                 </div>
-                <button className="text-sm text-white border float-right m-3 p-2 rounded-md bg-emerald-500 hover:shadow-md" onClick={(e)=> handleIngredients(e,productValue,quantityValue)}>Add Ingredient</button>
+                <button className="text-xs md:text-sm text-white border float-right m-3 p-2 rounded-md bg-emerald-500 hover:shadow-md" onClick={(e)=> handleIngredients(e,productValue,quantityValue)}>Add Ingredient</button>
             </form>
-            <div className="font-medium text-md mb-4 min-h-80">
+            <div className="font-medium text-md mb-4 h-40 md:min-h-80">
                 <span className="ms-3">
                     Ingredients List
                 </span>
