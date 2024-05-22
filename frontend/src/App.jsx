@@ -18,6 +18,7 @@ function App() {
 
   const [ recipeToggle, recipeSetToggle ] = useState(false);
   const [ currentUser, setCurrentUser] = useState(false);
+  const [ username, setUsername ] = useState('');
   const [ toggleMenu, setToggleMenu ] = useState(false);
   
   
@@ -31,8 +32,12 @@ function App() {
 
   const handleCurrentUser = (userStatus) => {
     setCurrentUser(userStatus);
-    console.log(currentUser);
   }
+  
+  const handleUsername = (usernameBackend) => {
+    setUsername(usernameBackend);
+  }
+
 
   const submitLogout = (e) => {
     e.preventDefault();
@@ -68,6 +73,7 @@ function App() {
     }
   }, [toggleMenu]);
 
+
   return (<>
 
     <Router>
@@ -88,7 +94,7 @@ function App() {
                   {currentUser ? 
                   ( 
                     (<>
-                      <div className="text-gray-800 text-sm mr-4">USERNAME</div> 
+                      <div className="text-gray-800 text-sm mr-4" id="username">{username}</div> 
                       <Link to={'/logout'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm" onClick={(e)=> submitLogout(e)}>Logout</Link> 
                     </>)):
                   (<>
@@ -144,7 +150,7 @@ function App() {
               <Route path='/recipes' element={<RecipesData getCookie={getCookie} />}/>
               <Route path='/recipes/:recipeId' element={<RecipeDetails getCookie={getCookie} />}/>
               <Route path='/recipes/add' element={<AddRecipeForm getCookie={getCookie} />}/>
-              <Route path='/login' element={<UserLogin getCookie={getCookie} userStatus={handleCurrentUser} />}/>
+              <Route path='/login' element={<UserLogin getCookie={getCookie} userStatus={handleCurrentUser} usernameBackend={handleUsername} />}/>
               <Route path='/register' element={<UserRegister getCookie={getCookie}/>}/>
           </Routes>
           </div>
