@@ -4,6 +4,7 @@ import { PiBowlFoodFill } from "react-icons/pi";
 import { ProductDetails } from "./components/ProductDetails";
 import { ProductsData } from "./components/Products";
 import { RecipesData } from "./components/Recipes";
+import { DietsData } from "./components/Diets";
 import { Home } from "./components/Home";
 import { IoArrowDown } from "react-icons/io5";
 import { IoArrowForward } from "react-icons/io5";
@@ -137,7 +138,9 @@ function App() {
                     </ul>
                   ):null
                   }
-                    
+                </li>
+                <li>
+                <Link to={'/diets'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Diets</Link>
                 </li>        
               </ul>
             </nav>
@@ -152,6 +155,7 @@ function App() {
               <Route path='/recipes/add' element={<AddRecipeForm getCookie={getCookie} />}/>
               <Route path='/login' element={<UserLogin getCookie={getCookie} userStatus={handleCurrentUser} usernameBackend={handleUsername} />}/>
               <Route path='/register' element={<UserRegister getCookie={getCookie}/>}/>
+              <Route path='/diets' element={<DietsData getCookie={getCookie}/>}/>
           </Routes>
           </div>
         </main>
