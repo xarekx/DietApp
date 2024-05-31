@@ -21,7 +21,7 @@ function App() {
   const [ currentUser, setCurrentUser] = useState(false);
   const [ username, setUsername ] = useState('');
   const [ toggleMenu, setToggleMenu ] = useState(false);
-  
+ 
   
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -32,12 +32,25 @@ function App() {
   }
 
   const handleCurrentUser = (userStatus) => {
+    checkUserLoggedIn();
     setCurrentUser(userStatus);
   }
-  
-  const handleUsername = (usernameBackend) => {
-    setUsername(usernameBackend);
+
+  const checkUserLoggedIn = () => {
+    // getting actual loggedIn username from local storage
+    const loggedInUser = localStorage.getItem("username");
+    if (loggedInUser) {
+      setCurrentUser(true);
+      setUsername(loggedInUser);
+    } else {
+      setCurrentUser(false);
+      setUsername('');
+    }
   }
+  // checking is user logged in on page refresh
+  useEffect(() => {
+    checkUserLoggedIn();
+  }, []);
 
 
   const submitLogout = (e) => {
@@ -53,6 +66,7 @@ function App() {
         }
       ).then((response) => {
         if (response.ok) {
+          localStorage.setItem("username", '');
           setCurrentUser(false);
         }
       }).catch((error) => {console.error("Something went wrong with logout", error)})
@@ -153,7 +167,7 @@ function App() {
               <Route path='/recipes' element={<RecipesData getCookie={getCookie} />}/>
               <Route path='/recipes/:recipeId' element={<RecipeDetails getCookie={getCookie} />}/>
               <Route path='/recipes/add' element={<AddRecipeForm getCookie={getCookie} />}/>
-              <Route path='/login' element={<UserLogin getCookie={getCookie} userStatus={handleCurrentUser} usernameBackend={handleUsername} />}/>
+              <Route path='/login' element={<UserLogin getCookie={getCookie} userStatus={handleCurrentUser}/>}/>
               <Route path='/register' element={<UserRegister getCookie={getCookie}/>}/>
               <Route path='/diets' element={<DietsData getCookie={getCookie}/>}/>
           </Routes>

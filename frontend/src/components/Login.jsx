@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export function UserLogin({getCookie, userStatus, usernameBackend}) {
+export function UserLogin({getCookie, userStatus}) {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -26,7 +26,6 @@ export function UserLogin({getCookie, userStatus, usernameBackend}) {
     })
     .then((response) => {
         if (response.ok) {
-            // Parsowanie danych JSON
             return response.json();
         } else {
             console.log('Incorrect email or password.');
@@ -34,9 +33,10 @@ export function UserLogin({getCookie, userStatus, usernameBackend}) {
         }
     })
     .then((data) => {
-        const username = data.user.username;
+      const username = data.user.username;
 
-        usernameBackend(username);
+      localStorage.setItem('username', username);
+
         userStatus(true);
         navigate('/');
     })
