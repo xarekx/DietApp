@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { PiBowlFoodFill } from "react-icons/pi";
-import { ProductDetails } from "./components/ProductDetails";
-import { ProductsData } from "./components/Products";
-import { RecipesData } from "./components/Recipes";
-import { DietsData } from "./components/Diets";
+import { ProductDetails } from "./components/products/ProductDetails";
+import { ProductsData } from "./components/products/Products";
+import { RecipesData } from "./components/recipes/Recipes";
+import { DietsData } from "./components/diets/Diets";
 import { Home } from "./components/Home";
 import { IoArrowDown } from "react-icons/io5";
 import { IoArrowForward } from "react-icons/io5";
 import { AddRecipeForm } from "./forms/AddRecipeForm";
-import { RecipeDetails } from "./components/RecipeDetails";
-import { UserLogin } from "./components/Login";
-import { UserRegister } from "./components/Register";
+import { RecipeDetails } from "./components/recipes/RecipeDetails";
+import { UserLogin } from "./components/login/Login";
+import { UserRegister } from "./components/login/Register";
 import MenuIcon from '@mui/icons-material/Menu';
 
 
