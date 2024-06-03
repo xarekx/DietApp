@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { AddProductForm} from "../forms/AddProductForm";
+import { AddProductForm} from "../../forms/AddProductForm";
 import ReactPaginate from 'react-paginate';
 import { MdNavigateNext } from "react-icons/md";
 import { MdNavigateBefore } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
-import { DeleteProductForm } from "../forms/DeleteProductForm";
-import { EditProductForm } from "../forms/EditProductForm";
+import { DeleteProductForm } from "../../forms/DeleteProductForm";
+import { EditProductForm } from "../../forms/EditProductForm";
 import { FaPlus } from "react-icons/fa";
 
 export function ProductsData({getCookie}) {

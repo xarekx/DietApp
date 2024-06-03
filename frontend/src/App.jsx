@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { PiBowlFoodFill } from "react-icons/pi";
-import { ProductDetails } from "./components/ProductDetails";
-import { ProductsData } from "./components/Products";
-import { RecipesData } from "./components/Recipes";
+import { ProductDetails } from "./components/products/ProductDetails";
+import { ProductsData } from "./components/products/Products";
+import { RecipesData } from "./components/recipes/Recipes";
+import { DietsData } from "./components/diets/Diets";
 import { Home } from "./components/Home";
 import { IoArrowDown } from "react-icons/io5";
 import { IoArrowForward } from "react-icons/io5";
 import { AddRecipeForm } from "./forms/AddRecipeForm";
-import { RecipeDetails } from "./components/RecipeDetails";
-import { UserLogin } from "./components/Login";
-import { UserRegister } from "./components/Register";
+import { RecipeDetails } from "./components/recipes/RecipeDetails";
+import { UserLogin } from "./components/login/Login";
+import { UserRegister } from "./components/login/Register";
 import MenuIcon from '@mui/icons-material/Menu';
 
 
@@ -20,7 +21,7 @@ function App() {
   const [ currentUser, setCurrentUser] = useState(false);
   const [ username, setUsername ] = useState('');
   const [ toggleMenu, setToggleMenu ] = useState(false);
-  
+ 
   
   const getCookie = (name) => {
     const value = `; ${document.cookie}`;
@@ -31,12 +32,25 @@ function App() {
   }
 
   const handleCurrentUser = (userStatus) => {
+    checkUserLoggedIn();
     setCurrentUser(userStatus);
   }
-  
-  const handleUsername = (usernameBackend) => {
-    setUsername(usernameBackend);
+
+  const checkUserLoggedIn = () => {
+    // getting actual loggedIn username from local storage
+    const loggedInUser = localStorage.getItem("username");
+    if (loggedInUser) {
+      setCurrentUser(true);
+      setUsername(loggedInUser);
+    } else {
+      setCurrentUser(false);
+      setUsername('');
+    }
   }
+  // checking is user logged in on page refresh
+  useEffect(() => {
+    checkUserLoggedIn();
+  }, []);
 
 
   const submitLogout = (e) => {
@@ -52,6 +66,7 @@ function App() {
         }
       ).then((response) => {
         if (response.ok) {
+          localStorage.setItem("username", '');
           setCurrentUser(false);
         }
       }).catch((error) => {console.error("Something went wrong with logout", error)})
@@ -137,7 +152,9 @@ function App() {
                     </ul>
                   ):null
                   }
-                    
+                </li>
+                <li>
+                <Link to={'/diets'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Diets</Link>
                 </li>        
               </ul>
             </nav>
@@ -150,8 +167,9 @@ function App() {
               <Route path='/recipes' element={<RecipesData getCookie={getCookie} />}/>
               <Route path='/recipes/:recipeId' element={<RecipeDetails getCookie={getCookie} />}/>
               <Route path='/recipes/add' element={<AddRecipeForm getCookie={getCookie} />}/>
-              <Route path='/login' element={<UserLogin getCookie={getCookie} userStatus={handleCurrentUser} usernameBackend={handleUsername} />}/>
+              <Route path='/login' element={<UserLogin getCookie={getCookie} userStatus={handleCurrentUser}/>}/>
               <Route path='/register' element={<UserRegister getCookie={getCookie}/>}/>
+              <Route path='/diets' element={<DietsData getCookie={getCookie}/>}/>
           </Routes>
           </div>
         </main>
