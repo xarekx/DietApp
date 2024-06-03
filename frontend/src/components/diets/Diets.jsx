@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { GeneratePdf } from "./GeneratePDF";
 
 
 
@@ -26,7 +27,9 @@ export function DietsData({getCookie}) {
 
 
     return (
-        <div className="flex flex-col lg:w-11/12 ms-auto pe-[5vw] h-fit text-xs lg:text-lg ">
+        <>
+        <div className="flex flex-col lg:w-11/12 ms-auto pe-[5vw] h-fit text-xs lg:text-lg">
+        <GeneratePdf/>
             <div className="grid lg:grid-cols-7 gap-x-4 text-center w-5/6 md:w-2/3 lg:w-full mt-[4vh] shadow-2xl">
                 {diets.map((diet, index) => {
                     return(
@@ -74,5 +77,6 @@ export function DietsData({getCookie}) {
                 })}
             </div>
         </div>
+    </>
     )
 }
