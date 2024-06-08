@@ -7,8 +7,12 @@ import 'react-calendar/dist/Calendar.css';
 export function GeneratePdf() {
 
   const [calendarToggle, setCalendarToggle] = useState(false);
+  const [calendarRange, setCalendarRange] = useState([new Date(), new Date()]);
 
-// Tworzenie stylów
+  // destructure calendarRange
+  const [startDate, endDate] = calendarRange;
+
+// Creating styles of pdf document
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
@@ -21,6 +25,19 @@ const styles = StyleSheet.create({
   }
 });
 
+// const fetchProductsInCalendarRange = (dateRange) => {
+//   console.log(dateRange);
+//   // fetch('http://127.0.0.1:8000/api/diets/recipe-by-day/?',{
+//   //   method:"GET",
+//   //   headers: {
+//   //     "Content-Type": "application/json",
+//   //     'X-CSRFToken': csrftoken
+//   //   },
+//   //   credentials:'include'
+//   // })
+// }
+
+
 // Tworzenie komponentu dokumentu
 const MyDocument = () => (
   <Document>
@@ -31,10 +48,14 @@ const MyDocument = () => (
       <View style={styles.section}>
         <Text>Section #2</Text>
       </View>
+      <View style={styles.section}>
+        <Text>{startDate.toDateString()} - {endDate.toDateString()}</Text>
+      </View>
     </Page>
   </Document>
 );
 
+// console.log(calendarRange);
 
   return (
     <>
@@ -54,7 +75,7 @@ const MyDocument = () => (
                             </div>
                             {/*body*/}
                             <div className="relative p-6 flex-auto">
-                              <Calendar/>
+                              <Calendar selectRange={true} onChange={setCalendarRange}/>
                               <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                                 <button
                                     className="text-red-500 hover:text-red-300 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
