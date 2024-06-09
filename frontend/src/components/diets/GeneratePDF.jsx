@@ -4,10 +4,11 @@ import { Calendar } from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 
 
-export function GeneratePdf() {
+export function GeneratePdf({getCookie}) {
 
   const [calendarToggle, setCalendarToggle] = useState(false);
   const [calendarRange, setCalendarRange] = useState([new Date(), new Date()]);
+  // const [ dietData, setDietData] = useState([]);
 
   // destructure calendarRange
   const [startDate, endDate] = calendarRange;
@@ -25,17 +26,25 @@ const styles = StyleSheet.create({
   }
 });
 
-// const fetchProductsInCalendarRange = (dateRange) => {
-//   console.log(dateRange);
-//   // fetch('http://127.0.0.1:8000/api/diets/recipe-by-day/?',{
-//   //   method:"GET",
-//   //   headers: {
-//   //     "Content-Type": "application/json",
-//   //     'X-CSRFToken': csrftoken
-//   //   },
-//   //   credentials:'include'
-//   // })
+// const fetchProductsInCalendarRange = () => {
+//   const csrftoken = getCookie('csrftoken')
+//   fetch('http://127.0.0.1:8000/api/diets/recipe-by-day/?day=2024-10-06',{
+//     method:"GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//       'X-CSRFToken': csrftoken
+//     },
+//     credentials:'include'
+//   })
+//   .then(res =>res.json())
+//   .then(data => setDietData(data))
+//   .catch(error => console.error('Error fetching products: ', error));
 // }
+
+const validDate = (date) => {
+  const realMonth = date.getMonth()+1;
+  return date.getFullYear() + '-' + (realMonth < 10 ? '0' + (realMonth) : realMonth) + '-' + (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+}
 
 
 // Tworzenie komponentu dokumentu
@@ -49,13 +58,11 @@ const MyDocument = () => (
         <Text>Section #2</Text>
       </View>
       <View style={styles.section}>
-        <Text>{startDate.toDateString()} - {endDate.toDateString()}</Text>
+        <Text>{validDate(startDate)} - {validDate(endDate)}</Text>
       </View>
     </Page>
   </Document>
 );
-
-// console.log(calendarRange);
 
   return (
     <>
