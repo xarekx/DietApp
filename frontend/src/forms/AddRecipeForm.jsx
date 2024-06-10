@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 
 
-export function AddRecipeForm() {
+export function AddRecipeForm({getCookie}) {
 
     const [recipeForm, setRecipeForm] = useState({
         title: "",
@@ -42,18 +42,20 @@ export function AddRecipeForm() {
         setFilteredProducts([]);
     }
 
-    const fetchProducts = () => {
-        fetch("http://127.0.0.1:8000/api/products/")
-            .then((res) =>{
-                return res.json();
-        }).then((data) => {
-            setProducts(data);
-        })
-    }
 
     // get products from database
     useEffect(() => {
-        fetchProducts();
+        const csrftoken = getCookie('csrftoken');
+        fetch("http://127.0.0.1:8000/api/products/", {
+            method:"GET",
+            headers: {
+            "Content-Type": "application/json",
+            'X-CSRFToken': csrftoken
+        },
+        credentials: 'include',})
+        .then(res =>res.json())
+        .then(data => setProducts(data))
+        .catch(error => console.error('Error fetching products: ', error));
     },[]);
 
     const handleFilter = (event) => {
@@ -86,12 +88,15 @@ export function AddRecipeForm() {
 
     // post request - creating new recipe
     const handleCreateRecipe = () => {
+        const csrftoken = getCookie('csrftoken');
         fetch("http://127.0.0.1:8000/api/recipes/", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'X-CSRFToken': csrftoken
             },
-            body: JSON.stringify(recipeForm)
+            body: JSON.stringify(recipeForm),
+            credentials: 'include',
         })
         .then(response => {
             if (!response.ok) {
@@ -120,7 +125,7 @@ export function AddRecipeForm() {
         });
     };
 
-    console.log(recipeForm);
+    console.log(JSON.stringify(recipeForm));
 
     const handleDeleteProductFromRecipe = (productId) => {
         const updatedIngredients = ingredients.filter(ingredient => ingredient.product.id !== productId);

@@ -6,11 +6,15 @@ from recipe.serializers import RecipeSerializer
 class DietSerializer(serializers.ModelSerializer):
 
     user = serializers.PrimaryKeyRelatedField(read_only=True)
+    breakfast = RecipeSerializer()
+    second_breakfast = RecipeSerializer()
+    lunch = RecipeSerializer()
+    afternoon_meal = RecipeSerializer()
+    dinner = RecipeSerializer()
     
     class Meta:
         model = Diet
-        fields = '__all__'
-        depth = 1 
+        fields = ['id','day','is_active', 'user', 'breakfast', 'second_breakfast', 'lunch', 'afternoon_meal', 'dinner']
         
         
         
