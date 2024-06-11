@@ -120,46 +120,47 @@ function App() {
                 </div>
               </div>
             </nav>
-            <nav className="absolute w-full md:w-fit bg-white top-16 text-sm ps-4 h-screen md:h-fit hidden transit md:flex md:absolute md:bg-transparent" id="menuNavBar">
-              <ul className="logo text-black text-left mt-8">
-                <li>
-                  <Link to={'/'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Home</Link>
-                </li>
-                <li>
-                  <Link to={'/products'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Products</Link>
-                </li>
-                <li>
-                  <span className="flex hover:cursor-pointer items-center" onClick={()=> recipeSetToggle(!recipeToggle)}>Recipes
-                    { recipeToggle === false ? 
-                    (
-                      <>
-                        <IoArrowForward className="text-base ms-5 mt-1 me-2"/> 
-                      </>
-                    ): 
-                    (
-                      <>
-                        <IoArrowDown className="text-base ms-5 mt-1 me-2"/>
-                      </>) 
+            <div id="wrapper" className="flex">
+              <nav className="absolute w-full md:w-fit bg-white top-16 text-sm ps-4 h-screen md:h-fit hidden transit md:flex md:bg-transparent" id="menuNavBar">
+                <ul className="logo text-black text-left mt-8">
+                  <li>
+                    <Link to={'/'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Home</Link>
+                  </li>
+                  <li>
+                    <Link to={'/products'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Products</Link>
+                  </li>
+                  <li>
+                    <span className="flex hover:cursor-pointer items-center" onClick={()=> recipeSetToggle(!recipeToggle)}>Recipes
+                      { recipeToggle === false ? 
+                      (
+                        <>
+                          <IoArrowForward className="text-base ms-5 mt-1 me-2"/> 
+                        </>
+                      ): 
+                      (
+                        <>
+                          <IoArrowDown className="text-base ms-5 mt-1 me-2"/>
+                        </>) 
+                      }
+                    </span>
+                    {recipeToggle ?
+                    ( 
+                      <ul className="text-sm">
+                        <Link to={'/recipes'} className="nav-link"><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40" onClick={()=> {setToggleMenu(false)}}>Recipes List</li>
+                        </Link>
+                        <Link to={'/recipes/add'}><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40" onClick={()=> {setToggleMenu(false)}}>Create Recipe</li>
+                        </Link>
+                      </ul>
+                    ):null
                     }
-                  </span>
-                  {recipeToggle ?
-                  ( 
-                    <ul className="text-sm">
-                      <Link to={'/recipes'} className="nav-link"><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40" onClick={()=> {setToggleMenu(false)}}>Recipes List</li>
-                      </Link>
-                      <Link to={'/recipes/add'}><li className="ms-2 mt-1 hover:cursor-pointer hover:opacity-40" onClick={()=> {setToggleMenu(false)}}>Create Recipe</li>
-                      </Link>
-                    </ul>
-                  ):null
-                  }
-                </li>
-                <li>
-                <Link to={'/diets'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Diets</Link>
-                </li>        
-              </ul>
-            </nav>
-          <div id="content" className="flex">
-            
+                  </li>
+                  <li>
+                  <Link to={'/diets'} className="nav-link" onClick={()=>{recipeSetToggle(false); setToggleMenu(false);}}>Diets</Link>
+                  </li>        
+                </ul>
+              </nav>
+            <div id="content" className="flex">
+          </div>
           <Routes>
               <Route exact path='/' element={<Home />}/>
               <Route path='/products' element={<ProductsData getCookie={getCookie}/>}/>
