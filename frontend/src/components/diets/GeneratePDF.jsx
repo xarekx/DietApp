@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import { Calendar } from 'react-calendar'
+import { useFetch } from "../../hooks/useFetch";
 
 import 'react-calendar/dist/Calendar.css';
 
-export function GeneratePdf({getCookie}) {
+export function GeneratePdf() {
 
   const [calendarToggle, setCalendarToggle] = useState(false);
   const [calendarRange, setCalendarRange] = useState([new Date(), new Date()]);
@@ -62,24 +63,20 @@ const styles = StyleSheet.create({
   }
 });
 
-const fetchProductsInCalendarRange = () => {
-  const csrftoken = getCookie('csrftoken');
-        fetch(`http://127.0.0.1:8000/api/diets/products-by-day/?start_date=${validDate(startDate)}&end_date=${validDate(endDate)}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                'X-CSRFToken': csrftoken
-            },
-            credentials: "include"
-        })
-        .then(res =>res.json())
-        .then(data => setIngredientsData(data))
-        .catch(error => console.error('Error fetching ingredients: ', error));
-}
 
 const validDate = (date) => {
   const realMonth = date.getMonth()+1;
   return date.getFullYear() + '-' + (realMonth < 10 ? '0' + (realMonth) : realMonth) + '-' + (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+}
+
+const fetchProductsInCalendarRange = useFetch(`http://127.0.0.1:8000/api/diets/products-by-day/?start_date=${validDate(startDate)}&end_date=${validDate(endDate)}`,'GET');
+
+const handleFetchProducts = () => {
+  fetchProductsInCalendarRange()
+    .then(res =>res.json())
+    .then(data => setIngredientsData(data))
+    .catch(error => console.error('Error fetching ingredients: ', error));
+
 }
 
 // Creating pdf Document
@@ -146,7 +143,7 @@ const MyDocument = () => (
                                 <PDFDownloadLink document={<MyDocument/>} fileName="mypdf.pdf" className="bg-emerald-600 px-4 py-2 rounded text-white hover:bg-emerald-500 text-sm w-fit ms-auto">
                                   {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download Diet')}
                                 </PDFDownloadLink>  
-                                ) :(<button className="bg-emerald-600 px-4 py-2 rounded text-white hover:bg-emerald-500 text-sm w-fit ms-auto" onClick={fetchProductsInCalendarRange}>fetch data</button>) } 
+                                ) :(<button className="bg-emerald-600 px-4 py-2 rounded text-white hover:bg-emerald-500 text-sm w-fit ms-auto" onClick={()=>handleFetchProducts()}>fetch data</button>) } 
                                 </div>
                             </div>
                             {/*footer*/}

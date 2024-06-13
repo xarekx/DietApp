@@ -1,34 +1,29 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { GeneratePdf } from "./GeneratePDF";
+import { useFetch } from "../../hooks/useFetch";
 
 
 
-export function DietsData({getCookie}) {
+
+export function DietsData() {
 
     const [diets, setDiets] = useState([]);
-
+    const fetchData = useFetch('http://127.0.0.1:8000/api/diets','GET');
+    
+    
     useEffect(() => {
-        const csrftoken = getCookie('csrftoken');
-        fetch('http://127.0.0.1:8000/api/diets', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                'X-CSRFToken': csrftoken
-            },
-            credentials: "include"
-        })
+        fetchData()
         .then(res =>res.json())
         .then(data => setDiets(data))
         .catch(error => console.error('Error fetching products: ', error));
-
-    }, [getCookie])
-
+        // eslint-disable-next-line
+    },[])
 
     return (
         <>
         <div className="flex flex-col w-full lg:w-11/12 ms-2 me-2 h-fit text-xs lg:text-lg">
-        <GeneratePdf getCookie={getCookie}/>
+        <GeneratePdf/>
             <div className="grid lg:grid-cols-7 gap-y-8 gap-x-4 text-center md:ms-auto w-full mt-[4vh] ">
                 {diets.map((diet, index) => {
                     return(
