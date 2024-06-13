@@ -7,8 +7,11 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { DeleteProductForm } from "../../forms/DeleteProductForm";
 import { EditProductForm } from "../../forms/EditProductForm";
 import { FaPlus } from "react-icons/fa";
+// import { getCookie } from "../../utils/getCookie";
+import { useFetch } from "../../hooks/useFetch";
+import { getUpdatedFields } from "../../utils/getUpdatedFields";
 
-export function ProductsData({getCookie}) {
+export function ProductsData() {
 
     const [itemOffset, setItemOffset] = useState(0);
     const [toggleDropdown, setToggleDropdown] = useState(false);
@@ -16,7 +19,7 @@ export function ProductsData({getCookie}) {
     const [selectedProduct, setSelectedProduct ] = useState([]);
     const [toggleModal, setToggleModal] = useState(false);
     const [selectedForm, setSelectedForm] = useState('');
-    
+
     const [form, setForm] = useState(useState({
         name: "",
         protein: 0,
@@ -25,21 +28,21 @@ export function ProductsData({getCookie}) {
         calories: 0
     }))
 
-    // get products from products rest api
-    useEffect(() => {
-        const csrftoken = getCookie('csrftoken');
-        fetch("http://127.0.0.1:8000/api/products/", {
-            method:"GET",
-            headers: {
-            "Content-Type": "application/json",
-            'X-CSRFToken': csrftoken
-        },
-        credentials: 'include',})
+    const updatedFields = getUpdatedFields(form, selectedProduct);
+
+    const fetchProductsData = useFetch("http://127.0.0.1:8000/api/products/", "GET");
+    const fetchDeleteProduct = useFetch(`http://127.0.0.1:8000/api/products/${selectedProduct.id}`, "DELETE");
+    const fetchUpdateProduct = useFetch(`http://127.0.0.1:8000/api/products/${selectedProduct.id}/`, "PATCH", updatedFields);
+    const fetchAddProduct = useFetch(`http://127.0.0.1:8000/api/products/`, "POST", 
+        {name: form.name, protein: form.protein, carbohydrates: form.carbohydrates, fat: form.fat, calories: form.calories});
+    
+    useEffect(()=> {
+        fetchProductsData()
         .then(res =>res.json())
         .then(data => setProducts(data))
         .catch(error => console.error('Error fetching products: ', error));
-
-    },[getCookie]);
+        // eslint-disable-next-line
+    },[])
 
     // variables to pagination
     const itemsPerPage = 15;
@@ -54,43 +57,22 @@ export function ProductsData({getCookie}) {
     };
     
     // delete request
-    const handleDeleteProduct = id => {
-        const csrftoken = getCookie('csrftoken');
-        fetch('http://127.0.0.1:8000/api/products/'+id, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                'X-CSRFToken': csrftoken
-            },
-            credentials: 'include'})
+    const handleDeleteProduct = (id) => {     
+        fetchDeleteProduct()
             .then((response) => {
                 if(!response.ok) {
                     throw new Error('Something went wrong')
                 }
                 setProducts(products.filter((item) => item.id !== id))
-            }).catch(error => console.error('Error deleting product: ', error));
+            })
+            .catch(error => console.error('Error deleting product: ', error));
     };
+
     
     // update request - updating only changed values
     const handleUpdateProduct = (event, id) => {
         event.preventDefault();
-        const updatedFields = {};
-        const csrftoken = getCookie('csrftoken');
-        
-        Object.keys(form).forEach((key) => {
-            if (form[key] !== selectedProduct[key]) {
-                updatedFields[key] = form[key];
-            }
-        });
-
-        fetch('http://127.0.0.1:8000/api/products/'+id+"/", {
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json",
-                'X-CSRFToken': csrftoken
-            },
-            credentials: 'include',
-            body: JSON.stringify(updatedFields)})
+        fetchUpdateProduct()
             .then((response) => {
                 if(!response.ok) {
                     throw new Error('Something went wrong')
@@ -107,28 +89,15 @@ export function ProductsData({getCookie}) {
 
                setProducts(updatedProducts);
                setToggleModal(false);
-            }).catch(error => console.error('Error updating product: ', error))
+            })
+            .catch(error => console.error('Error updating product: ', error))
     };
 
     // post data to backend with submit
     const handleAddProduct = (event) => {
         event.preventDefault();
-        const csrftoken = getCookie('csrftoken');
 
-        fetch('http://127.0.0.1:8000/api/products/', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                'X-CSRFToken': csrftoken
-            },
-            credentials: 'include',
-            body: JSON.stringify({ 
-                name: form.name,
-                protein: form.protein,
-                carbohydrates: form.carbohydrates,
-                fat: form.fat,
-                calories: form.calories  })
-            })
+        fetchAddProduct()
         .then(response => {
             if(!response.ok) {
                 console.log(response.json());
@@ -218,7 +187,7 @@ export function ProductsData({getCookie}) {
                                     <td className="text-xl">
                                         <HiDotsHorizontal className="md:h-[2rem] md:w-[1.5em] md:me-auto md:ms-auto hover:shadow-md hover:shadow-slate-200 hover:rounded-md hover:cursor-pointer me-2" onClick={()=> clickHandler(index)}/>
                                         <div className={toggleDropdown === index ? '' : 'hidden'} >
-                                            <div className="absolute text-xs md:text-sm text-black border rounded-md shadow-md bg-white ring-inset pe-4 p-1 ps-2 md:pe-8 md:p-2 md:ps-4 right-[7vw] md:right-[19.5vw]" >
+                                            <div className="absolute text-xs md:text-sm text-black border rounded-md shadow-md bg-white ring-inset pe-4 p-1 ps-2 md:pe-8 md:p-2 md:ps-4 right-[7vw] md:right-[12vw] lg:right-[14vw] xl:right-[15vw]" >
                                                 <div className="block hover:cursor-pointer" onClick={(event) => {handleSelectProduct(product); setSelectedForm(event.currentTarget.textContent);}}>Edit</div>
                                                 <div className="block hover:cursor-pointer text-red-500" onClick={(event) => {handleSelectProduct(product); setSelectedForm(event.currentTarget.textContent);}}>Delete</div>
                                             </div>
@@ -237,7 +206,7 @@ export function ProductsData({getCookie}) {
                                     <td className="text-xl">
                                         <HiDotsHorizontal className="md:h-[2rem] md:w-[1.5em] md:me-auto md:ms-auto hover:shadow-md hover:shadow-slate-200 hover:rounded-md hover:cursor-pointer me-2" onClick={()=> clickHandler(index)}/>
                                         <div className={toggleDropdown === index ? '' : 'hidden'}>
-                                            <div className="absolute text-xs md:text-sm text-black border rounded-md shadow-md bg-white ring-inset pe-4 p-1 ps-2 md:pe-8 md:p-2 md:ps-4 right-[7vw] md:right-[19.5vw]" >
+                                            <div className="absolute text-xs md:text-sm text-black border rounded-md shadow-md bg-white ring-inset pe-4 p-1 ps-2 md:pe-8 md:p-2 md:ps-4 md:right-[12vw] lg:right-[14vw] xl:right-[15vw]" >
                                                 <div className="block hover:cursor-pointer" onClick={(event) => {handleSelectProduct(product); setSelectedForm(event.currentTarget.textContent);}}>Edit</div>
                                                 <div className="block hover:cursor-pointer text-red-500" onClick={(event) => {handleSelectProduct(product); setSelectedForm(event.currentTarget.textContent);}}>Delete</div>
                                             </div>
