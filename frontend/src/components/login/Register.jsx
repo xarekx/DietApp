@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
 
-
-
-
-export function UserRegister({getCookie}) {
+export function UserRegister() {
 
     const [ email, setEmail ] = useState('');
     const [ username, setUsername ] = useState('');
@@ -12,30 +10,21 @@ export function UserRegister({getCookie}) {
     const [ repeatPassword, setRepeatPassword ] = useState('');
     const navigate = useNavigate();
 
-    const submitRegister = (e) => {
+    const submitRegister = useFetch("http://127.0.0.1:8000/api/user/register", 'POST', {email:email, username:username, password:password})
+
+    const handleRegister = (e) => {
         e.preventDefault();
-        const csrftoken = getCookie('csrftoken');
         if(password === repeatPassword) {
-            fetch("http://127.0.0.1:8000/api/user/register", {
-                method:"POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    'X-CSRFToken': csrftoken
-                },
-                credentials: "include",
-                body: JSON.stringify({
-                    email:email,
-                    username:username,
-                    password:password
-                })
-            }).then((response)=> {
+            submitRegister()
+            .then((response)=> {
                 if (response.ok) {
                     console.log("user registered")
                     navigate('/login');
                 } else {
-                  console.log(response);
+                    console.log(response);
                 }
-                }).catch((err) => console.error("There was a problem with post request", err))
+            })
+            .catch((err) => console.error("There was a problem with post request", err))
         } else {
             console.error("Password is not the same");
         }
@@ -44,7 +33,7 @@ export function UserRegister({getCookie}) {
     return (
     <div className="flex h-[70vh] justify-center items-center  me-auto ms-auto">
         <div className="py-6 px-8 h-100 mt-20 bg-white rounded shadow-xl w-[85vw] sm:w-[65vw] md:w-[45vw] lg:w-[30vw] 2xl:w-[20vw]">
-        <form onSubmit={(e) => submitRegister(e)}>
+        <form onSubmit={(e) => handleRegister(e)}>
             <div>
                 <label htmlFor="email" className="block text-gray-800 font-bold">Email:</label>
                 <input type="text" name="email" id="email" placeholder="@email" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" onChange={e => setEmail(e.target.value)} />

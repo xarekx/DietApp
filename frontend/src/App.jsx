@@ -153,8 +153,8 @@ function App() {
               <Route path='/recipes' element={<RecipesData getCookie={getCookie} />}/>
               <Route path='/recipes/:recipeId' element={<RecipeDetails getCookie={getCookie} />}/>
               <Route path='/recipes/add' element={<AddRecipeForm getCookie={getCookie} />}/>
-              <Route path='/login' element={<UserLogin getCookie={getCookie} userStatus={handleCurrentUser}/>}/>
-              <Route path='/register' element={<UserRegister getCookie={getCookie}/>}/>
+              <Route path='/login' element={<UserLogin userStatus={handleCurrentUser}/>}/>
+              <Route path='/register' element={<UserRegister/>}/>
               <Route path='/diets' element={<DietsData/>}/>
           </Routes>
           </div>    
