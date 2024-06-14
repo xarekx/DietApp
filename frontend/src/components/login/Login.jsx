@@ -13,9 +13,9 @@ export function UserLogin({userStatus}) {
   const handleLogin = (e) => {
     e.preventDefault();
     submitLogin()
-    .then((response) => {
-      if (response.ok) {
-          return response.json();
+    .then((res) => {
+      if (res.ok) {
+          return res.json();
       } else {
           console.log('Incorrect email or password.');
           throw new Error('Incorrect email or password.');

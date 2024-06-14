@@ -7,7 +7,6 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { DeleteProductForm } from "../../forms/DeleteProductForm";
 import { EditProductForm } from "../../forms/EditProductForm";
 import { FaPlus } from "react-icons/fa";
-// import { getCookie } from "../../utils/getCookie";
 import { useFetch } from "../../hooks/useFetch";
 import { getUpdatedFields } from "../../utils/getUpdatedFields";
 
@@ -59,8 +58,8 @@ export function ProductsData() {
     // delete request
     const handleDeleteProduct = (id) => {     
         fetchDeleteProduct()
-            .then((response) => {
-                if(!response.ok) {
+            .then((res) => {
+                if(!res.ok) {
                     throw new Error('Something went wrong')
                 }
                 setProducts(products.filter((item) => item.id !== id))
@@ -73,8 +72,8 @@ export function ProductsData() {
     const handleUpdateProduct = (event, id) => {
         event.preventDefault();
         fetchUpdateProduct()
-            .then((response) => {
-                if(!response.ok) {
+            .then((res) => {
+                if(!res.ok) {
                     throw new Error('Something went wrong')
                 }
                 const updatedProducts = products.map((item) => {
@@ -98,12 +97,12 @@ export function ProductsData() {
         event.preventDefault();
 
         fetchAddProduct()
-        .then(response => {
-            if(!response.ok) {
-                console.log(response.json());
+        .then(res => {
+            if(!res.ok) {
+                console.log(res.json());
                 throw new Error('Something went wrong');
             } else 
-            response.json()
+            res.json()
         })
         .then(data => {
             // Update the products state with the new product

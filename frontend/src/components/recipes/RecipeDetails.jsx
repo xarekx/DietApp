@@ -4,11 +4,12 @@ import { useParams } from "react-router-dom";
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { useFetch } from "../../hooks/useFetch";
 
 
-export function RecipeDetails({getCookie}) {
+export function RecipeDetails() {
     // we're handling recipeId from the path
-    const params = useParams();
+    const { recipeId } = useParams();
 
     const [recipeDetails, setRecipeDetails] = useState(null);
     const [countPortion, setCountPortion] = useState(1);
@@ -16,25 +17,16 @@ export function RecipeDetails({getCookie}) {
     const [carbohydrates, setCarbohydrates] = useState(0);
     const [fat, setFat] = useState(0);
     const [calories, setCalories] = useState(0);
-    const csrftoken = getCookie('csrftoken');
+
+    const fetchRecipeData = useFetch(`http://127.0.0.1:8000/api/recipes/${recipeId}`, 'GET');
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/recipes/"+params.recipeId,
-            {
-            method:"GET",
-            headers: {
-                "Content-Type": "application/json",
-                'X-CSRFToken': csrftoken
-            },
-            credentials: 'include'
-            })
-            .then((res) => res.json())
-            .then((data) => {
-                setRecipeDetails(data);
-            })
-            .catch((error) => {console.error('Error fetching recipe details:', error)});
-           
-    },[params.recipeId, csrftoken]);
+        fetchRecipeData()
+        .then((res) => res.json())
+        .then((data)=> setRecipeDetails(data))
+        .catch((error) => console.error('Error fetching recipe details:', error))
+        // eslint-disable-next-line
+    },[])
 
     useEffect(() => {
         if (recipeDetails) {

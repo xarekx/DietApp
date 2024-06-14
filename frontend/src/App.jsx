@@ -51,8 +51,8 @@ function App() {
 
   const handleLogout = () => {
     logoutHandler()
-    .then((response) => { 
-      if (response.ok) {
+    .then((res) => { 
+      if (res.ok) {
         localStorage.setItem("username", ''); 
         setCurrentUser(false); 
         window.location.href='/login';
@@ -148,10 +148,10 @@ function App() {
               </nav>
               <Routes>
               <Route exact path='/' element={<Home />}/>
-              <Route path='/products' element={<ProductsData getCookie={getCookie}/>}/>
-              <Route path="/products/:productId" element={<ProductDetails getCookie={getCookie} />} />
-              <Route path='/recipes' element={<RecipesData getCookie={getCookie} />}/>
-              <Route path='/recipes/:recipeId' element={<RecipeDetails getCookie={getCookie} />}/>
+              <Route path='/products' element={<ProductsData />}/>
+              <Route path="/products/:productId" element={<ProductDetails />} />
+              <Route path='/recipes' element={<RecipesData />}/>
+              <Route path='/recipes/:recipeId' element={<RecipeDetails/>}/>
               <Route path='/recipes/add' element={<AddRecipeForm getCookie={getCookie} />}/>
               <Route path='/login' element={<UserLogin userStatus={handleCurrentUser}/>}/>
               <Route path='/register' element={<UserRegister/>}/>

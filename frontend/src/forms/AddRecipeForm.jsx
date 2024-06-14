@@ -3,9 +3,10 @@ import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useFetch } from "../hooks/useFetch";
 
 
-export function AddRecipeForm({getCookie}) {
+export function AddRecipeForm() {
 
     const [recipeForm, setRecipeForm] = useState({
         title: "",
@@ -21,6 +22,9 @@ export function AddRecipeForm({getCookie}) {
     const [postRequestValue, setPostRequestValue] = useState(false);
     const [editModalToggle, setEditModalToggle] = useState(false);
     const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(null);
+
+    const fetchProductsData = useFetch('http://127.0.0.1:8000/api/products', 'GET');
+    const fetchCreateRecipe = useFetch('http://127.0.0.1:8000/api/recipes/', 'POST', recipeForm);
 
     const handleTitleChange = (event) => {
         setRecipeForm({
@@ -45,17 +49,11 @@ export function AddRecipeForm({getCookie}) {
 
     // get products from database
     useEffect(() => {
-        const csrftoken = getCookie('csrftoken');
-        fetch("http://127.0.0.1:8000/api/products/", {
-            method:"GET",
-            headers: {
-            "Content-Type": "application/json",
-            'X-CSRFToken': csrftoken
-        },
-        credentials: 'include',})
+        fetchProductsData()
         .then(res =>res.json())
         .then(data => setProducts(data))
         .catch(error => console.error('Error fetching products: ', error));
+        // eslint-disable-next-line
     },[]);
 
     const handleFilter = (event) => {
@@ -88,21 +86,12 @@ export function AddRecipeForm({getCookie}) {
 
     // post request - creating new recipe
     const handleCreateRecipe = () => {
-        const csrftoken = getCookie('csrftoken');
-        fetch("http://127.0.0.1:8000/api/recipes/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                'X-CSRFToken': csrftoken
-            },
-            body: JSON.stringify(recipeForm),
-            credentials: 'include',
-        })
-        .then(response => {
-            if (!response.ok) {
+        fetchCreateRecipe()
+        .then((res) => {
+            if (!res.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json();
+            return res.json();
         })
         .then(data => {
             // handle response
@@ -120,12 +109,9 @@ export function AddRecipeForm({getCookie}) {
             const recipeNameInput = document.getElementById("title");
             recipeNameInput.value = "";
         })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
-        });
+        .catch(error => console.error('There has been a problem with your fetch operation:', error));
     };
 
-    console.log(JSON.stringify(recipeForm));
 
     const handleDeleteProductFromRecipe = (productId) => {
         const updatedIngredients = ingredients.filter(ingredient => ingredient.product.id !== productId);
@@ -287,7 +273,7 @@ export function AddRecipeForm({getCookie}) {
             {postRequestValue ? 
             ( 
             <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-            Here is a gentle confirmation that your action was successful.
+            Recipe created
             </Alert>
             )
             :null}     

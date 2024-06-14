@@ -16,12 +16,12 @@ export function UserRegister() {
         e.preventDefault();
         if(password === repeatPassword) {
             submitRegister()
-            .then((response)=> {
-                if (response.ok) {
+            .then((res)=> {
+                if (res.ok) {
                     console.log("user registered")
                     navigate('/login');
                 } else {
-                    console.log(response);
+                    console.log(res);
                 }
             })
             .catch((err) => console.error("There was a problem with post request", err))

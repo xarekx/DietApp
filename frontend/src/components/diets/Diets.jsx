@@ -3,14 +3,10 @@ import { useEffect, useState } from "react";
 import { GeneratePdf } from "./GeneratePDF";
 import { useFetch } from "../../hooks/useFetch";
 
-
-
-
 export function DietsData() {
 
     const [diets, setDiets] = useState([]);
     const fetchData = useFetch('http://127.0.0.1:8000/api/diets','GET');
-    
     
     useEffect(() => {
         fetchData()

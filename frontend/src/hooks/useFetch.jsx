@@ -19,11 +19,11 @@ export const useFetch = (url, method, body = null) => {
 
     const fetchData = () => {
       return fetch(url, requestOptions)
-        .then(response => { 
-            if (!response.ok) {
-                throw new Error(`Error: ${response.statusText}`);
+        .then(res => { 
+            if (!res.ok) {
+                throw new Error(`Error: ${res.statusText}`);
             } else {
-                return response;
+                return res;
             }
         })
         .catch(error => {
