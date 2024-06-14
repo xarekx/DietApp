@@ -1,52 +1,40 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
 
-
-
-export function UserLogin({getCookie, userStatus}) {
+export function UserLogin({userStatus}) {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const navigate = useNavigate();
 
-  const submitLogin = (e) => {
+  const submitLogin = useFetch("http://127.0.0.1:8000/api/user/login",'POST', {email: email, password: password})
+
+  const handleLogin = (e) => {
     e.preventDefault();
-    const csrftoken = getCookie('csrftoken');
-    fetch("http://127.0.0.1:8000/api/user/login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            'X-CSRFToken': csrftoken
-        },
-        credentials: 'include',
-        body: JSON.stringify({
-            email: email,
-            password: password
-        })
-    })
-    .then((response) => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.log('Incorrect email or password.');
-            throw new Error('Incorrect email or password.');
-        }
+    submitLogin()
+    .then((res) => {
+      if (res.ok) {
+          return res.json();
+      } else {
+          console.log('Incorrect email or password.');
+          throw new Error('Incorrect email or password.');
+      }
     })
     .then((data) => {
       const username = data.user.username;
-
       localStorage.setItem('username', username);
 
-        userStatus(true);
-        navigate('/');
+      userStatus(true);
+      navigate('/');
     })
     .catch((err) => console.error("There was a problem with post request", err));
-};
+  }
   
 return (
     <div className="flex h-[70vh] justify-center items-center  me-auto ms-auto">
     <div className="py-6 px-8 h-80 bg-white rounded shadow-xl w-[85vw] sm:w-[65vw] md:w-[45vw] lg:w-[30vw] 2xl:w-[20vw]">
-      <form onSubmit={(e) => submitLogin(e)}>
+      <form onSubmit={(e) => handleLogin(e)}>
         <div>
           <label htmlFor="email" className="block text-gray-800 font-bold">Email:</label>
           <input type="text" name="email" id="email" placeholder="@email" className="w-full border border-gray-300 py-2 pl-3 rounded mt-2 outline-none focus:ring-indigo-600 :ring-indigo-600" onChange={e => setEmail(e.target.value)} />

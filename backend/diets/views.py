@@ -66,7 +66,9 @@ class DietView(viewsets.ModelViewSet):
             for product_id, data in ingredients_sum.items()
         ]
 
-        return Response(ingredients_sum_list)
+        sorted_ingredients_sum_list = sorted(ingredients_sum_list, key=lambda x: x['name'])
+
+        return Response(sorted_ingredients_sum_list)
 
     @staticmethod
     def get_dates_between(start_day_str, end_day_str):
@@ -83,3 +85,4 @@ class DietView(viewsets.ModelViewSet):
         dates_list.append(end_date.strftime('%Y-%m-%d'))
 
         return dates_list
+    
