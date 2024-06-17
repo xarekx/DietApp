@@ -15,6 +15,7 @@ import { UserRegister } from "./components/login/Register";
 import MenuIcon from '@mui/icons-material/Menu';
 import { getCookie } from "./utils/getCookie";
 import { useFetch } from "./hooks/useFetch";
+import { redirect } from "react-router-dom";
 
 
 function App() {
@@ -49,13 +50,14 @@ function App() {
 
   const logoutHandler = useFetch('http://127.0.0.1:8000/api/user/logout', 'POST');
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
     logoutHandler()
     .then((res) => { 
       if (res.ok) {
         localStorage.setItem("username", ''); 
         setCurrentUser(false); 
-        window.location.href='/login';
+        e.preventDefault();
+        redirect('/login');
       }})
     .catch((error) => {console.error("something went wrong with logout", error)});
 }
@@ -97,7 +99,7 @@ function App() {
                   ( 
                     (<>
                       <div className="text-gray-800 text-sm mr-4" id="username">{username}</div> 
-                      <Link to={'/logout'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm" onClick={handleLogout}>Logout</Link> 
+                      <Link to={'/logout'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm" onClick={(e)=>handleLogout(e)}>Logout</Link> 
                     </>)):
                   (<>
                       <Link to={'/login'} className="text-gray-800 text-sm mr-4" onClick={() => setToggleMenu(false)}>LOGIN</Link> 
@@ -156,6 +158,7 @@ function App() {
               <Route path='/login' element={<UserLogin userStatus={handleCurrentUser}/>}/>
               <Route path='/register' element={<UserRegister/>}/>
               <Route path='/diets' element={<DietsData/>}/>
+              <Route path='/logout' element={<UserLogin/>}/>
           </Routes>
           </div>    
         </main>
