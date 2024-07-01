@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'diets',
     'ingredients',
     'user_api',
+    'product_category',
     'django_extensions'
 ]
 

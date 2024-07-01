@@ -7,7 +7,8 @@
         "protein": "6.00",
         "carbohydrates": "1.00",
         "fat": "5.00",
-        "calories": "70.00"
+        "calories": "70.00",
+        "category": 6
     }
 },
 {
@@ -18,7 +19,8 @@
         "protein": "31.00",
         "carbohydrates": "0.00",
         "fat": "3.00",
-        "calories": "165.00"
+        "calories": "165.00",
+        "category": 1
     }
 },
 {
@@ -29,7 +31,8 @@
         "protein": "26.00",
         "carbohydrates": "0.00",
         "fat": "1.00",
-        "calories": "120.00"
+        "calories": "120.00",
+        "category": 2
     }
 },
 {
@@ -40,7 +43,8 @@
         "protein": "8.00",
         "carbohydrates": "12.00",
         "fat": "0.50",
-        "calories": "80.00"
+        "calories": "80.00",
+        "category": 6
     }
 },
 {
@@ -51,7 +55,8 @@
         "protein": "10.00",
         "carbohydrates": "7.00",
         "fat": "0.40",
-        "calories": "60.00"
+        "calories": "60.00",
+        "category": 6
     }
 },
 {
@@ -62,7 +67,8 @@
         "protein": "18.00",
         "carbohydrates": "3.00",
         "fat": "0.60",
-        "calories": "80.00"
+        "calories": "80.00",
+        "category": 6
     }
 },
 {
@@ -73,7 +79,8 @@
         "protein": "36.00",
         "carbohydrates": "0.00",
         "fat": "5.00",
-        "calories": "200.00"
+        "calories": "200.00",
+        "category": 1
     }
 },
 {
@@ -84,7 +91,8 @@
         "protein": "2.90",
         "carbohydrates": "3.60",
         "fat": "0.40",
-        "calories": "23.00"
+        "calories": "23.00",
+        "category": 5
     }
 },
 {
@@ -95,7 +103,8 @@
         "protein": "2.80",
         "carbohydrates": "6.00",
         "fat": "0.40",
-        "calories": "34.00"
+        "calories": "34.00",
+        "category": 5
     }
 },
 {
@@ -106,7 +115,8 @@
         "protein": "20.00",
         "carbohydrates": "0.00",
         "fat": "13.00",
-        "calories": "200.00"
+        "calories": "200.00",
+        "category": 2
     }
 },
 {
@@ -117,7 +127,8 @@
         "protein": "8.00",
         "carbohydrates": "2.00",
         "fat": "4.00",
-        "calories": "70.00"
+        "calories": "70.00",
+        "category": 9
     }
 },
 {
@@ -128,7 +139,8 @@
         "protein": "8.90",
         "carbohydrates": "27.40",
         "fat": "2.60",
-        "calories": "164.00"
+        "calories": "164.00",
+        "category": 5
     }
 },
 {
@@ -139,7 +151,8 @@
         "protein": "8.00",
         "carbohydrates": "39.00",
         "fat": "2.00",
-        "calories": "200.00"
+        "calories": "200.00",
+        "category": 7
     }
 },
 {
@@ -150,7 +163,8 @@
         "protein": "5.00",
         "carbohydrates": "45.00",
         "fat": "1.50",
-        "calories": "216.00"
+        "calories": "216.00",
+        "category": 7
     }
 },
 {
@@ -161,7 +175,8 @@
         "protein": "1.30",
         "carbohydrates": "27.00",
         "fat": "0.40",
-        "calories": "105.00"
+        "calories": "105.00",
+        "category": 4
     }
 },
 {
@@ -172,7 +187,8 @@
         "protein": "0.50",
         "carbohydrates": "25.00",
         "fat": "0.30",
-        "calories": "95.00"
+        "calories": "95.00",
+        "category": 4
     }
 },
 {
@@ -183,7 +199,8 @@
         "protein": "1.00",
         "carbohydrates": "21.00",
         "fat": "0.20",
-        "calories": "62.00"
+        "calories": "62.00",
+        "category": 4
     }
 },
 {
@@ -194,7 +211,8 @@
         "protein": "4.00",
         "carbohydrates": "4.00",
         "fat": "19.00",
-        "calories": "185.00"
+        "calories": "185.00",
+        "category": 10
     }
 },
 {
@@ -205,7 +223,8 @@
         "protein": "2.00",
         "carbohydrates": "12.00",
         "fat": "15.00",
-        "calories": "160.00"
+        "calories": "160.00",
+        "category": 4
     }
 },
 {
@@ -216,7 +235,8 @@
         "protein": "0.00",
         "carbohydrates": "0.00",
         "fat": "14.00",
-        "calories": "120.00"
+        "calories": "120.00",
+        "category": 8
     }
 },
 {
@@ -227,7 +247,8 @@
         "protein": "0.60",
         "carbohydrates": "7.00",
         "fat": "0.30",
-        "calories": "30.00"
+        "calories": "30.00",
+        "category": 5
     }
 },
 {
@@ -238,7 +259,8 @@
         "protein": "0.90",
         "carbohydrates": "6.00",
         "fat": "0.30",
-        "calories": "24.00"
+        "calories": "24.00",
+        "category": 5
     }
 },
 {
@@ -249,7 +271,8 @@
         "protein": "1.80",
         "carbohydrates": "33.00",
         "fat": "0.50",
-        "calories": "149.00"
+        "calories": "149.00",
+        "category": 5
     }
 },
 {
@@ -260,7 +283,8 @@
         "protein": "36.00",
         "carbohydrates": "29.00",
         "fat": "20.00",
-        "calories": "337.00"
+        "calories": "337.00",
+        "category": 5
     }
 },
 {
@@ -271,7 +295,8 @@
         "protein": "16.00",
         "carbohydrates": "44.00",
         "fat": "31.00",
-        "calories": "490.00"
+        "calories": "490.00",
+        "category": 10
     }
 },
 {
@@ -282,7 +307,8 @@
         "protein": "10.00",
         "carbohydrates": "3.00",
         "fat": "10.00",
-        "calories": "150.00"
+        "calories": "150.00",
+        "category": 6
     }
 },
 {
@@ -293,7 +319,8 @@
         "protein": "1.10",
         "carbohydrates": "2.80",
         "fat": "21.00",
-        "calories": "230.00"
+        "calories": "230.00",
+        "category": 9
     }
 },
 {
@@ -304,7 +331,8 @@
         "protein": "3.10",
         "carbohydrates": "64.90",
         "fat": "3.10",
-        "calories": "354.00"
+        "calories": "354.00",
+        "category": 3
     }
 },
 {
@@ -315,18 +343,20 @@
         "protein": "19.00",
         "carbohydrates": "0.00",
         "fat": "13.00",
-        "calories": "200.00"
+        "calories": "200.00",
+        "category": 2
     }
 },
 {
     "model": "product.product",
     "pk": 30,
     "fields": {
-        "name": "Bob",
+        "name": "Bób",
         "protein": "9.00",
         "carbohydrates": "21.00",
         "fat": "1.00",
-        "calories": "118.00"
+        "calories": "118.00",
+        "category": 5
     }
 },
 {
@@ -337,7 +367,8 @@
         "protein": "0.00",
         "carbohydrates": "0.00",
         "fat": "0.00",
-        "calories": "3.00"
+        "calories": "3.00",
+        "category": 7
     }
 },
 {
@@ -348,7 +379,8 @@
         "protein": "21.00",
         "carbohydrates": "22.00",
         "fat": "50.00",
-        "calories": "575.00"
+        "calories": "575.00",
+        "category": 10
     }
 },
 {
@@ -359,7 +391,8 @@
         "protein": "6.00",
         "carbohydrates": "43.00",
         "fat": "1.30",
-        "calories": "200.00"
+        "calories": "200.00",
+        "category": 7
     }
 },
 {
@@ -370,7 +403,8 @@
         "protein": "17.00",
         "carbohydrates": "43.00",
         "fat": "7.00",
-        "calories": "308.00"
+        "calories": "308.00",
+        "category": 7
     }
 },
 {
@@ -381,7 +415,8 @@
         "protein": "3.70",
         "carbohydrates": "7.30",
         "fat": "0.40",
-        "calories": "47.00"
+        "calories": "47.00",
+        "category": 3
     }
 },
 {
@@ -392,7 +427,8 @@
         "protein": "3.50",
         "carbohydrates": "4.70",
         "fat": "3.30",
-        "calories": "61.00"
+        "calories": "61.00",
+        "category": 6
     }
 },
 {
@@ -403,7 +439,8 @@
         "protein": "2.70",
         "carbohydrates": "8.30",
         "fat": "2.20",
-        "calories": "63.00"
+        "calories": "63.00",
+        "category": 6
     }
 },
 {
@@ -414,7 +451,8 @@
         "protein": "17.00",
         "carbohydrates": "2.00",
         "fat": "20.00",
-        "calories": "290.00"
+        "calories": "290.00",
+        "category": 6
     }
 },
 {
@@ -425,7 +463,8 @@
         "protein": "19.00",
         "carbohydrates": "1.00",
         "fat": "24.00",
-        "calories": "320.00"
+        "calories": "320.00",
+        "category": 6
     }
 },
 {
@@ -436,7 +475,8 @@
         "protein": "3.30",
         "carbohydrates": "4.70",
         "fat": "3.50",
-        "calories": "58.00"
+        "calories": "58.00",
+        "category": 6
     }
 },
 {
@@ -447,7 +487,8 @@
         "protein": "10.00",
         "carbohydrates": "70.00",
         "fat": "1.00",
-        "calories": "344.00"
+        "calories": "344.00",
+        "category": 7
     }
 },
 {
@@ -458,7 +499,8 @@
         "protein": "8.00",
         "carbohydrates": "77.00",
         "fat": "1.00",
-        "calories": "360.00"
+        "calories": "360.00",
+        "category": 7
     }
 },
 {
@@ -469,7 +511,8 @@
         "protein": "9.00",
         "carbohydrates": "20.00",
         "fat": "1.00",
-        "calories": "116.00"
+        "calories": "116.00",
+        "category": 7
     }
 },
 {
@@ -480,7 +523,8 @@
         "protein": "0.80",
         "carbohydrates": "6.00",
         "fat": "10.00",
-        "calories": "115.00"
+        "calories": "115.00",
+        "category": 5
     }
 },
 {
@@ -491,7 +535,8 @@
         "protein": "9.00",
         "carbohydrates": "60.00",
         "fat": "1.00",
-        "calories": "300.00"
+        "calories": "300.00",
+        "category": 5
     }
 },
 {
@@ -502,7 +547,8 @@
         "protein": "0.50",
         "carbohydrates": "11.00",
         "fat": "0.30",
-        "calories": "43.00"
+        "calories": "43.00",
+        "category": 4
     }
 },
 {
@@ -513,7 +559,8 @@
         "protein": "0.50",
         "carbohydrates": "13.00",
         "fat": "0.10",
-        "calories": "50.00"
+        "calories": "50.00",
+        "category": 4
     }
 },
 {
@@ -524,7 +571,8 @@
         "protein": "0.80",
         "carbohydrates": "14.00",
         "fat": "0.60",
-        "calories": "60.00"
+        "calories": "60.00",
+        "category": 4
     }
 },
 {
@@ -535,7 +583,8 @@
         "protein": "1.70",
         "carbohydrates": "18.70",
         "fat": "0.70",
-        "calories": "83.00"
+        "calories": "83.00",
+        "category": 4
     }
 },
 {
@@ -546,7 +595,8 @@
         "protein": "1.10",
         "carbohydrates": "14.00",
         "fat": "0.50",
-        "calories": "61.00"
+        "calories": "61.00",
+        "category": 4
     }
 },
 {
@@ -557,7 +607,8 @@
         "protein": "6.00",
         "carbohydrates": "3.00",
         "fat": "23.00",
-        "calories": "243.00"
+        "calories": "243.00",
+        "category": 6
     }
 },
 {
@@ -568,7 +619,8 @@
         "protein": "0.88",
         "carbohydrates": "4.00",
         "fat": "0.20",
-        "calories": "18.00"
+        "calories": "18.00",
+        "category": 5
     }
 },
 {
@@ -579,7 +631,8 @@
         "protein": "0.70",
         "carbohydrates": "3.40",
         "fat": "0.10",
-        "calories": "15.00"
+        "calories": "15.00",
+        "category": 5
     }
 },
 {
@@ -590,7 +643,8 @@
         "protein": "2.60",
         "carbohydrates": "3.40",
         "fat": "0.70",
-        "calories": "25.00"
+        "calories": "25.00",
+        "category": 5
     }
 },
 {
@@ -601,7 +655,8 @@
         "protein": "3.30",
         "carbohydrates": "4.40",
         "fat": "0.70",
-        "calories": "30.00"
+        "calories": "30.00",
+        "category": 5
     }
 },
 {
@@ -609,10 +664,11 @@
     "pk": 56,
     "fields": {
         "name": "Skyr pitny waniliowy Piątnica",
-        "protein": 4.3,
-        "carbohydrates": 8,
-        "fat": 0.1,
-        "calories": 50
+        "protein": "4.30",
+        "carbohydrates": "8.00",
+        "fat": "0.10",
+        "calories": "50.00",
+        "category": 6
     }
 },
 {
@@ -620,10 +676,11 @@
     "pk": 57,
     "fields": {
         "name": "Mleko roślinne",
-        "protein": 3.3,
-        "carbohydrates": 4.7,
-        "fat": 3.5,
-        "calories": 58
+        "protein": "3.30",
+        "carbohydrates": "4.70",
+        "fat": "3.50",
+        "calories": "58.00",
+        "category": 9
     }
 },
 {
@@ -631,10 +688,11 @@
     "pk": 58,
     "fields": {
         "name": "Erytrol",
-        "protein": 0,
-        "carbohydrates": 100,
-        "fat": 0,
-        "calories": 0
+        "protein": "0.00",
+        "carbohydrates": "100.00",
+        "fat": "0.00",
+        "calories": "0.00",
+        "category": 9
     }
 },
 {
@@ -642,10 +700,11 @@
     "pk": 59,
     "fields": {
         "name": "Borówki",
-        "protein": 0.7,
-        "carbohydrates": 14.5,
-        "fat": 0.4,
-        "calories": 57
+        "protein": "0.70",
+        "carbohydrates": "14.50",
+        "fat": "0.40",
+        "calories": "57.00",
+        "category": 4
     }
 },
 {
@@ -653,10 +712,11 @@
     "pk": 60,
     "fields": {
         "name": "Odżywka białkowa",
-        "protein": 20,
-        "carbohydrates": 5,
-        "fat": 1,
-        "calories": 110
+        "protein": "20.00",
+        "carbohydrates": "5.00",
+        "fat": "1.00",
+        "calories": "110.00",
+        "category": 9
     }
 },
 {
@@ -664,10 +724,11 @@
     "pk": 61,
     "fields": {
         "name": "Tortilla pełnoziarnista",
-        "protein": 5,
-        "carbohydrates": 30,
-        "fat": 3,
-        "calories": 150
+        "protein": "5.00",
+        "carbohydrates": "30.00",
+        "fat": "3.00",
+        "calories": "150.00",
+        "category": 7
     }
 },
 {
@@ -675,10 +736,11 @@
     "pk": 62,
     "fields": {
         "name": "Ciecierzyca konserwowa",
-        "protein": 8.9,
-        "carbohydrates": 27.4,
-        "fat": 2.6,
-        "calories": 164
+        "protein": "8.90",
+        "carbohydrates": "27.40",
+        "fat": "2.60",
+        "calories": "164.00",
+        "category": 9
     }
 },
 {
@@ -686,10 +748,11 @@
     "pk": 63,
     "fields": {
         "name": "Pieprz",
-        "protein": 0.3,
-        "carbohydrates": 64.8,
-        "fat": 3.3,
-        "calories": 296
+        "protein": "0.30",
+        "carbohydrates": "64.80",
+        "fat": "3.30",
+        "calories": "296.00",
+        "category": 3
     }
 },
 {
@@ -697,10 +760,11 @@
     "pk": 64,
     "fields": {
         "name": "Cebula czerwona",
-        "protein": 1.2,
-        "carbohydrates": 7.9,
-        "fat": 0.1,
-        "calories": 40
+        "protein": "1.20",
+        "carbohydrates": "7.90",
+        "fat": "0.10",
+        "calories": "40.00",
+        "category": 5
     }
 },
 {
@@ -708,10 +772,11 @@
     "pk": 65,
     "fields": {
         "name": "Cukinia",
-        "protein": 1.2,
-        "carbohydrates": 3.1,
-        "fat": 0.3,
-        "calories": 17
+        "protein": "1.20",
+        "carbohydrates": "3.10",
+        "fat": "0.30",
+        "calories": "17.00",
+        "category": 5
     }
 },
 {
@@ -719,10 +784,11 @@
     "pk": 66,
     "fields": {
         "name": "Passata pomidorowa",
-        "protein": 1.2,
-        "carbohydrates": 4.7,
-        "fat": 0.2,
-        "calories": 23
+        "protein": "1.20",
+        "carbohydrates": "4.70",
+        "fat": "0.20",
+        "calories": "23.00",
+        "category": 9
     }
 },
 {
@@ -730,10 +796,11 @@
     "pk": 67,
     "fields": {
         "name": "Papryka wędzona",
-        "protein": 0.9,
-        "carbohydrates": 6,
-        "fat": 0.3,
-        "calories": 24
+        "protein": "0.90",
+        "carbohydrates": "6.00",
+        "fat": "0.30",
+        "calories": "24.00",
+        "category": 3
     }
 },
 {
@@ -741,10 +808,11 @@
     "pk": 68,
     "fields": {
         "name": "Mielona kolendra",
-        "protein": 0.6,
-        "carbohydrates": 12,
-        "fat": 7,
-        "calories": 296
+        "protein": "0.60",
+        "carbohydrates": "12.00",
+        "fat": "7.00",
+        "calories": "296.00",
+        "category": 3
     }
 },
 {
@@ -752,10 +820,11 @@
     "pk": 69,
     "fields": {
         "name": "Olej rzepakowy",
-        "protein": 0,
-        "carbohydrates": 0,
-        "fat": 100,
-        "calories": 884
+        "protein": "0.00",
+        "carbohydrates": "0.00",
+        "fat": "100.00",
+        "calories": "884.00",
+        "category": 8
     }
 },
 {
@@ -763,10 +832,11 @@
     "pk": 70,
     "fields": {
         "name": "Sól",
-        "protein": 0,
-        "carbohydrates": 0,
-        "fat": 0,
-        "calories": 0
+        "protein": "0.00",
+        "carbohydrates": "0.00",
+        "fat": "0.00",
+        "calories": "0.00",
+        "category": 3
     }
 },
 {
@@ -774,10 +844,11 @@
     "pk": 71,
     "fields": {
         "name": "Pieczarki",
-        "protein": 3.1,
-        "carbohydrates": 0.1,
-        "fat": 0.5,
-        "calories": 22
+        "protein": "3.10",
+        "carbohydrates": "0.10",
+        "fat": "0.50",
+        "calories": "22.00",
+        "category": 5
     }
 },
 {
@@ -785,10 +856,11 @@
     "pk": 72,
     "fields": {
         "name": "Cebula",
-        "protein": 1.2,
-        "carbohydrates": 7.9,
-        "fat": 0.1,
-        "calories": 40
+        "protein": "1.20",
+        "carbohydrates": "7.90",
+        "fat": "0.10",
+        "calories": "40.00",
+        "category": 5
     }
 }
 ]

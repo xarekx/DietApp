@@ -1,0 +1,72 @@
+[
+{
+    "model": "product_category.productcategory",
+    "pk": 1,
+    "fields": {
+        "name": "Mięso"
+    }
+},
+{
+    "model": "product_category.productcategory",
+    "pk": 2,
+    "fields": {
+        "name": "Ryby i owoce morza"
+    }
+},
+{
+    "model": "product_category.productcategory",
+    "pk": 3,
+    "fields": {
+        "name": "Przyprawy"
+    }
+},
+{
+    "model": "product_category.productcategory",
+    "pk": 4,
+    "fields": {
+        "name": "Owoce"
+    }
+},
+{
+    "model": "product_category.productcategory",
+    "pk": 5,
+    "fields": {
+        "name": "Warzywa"
+    }
+},
+{
+    "model": "product_category.productcategory",
+    "pk": 6,
+    "fields": {
+        "name": "Nabiał"
+    }
+},
+{
+    "model": "product_category.productcategory",
+    "pk": 7,
+    "fields": {
+        "name": "Zbożowe"
+    }
+},
+{
+    "model": "product_category.productcategory",
+    "pk": 8,
+    "fields": {
+        "name": "Tłuszcze"
+    }
+},
+{
+    "model": "product_category.productcategory",
+    "pk": 9,
+    "fields": {
+        "name": "Inne"
+    }
+},
+{
+    "model": "product_category.productcategory",
+    "pk": 10,
+    "fields": {
+        "name": "Orzechy i ziarna"
+    }
+}
+]
