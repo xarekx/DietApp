@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from product_category.models import ProductCategory
 
 # Create your models here.
 class Product(models.Model):
@@ -10,6 +11,7 @@ class Product(models.Model):
     carbohydrates = models.DecimalField(_("carbohydrates"),  help_text="carbohydrates per 100g", max_digits=18, decimal_places=2)
     fat = models.DecimalField(_("fat"),  help_text="fat per 100g", max_digits=18, decimal_places=2)
     calories = models.DecimalField(_("calories"), help_text="calories per 100g", max_digits=18, decimal_places=2)
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, default="", null=True)
     
     class Meta:
         verbose_name = _("Product")

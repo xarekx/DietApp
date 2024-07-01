@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from .serializers import DietSerializer
 from rest_framework.permissions import IsAuthenticated
 from datetime import datetime, timedelta
+import math
 
 class DietView(viewsets.ModelViewSet):
     serializer_class = DietSerializer
@@ -12,22 +13,7 @@ class DietView(viewsets.ModelViewSet):
     
     def get_queryset(self):
         user = self.request.user
-        queryset = Diet.objects.filter(user=user)
-        
-        return queryset
-    
-    @action(detail=False, methods=['get'], url_path='recipes-by-day')
-    def recipes_by_day(self, request):
-        user = request.user
-        # list of day as a parameter
-        days = request.query_params.getlist('day')
-        if days:
-            diets = Diet.objects.filter(user=user, day__in=days)
-        else:
-            diets = Diet.objects.filter(user=user)
-
-        serializer = self.get_serializer(diets, many=True)
-        return Response(serializer.data)
+        return Diet.objects.filter(user=user)
 
     @action(detail=False, methods=['get'], url_path='products-by-day')
     def products_by_day(self,request):
@@ -76,6 +62,7 @@ class DietView(viewsets.ModelViewSet):
         end_date = datetime.strptime(end_day_str, '%Y-%m-%d')
 
         dates_list = [start_date.strftime('%Y-%m-%d')]
+        
 
         current_date = start_date + timedelta(days=1)
         while current_date < end_date:
@@ -83,6 +70,18 @@ class DietView(viewsets.ModelViewSet):
             current_date += timedelta(days=1)
 
         dates_list.append(end_date.strftime('%Y-%m-%d'))
-
+        print(dates_list)
         return dates_list
     
+    @action(detail=False, methods=['get'], url_path='count-weeks')
+    def count_weeks(self, request):
+        diets = self.get_queryset()
+        if not diets.exists():
+            return Response({'weeks_count': 0, 'diet_days': []})
+
+        days = self.get_dates_between(str(diets[0].start_diet_date),str(diets[0].end_diet_date))
+
+        # weeks_count rounded up to easier get weeks count 
+        weeks_count = math.ceil(len(days)/7)
+    
+        return Response({'weeks_count': weeks_count, 'diet_days': days})
