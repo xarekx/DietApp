@@ -62,6 +62,7 @@ class DietView(viewsets.ModelViewSet):
         end_date = datetime.strptime(end_day_str, '%Y-%m-%d')
 
         dates_list = [start_date.strftime('%Y-%m-%d')]
+        
 
         current_date = start_date + timedelta(days=1)
         while current_date < end_date:
@@ -69,18 +70,18 @@ class DietView(viewsets.ModelViewSet):
             current_date += timedelta(days=1)
 
         dates_list.append(end_date.strftime('%Y-%m-%d'))
-
+        print(dates_list)
         return dates_list
     
     @action(detail=False, methods=['get'], url_path='count-weeks')
     def count_weeks(self, request):
         diets = self.get_queryset()
         if not diets.exists():
-            return Response({'weeks_count': 0})
+            return Response({'weeks_count': 0, 'diet_days': []})
 
         days = self.get_dates_between(str(diets[0].start_diet_date),str(diets[0].end_diet_date))
 
         # weeks_count rounded up to easier get weeks count 
         weeks_count = math.ceil(len(days)/7)
     
-        return Response({'weeks_count': weeks_count})
+        return Response({'weeks_count': weeks_count, 'diet_days': days})
