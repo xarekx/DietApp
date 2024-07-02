@@ -37,10 +37,12 @@ const styles = StyleSheet.create({
     width: 'auto',
     borderRightWidth: 0,
     borderBottomWidth: 0,
+    pageBreakInside: 'avoid'
   },
   tableRow: {
     margin: 'auto',
     flexDirection: 'row',
+    pageBreakInside: 'avoid'
   },
   tableCol: {
     width: '50%',
@@ -48,19 +50,31 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
   },
   tableCell: {
-    margin: 'auto',
+    marginRight: 'auto',
     marginTop: 5,
-    fontSize: 10,
+    fontSize: 8,
   },
   tableHeader: {
-    backgroundColor: '#d3d3d3',
+    borderBottomWidth: 1,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20,
-  }
+    marginTop: 10,
+  },
+  categoryProduct: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+    fontSize:12,
+  },
+  categorySection: {
+    breakInside: 'avoid', // ensure the category section isn't split across pages
+    pageBreakInside: 'avoid', // ensure the category section isn't split across pages
+  },
 });
 
 
@@ -82,36 +96,41 @@ const handleFetchProducts = () => {
 // Creating pdf Document
 const MyDocument = () => (
   <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.header}>
-        <Text>List of Products</Text>
-        <Text>{validDate(startDate)} - {validDate(endDate)}</Text>
-      </View>
-      <View style={styles.table}>
-        <View style={[styles.tableRow, styles.tableHeader]}>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>Nazwa Produktu</Text>
-          </View>
-          <View style={styles.tableCol}>
-            <Text style={styles.tableCell}>Ilość (g)</Text>
-          </View>
+  <Page size="A4" style={styles.page}>
+    <View style={styles.header}>
+      <Text>Shopping List</Text>
+      <Text>{validDate(startDate)} - {validDate(endDate)}</Text>
+    </View>
+    {ingredientsData.map((ingredient, index) => (
+      <View key={index} style={styles.categorySection} wrap={false}>
+        <View style={styles.categoryProduct}>
+          <Text>{ingredient.category}</Text>
         </View>
-        {ingredientsData.map((ingredient, index) => (
-          <View style={styles.tableRow} key={index}>
+        <View style={styles.table}>
+          <View style={[styles.tableRow, styles.tableHeader]}>
             <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>{ingredient.name}</Text>
+              <Text style={styles.tableCell}>Produkt</Text>
             </View>
             <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>{ingredient.total_quantity}</Text>
+              <Text style={styles.tableCell}>Ilość (g)</Text>
             </View>
           </View>
-        ))}
+          {ingredient.products.map((product, prodIndex) => (
+            <View style={styles.tableRow} key={prodIndex}>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>{product.name}</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>{product.total_quantity}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
       </View>
-    </Page>
-  </Document>
+    ))}
+  </Page>
+</Document>
 );
-
-
 
   return (
     <>
