@@ -6,6 +6,7 @@ from .serializers import DietSerializer
 from rest_framework.permissions import IsAuthenticated
 from datetime import datetime, timedelta
 import math
+from collections import defaultdict
 
 class DietView(viewsets.ModelViewSet):
     serializer_class = DietSerializer
@@ -38,23 +39,32 @@ class DietView(viewsets.ModelViewSet):
                         if product.id not in ingredients_sum:
                             ingredients_sum[product.id] = {
                                 'name': product.name,
-                                'quantity': 0
+                                'quantity': 0,
+                                'category': product.category.name
                             }
                         ingredients_sum[product.id]['quantity'] += ingredient.quantity
 
         ingredients_sum_list = [
             {
-                
                 'product_id': product_id,
                 'name': data['name'],
+                'category': data['category'],
                 'total_quantity': data['quantity']
+                
             }
             for product_id, data in ingredients_sum.items()
         ]
+        grouped_by_category = defaultdict(list)
+        for item in ingredients_sum_list:
+            grouped_by_category[item['category']].append(item)
+        
+        grouped_ingredients_sum_list = [{
+            'category': category,
+            'products': sorted(products,key=lambda x: x['name'])
 
-        sorted_ingredients_sum_list = sorted(ingredients_sum_list, key=lambda x: x['name'])
+        } for category, products in grouped_by_category.items()]
 
-        return Response(sorted_ingredients_sum_list)
+        return Response(grouped_ingredients_sum_list)
 
     @staticmethod
     def get_dates_between(start_day_str, end_day_str):
