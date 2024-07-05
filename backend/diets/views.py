@@ -80,7 +80,7 @@ class DietView(viewsets.ModelViewSet):
             current_date += timedelta(days=1)
 
         dates_list.append(end_date.strftime('%Y-%m-%d'))
-        print(dates_list)
+
         return dates_list
     
     @action(detail=False, methods=['get'], url_path='count-weeks')
@@ -89,9 +89,43 @@ class DietView(viewsets.ModelViewSet):
         if not diets.exists():
             return Response({'weeks_count': 0, 'diet_days': []})
 
-        days = self.get_dates_between(str(diets[0].start_diet_date),str(diets[0].end_diet_date))
+        days = self.get_dadailytes_between(str(diets[0].start_diet_date),str(diets[0].end_diet_date))
 
         # weeks_count rounded up to easier get weeks count 
         weeks_count = math.ceil(len(days)/7)
     
         return Response({'weeks_count': weeks_count, 'diet_days': days})
+    
+    @staticmethod
+    def calculate_meal_calories(meal):
+        total_calories = 0
+        if meal:
+            for ingredient in meal.ingredients.all():
+                quantity = ingredient.quantity
+                calories_per_100g = float(ingredient.product.calories)
+                total_calories += (quantity * calories_per_100g) / 100
+        return total_calories
+    
+    @classmethod
+    def calculate_weekly_calories(cls, data):
+        weekly_calories = {}
+        for day_data in data:
+            day = day_data.day
+            total_calories = 0
+            for meal_type in ['breakfast', 'second_breakfast', 'lunch', 'afternoon_meal', 'dinner']:
+                meal = getattr(day_data, meal_type)
+                total_calories += cls.calculate_meal_calories(meal)
+                weekly_calories[str(day)] = round(total_calories,2)
+
+        return weekly_calories
+
+    @action(detail=False, methods=['get'], url_path='diet-plan')
+    def diet_plan(self, request):
+        diet_plan = []
+        diets = self.get_queryset()
+        if not diets.exists():
+            return Response({'diet_plan': diet_plan})
+
+        diet_plan.append(self.calculate_weekly_calories(diets))
+
+        return Response({'diet_plan': diet_plan})
