@@ -89,7 +89,7 @@ class DietView(viewsets.ModelViewSet):
         if not diets.exists():
             return Response({'weeks_count': 0, 'diet_days': []})
 
-        days = self.get_dadailytes_between(str(diets[0].start_diet_date),str(diets[0].end_diet_date))
+        days = self.get_dates_between(str(diets[0].start_diet_date),str(diets[0].end_diet_date))
 
         # weeks_count rounded up to easier get weeks count 
         weeks_count = math.ceil(len(days)/7)
@@ -108,24 +108,30 @@ class DietView(viewsets.ModelViewSet):
     
     @classmethod
     def calculate_weekly_calories(cls, data):
-        weekly_calories = {}
+        weekly_calories = []
         for day_data in data:
             day = day_data.day
             total_calories = 0
+            meals = []
             for meal_type in ['breakfast', 'second_breakfast', 'lunch', 'afternoon_meal', 'dinner']:
                 meal = getattr(day_data, meal_type)
                 total_calories += cls.calculate_meal_calories(meal)
-                weekly_calories[str(day)] = round(total_calories,2)
+                if meal:
+                    meals.append({"title": meal.title})
+                else:
+                    meals.append({"title": "null"})
+            weekly_calories.append({
+                "day": str(day),
+                "total_calories": round(total_calories,2),
+                "meals": meals
+            })
 
         return weekly_calories
 
     @action(detail=False, methods=['get'], url_path='diet-plan')
     def diet_plan(self, request):
-        diet_plan = []
         diets = self.get_queryset()
         if not diets.exists():
-            return Response({'diet_plan': diet_plan})
+            return Response({})
 
-        diet_plan.append(self.calculate_weekly_calories(diets))
-
-        return Response({'diet_plan': diet_plan})
+        return Response(self.calculate_weekly_calories(diets))
