@@ -5,7 +5,7 @@ import { useFetch } from "../../hooks/useFetch";
 
 import 'react-calendar/dist/Calendar.css';
 
-export function GeneratePdf() {
+export function ShoppingListPDF() {
 
   const [calendarToggle, setCalendarToggle] = useState(false);
   const [calendarRange, setCalendarRange] = useState([new Date(), new Date()]);
@@ -134,7 +134,7 @@ const MyDocument = () => (
 
   return (
     <>
-    <button className="bg-emerald-600 px-4 py-2 rounded text-white hover:bg-emerald-500 text-sm w-fit mt-[3vw] lg:mt-[2vw] ms-auto" onClick={()=> setCalendarToggle(!calendarToggle)}>Get Products</button>
+    <button className="bg-emerald-600 px-4 py-2 rounded text-white hover:bg-emerald-500 text-sm w-fit mt-[3vw] lg:mt-[2vw] ms-auto" onClick={()=> setCalendarToggle(!calendarToggle)}>Shopping List</button>
     {calendarToggle ? 
       ( 
         <>

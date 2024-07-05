@@ -1,12 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { GeneratePdf } from "./GeneratePDF";
+import { ShoppingListPDF } from "./ShoppingListPDF";
 import { useFetch } from "../../hooks/useFetch";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { DietPlanPDF } from "./DietPlanPDF";
+
 
 export function DietsData() {
 
@@ -67,7 +69,10 @@ export function DietsData() {
                     </FormControl>
                 </Box>
             </div>
-            <GeneratePdf/>
+            <div className="flex ms-auto gap-x-4">
+                <DietPlanPDF/>
+                <ShoppingListPDF/>
+            </div>
             <div className="grid lg:grid-cols-7 gap-y-8 gap-x-4 text-center md:ms-auto w-full mt-[4vh] ">
             {generateDate(countWeeks.diet_days, selectedWeek)}   
                 {diets.map((diet, index) => {
