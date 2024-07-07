@@ -109,10 +109,10 @@ const MyDocument = () => (
         <View style={styles.table}>
           <View style={[styles.tableRow, styles.tableHeader]}>
             <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Produkt</Text>
+              <Text style={styles.tableCell}>Product</Text>
             </View>
             <View style={styles.tableCol}>
-              <Text style={styles.tableCell}>Ilość (g)</Text>
+              <Text style={styles.tableCell}>Quantity (g)</Text>
             </View>
           </View>
           {ingredient.products.map((product, prodIndex) => (

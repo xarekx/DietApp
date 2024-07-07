@@ -93,13 +93,13 @@ export function DietPlanPDF() {
           <View key={index} style={styles.dietDaySection} wrap={false}>
             <View style={styles.dietPlanDay}>
               <Text>{dietDay.day}</Text>
-              <Text>Kaloryczność: {dietDay.total_calories}</Text>
+              <Text>Calories: {dietDay.total_calories}</Text>
             </View>
             <View style={styles.table}>
               <View style={[styles.tableRow, styles.tableHeader]}>
                 {(dietDay.meals).map((meal,index)=>(
                   <View style={styles.tableCol}>
-                      <Text style={styles.tableCell}>Posiłek {index+1}</Text>
+                      <Text style={styles.tableCell}>Meal {index+1}</Text>
                     <View style={styles.tableRow} key={index}>
                         <Text style={styles.tableCell}>{meal.title}</Text>
                     </View>
