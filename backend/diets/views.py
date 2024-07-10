@@ -11,6 +11,16 @@ from collections import defaultdict
 class DietView(viewsets.ModelViewSet):
     serializer_class = DietSerializer
     permission_classes = [IsAuthenticated]
+
+    DAY_LIST = [
+        ("1", "Monday"),
+        ("2", "Tuesday"),
+        ("3", "Wednesday"),
+        ("4", "Thursday"),
+        ("5", "Friday"),
+        ("6", "Saturday"),
+        ("7", "Sunday")
+        ]
     
     def get_queryset(self):
         user = self.request.user
@@ -22,9 +32,11 @@ class DietView(viewsets.ModelViewSet):
 
         start_date = request.query_params.get('start_date')
         end_date = request.query_params.get('end_date')
-        
+               
         if start_date and end_date:
-            diets = Diet.objects.filter(user=user, day__in=self.get_dates_between(start_date,end_date))
+            named_days = [day for days in self.get_dates_between(start_date, end_date) for day in days.values()]
+            days_to_query = [day[0] for day in self.DAY_LIST if day[1] in named_days]
+            diets = Diet.objects.filter(user=user, is_active=True, day__in=days_to_query)
         else:
             diets = Diet.objects.filter(user=user)
         
@@ -71,15 +83,14 @@ class DietView(viewsets.ModelViewSet):
         start_date = datetime.strptime(start_day_str, '%Y-%m-%d')
         end_date = datetime.strptime(end_day_str, '%Y-%m-%d')
 
-        dates_list = [start_date.strftime('%Y-%m-%d')]
-        
+        dates_list = [{start_date.strftime('%Y-%m-%d'):start_date.date().strftime("%A")}]
 
         current_date = start_date + timedelta(days=1)
         while current_date < end_date:
-            dates_list.append(current_date.strftime('%Y-%m-%d'))
+            dates_list.append({current_date.strftime('%Y-%m-%d'):current_date.strftime("%A")})
             current_date += timedelta(days=1)
 
-        dates_list.append(end_date.strftime('%Y-%m-%d'))
+        dates_list.append({end_date.strftime('%Y-%m-%d'):end_date.strftime("%A")})
 
         return dates_list
     
@@ -89,7 +100,7 @@ class DietView(viewsets.ModelViewSet):
         if not diets.exists():
             return Response({'weeks_count': 0, 'diet_days': []})
 
-        days = self.get_dates_between(str(diets[0].start_diet_date),str(diets[0].end_diet_date))
+        days = [date for day in self.get_dates_between(str(diets[0].start_diet_date),str(diets[0].end_diet_date)) for date in day.items()]
 
         # weeks_count rounded up to easier get weeks count 
         weeks_count = math.ceil(len(days)/7)
@@ -98,13 +109,12 @@ class DietView(viewsets.ModelViewSet):
     
     @staticmethod
     def calculate_meal_calories(meal):
-        total_calories = 0
-        if meal:
-            for ingredient in meal.ingredients.all():
-                quantity = ingredient.quantity
-                calories_per_100g = float(ingredient.product.calories)
-                total_calories += (quantity * calories_per_100g) / 100
-        return total_calories
+        if not meal:
+            return 0
+        return sum(
+            (ingredient.quantity * float(ingredient.product.calories))/100
+            for ingredient in meal.ingredients.all()
+        )
     
     @classmethod
     def calculate_weekly_calories(cls, data):
