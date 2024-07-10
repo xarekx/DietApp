@@ -46,13 +46,15 @@ export function DietsData() {
       };
 
     const generateDate = (dateArray, dietsArray, weekNumber) => {
+        console.log(dateArray);
         const weekNum = parseInt(weekNumber.split(" ")[1], 10);
         const start = (weekNum - 1) * 7;
         const end = weekNum * 7;
+
         return dateArray.slice(start, end).map((item, index) => (
             <>
             <div className="flex flex-col">
-                <span className="font-bold text-base rounded-md pb-2 pt-2 mb-4 border-[1px] border-slate-400" key={index}>{item}</span>
+                <span className="font-bold text-base rounded-md pb-2 pt-2 mb-4 border-[1px] border-slate-400" key={index}>{item[0]}</span>
                 <div className="flex flex-col border-dotted border-r-[1px] gap-y-4">
                         
                         <div className="flex lg:flex-col rounded shadow-lg md:text-xs border-[1px] border-slate-300">

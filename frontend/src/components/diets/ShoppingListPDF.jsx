@@ -86,6 +86,7 @@ const validDate = (date) => {
 const fetchProductsInCalendarRange = useFetch(`http://127.0.0.1:8000/api/diets/products-by-day/?start_date=${validDate(startDate)}&end_date=${validDate(endDate)}`,'GET');
 
 const handleFetchProducts = () => {
+  console.log("a")
   fetchProductsInCalendarRange()
     .then(res =>res.json())
     .then(data => setIngredientsData(data))

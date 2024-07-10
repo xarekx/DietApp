@@ -27,8 +27,6 @@ export function DietPlanPDF() {
       ]
     })
 
-    console.log(dietPlan.map((dietDay, index) => (console.log(dietDay))));
-
   const styles = StyleSheet.create({
       page:{
           padding: 30,
