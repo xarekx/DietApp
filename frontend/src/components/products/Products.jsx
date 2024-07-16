@@ -19,12 +19,14 @@ export function ProductsData() {
     const [toggleModal, setToggleModal] = useState(false);
     const [selectedForm, setSelectedForm] = useState('');
 
+
     const [form, setForm] = useState(useState({
         name: "",
         protein: 0,
         carbohydrates: 0,
         fat: 0,
-        calories: 0
+        calories: 0,
+        category: 0
     }))
 
     const updatedFields = getUpdatedFields(form, selectedProduct);
@@ -33,7 +35,7 @@ export function ProductsData() {
     const fetchDeleteProduct = useFetch(`http://127.0.0.1:8000/api/products/${selectedProduct.id}`, "DELETE");
     const fetchUpdateProduct = useFetch(`http://127.0.0.1:8000/api/products/${selectedProduct.id}/`, "PATCH", updatedFields);
     const fetchAddProduct = useFetch(`http://127.0.0.1:8000/api/products/`, "POST", 
-        {name: form.name, protein: form.protein, carbohydrates: form.carbohydrates, fat: form.fat, calories: form.calories});
+        {name: form.name, protein: form.protein, carbohydrates: form.carbohydrates, fat: form.fat, calories: form.calories, category: form.category});
     
     useEffect(()=> {
         fetchProductsData()
@@ -163,10 +165,11 @@ export function ProductsData() {
                     <tr className="text-xm font-bold border-b-[1px] border-slate-100 bg-slate-200">
                         {/* table headers */}
                         <th className="text-start ps-4 max-w-1/3 md:w-1/2">Name</th>
-                        <th className="text-start p-2 max-w-3/12">Protein</th>
-                        <th className="text-start p-2 max-w-3/12">Carbs</th>
-                        <th className="text-start p-2 max-w-3/12">Fat</th>
-                        <th className="text-start p-2 max-w-3/12">Calories</th>
+                        <th className="text-start p-2 ">Protein</th>
+                        <th className="text-start p-2 ">Carbs</th>
+                        <th className="text-start p-2 ">Fat</th>
+                        <th className="text-start p-2 ">Calories</th>
+                        <th className="text-start p-2 ">Category</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -182,6 +185,7 @@ export function ProductsData() {
                                     <td className="p-2">{product.carbohydrates}</td>
                                     <td className="p-2">{product.fat}</td>
                                     <td className="p-2">{product.calories}</td>
+                                    <td className="p-2">{product.category_name}</td>
                                     {/* dropdown dots */}
                                     <td className="text-xl">
                                         <HiDotsHorizontal className="md:h-[2rem] md:w-[1.5em] md:me-auto md:ms-auto hover:shadow-md hover:shadow-slate-200 hover:rounded-md hover:cursor-pointer me-2" onClick={()=> clickHandler(index)}/>
@@ -201,6 +205,7 @@ export function ProductsData() {
                                     <td className="p-2">{product.carbohydrates}</td>
                                     <td className="p-2">{product.fat}</td>
                                     <td className="p-2">{product.calories}</td>
+                                    <td className="p-2">{product.category_name}</td>
                                     {/* dropdown dots */}
                                     <td className="text-xl">
                                         <HiDotsHorizontal className="md:h-[2rem] md:w-[1.5em] md:me-auto md:ms-auto hover:shadow-md hover:shadow-slate-200 hover:rounded-md hover:cursor-pointer me-2" onClick={()=> clickHandler(index)}/>
