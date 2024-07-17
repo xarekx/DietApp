@@ -103,15 +103,14 @@ export function ProductsData() {
             if(!res.ok) {
                 console.log(res.json());
                 throw new Error('Something went wrong');
-            } else 
-            res.json()
-        })
-        .then(data => {
-            // Update the products state with the new product
-            setProducts([...products, data]);
-            // hide modal after add new product
-            setToggleModal(false);
-            
+            } else {
+                res.json()
+                fetchProductsData()
+                    .then(res =>res.json())
+                    .then(data => setProducts(data))
+                    .catch(error => console.error('Error fetching products: ', error));
+                handleCloseModal(false);
+            }
         })
         .catch(error => {
             console.error('Error adding product:', error);
