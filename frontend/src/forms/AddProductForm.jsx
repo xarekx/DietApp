@@ -51,21 +51,21 @@ export function AddProductForm({form, handleAddProduct, handleChange, sendModalS
                 {/*body*/}
                 <div className="relative pb-10 ps-10 pe-10 pt-4 flex-auto">
                   <form onSubmit={(event)=> handleAddProduct(event)} className="flex flex-col gap-1">
-                    <TextField id="name" label="Name" variant="standard" value={form.name} onChange={handleChange} />
-                    <TextField id="protein" label="Protein" variant="standard" value={form.protein} onChange={handleChange} type="number"/>
-                    <TextField id="carbohydrates" label="Carbohydrates" variant="standard" value={form.carbohydrates} onChange={handleChange} type="number" />
-                    <TextField id="fat" label="Fat" variant="standard" value={form.fat} onChange={handleChange} type="number"/>
-                    <TextField id="calories" label="Calories" variant="standard" value={form.calories} onChange={handleChange} type="number" />
+                    <TextField id="name" label="Name" variant="outlined" value={form.name} onChange={handleChange} size="small" margin="dense" />
+                    <TextField id="protein" label="Protein" variant="outlined" value={form.protein} onChange={handleChange} type="number" size="small" margin="dense" />
+                    <TextField id="carbohydrates" label="Carbohydrates" variant="outlined" value={form.carbohydrates} onChange={handleChange} type="number" size="small" margin="dense" />
+                    <TextField id="fat" label="Fat" variant="outlined" value={form.fat} onChange={handleChange} type="number" size="small" margin="dense" />
+                    <TextField id="calories" label="Calories" variant="outlined" value={form.calories} onChange={handleChange} type="number" size="small" margin="dense" />
                     <FormControl fullWidth margin="normal">
-                      <InputLabel id="category">Category</InputLabel>
-                      <Select id="category" label="category" value={selectedProductCategory} onChange={handleChangeCategory}>
+                      <InputLabel id="category" size="small" >Category</InputLabel >
+                      <Select id="category" label="category" value={selectedProductCategory} onChange={handleChangeCategory} size="small" >
                         {productCategory.map((productCategory, index) => (
                           <MenuItem value={productCategory.id} key={index}>
                             {productCategory.name}
                           </MenuItem>))}
                       </Select>
                     </FormControl>
-                    <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                    <div className="flex items-center justify-end p-6 rounded-b">
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
