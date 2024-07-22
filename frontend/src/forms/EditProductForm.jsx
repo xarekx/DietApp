@@ -1,4 +1,5 @@
 import { useState } from "react"
+import TextField from '@mui/material/TextField';
 
 export function EditProductForm({handleUpdateProduct, product, form, handleChange, sendModalStatusToParent}) {
 
@@ -22,25 +23,20 @@ export function EditProductForm({handleUpdateProduct, product, form, handleChang
                             </div>
                             {/*body*/}
                             <div className="relative p-6 flex-auto">
-                                <form onSubmit={(event)=> handleUpdateProduct(event, product.id)} className="flex flex-col">
-                                    <label htmlFor="name">Name</label>
-                                    <input id="name" type="text" defaultValue={product.name} onChange={handleChange} className="bg-slate-100"></input>
-                                    <label htmlFor="protein">Protein</label>
-                                    <input id="protein" type="number" defaultValue={product.protein} onChange={handleChange} className="bg-slate-100"></input>
-                                    <label htmlFor="carbohydrates">Carbohydrates</label>
-                                    <input id="carbohydrates" type="number" defaultValue={product.carbohydrates} onChange={handleChange} className="bg-slate-100"></input>
-                                    <label htmlFor="fat">Fat</label>
-                                    <input id="fat" type="number" defaultValue={product.fat} onChange={handleChange} className="bg-slate-100"></input>
-                                    <label htmlFor="calories">Calories</label>
-                                    <input id="calories" type="number" defaultValue={product.calories} onChange={handleChange} className="bg-slate-100"></input>
-                                    <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                                <form onSubmit={(event)=> handleUpdateProduct(event, product.id)} className="flex flex-col w-[300px]">
+                                    <TextField id="name" label="Name" defaultValue={product.name} onChange={handleChange} size="small" margin="normal"/>
+                                    <TextField id="protein" label="Protein" defaultValue={product.protein} onChange={handleChange} size="small" margin="normal" type="number"/>
+                                    <TextField id="carbohydrates" label="Carbohydrates" defaultValue={product.carbohydrates} onChange={handleChange} size="small" margin="normal" type="number"/>
+                                    <TextField id="fat" label="Fat" defaultValue={product.fat} onChange={handleChange} size="small" margin="normal" type="number"/>
+                                    <TextField id="calories" label="Calories" defaultValue={product.calories} onChange={handleChange} size="small" margin="normal" type="number"/>
+                                    <div className="flex items-center justify-end p-6 rounded-b">
                                         <button
-                                            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 h-[40px] text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="button" onClick={closeModal}>
                                             Close
                                         </button>
                                         <button
-                                            className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                            className="bg-emerald-500 text-white h-[40px] active:bg-emerald-600 font-bold uppercase text-sm px-6 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                             type="submit">
                                             Save Changes
                                         </button>

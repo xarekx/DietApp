@@ -1,4 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import { useFetch } from "../hooks/useFetch";
+
 
 export function AddProductForm({form, handleAddProduct, handleChange, sendModalStatusToParent}) {
 
@@ -7,7 +14,28 @@ export function AddProductForm({form, handleAddProduct, handleChange, sendModalS
   function closeModal() {
       sendModalStatusToParent(closeModalStatus);
   }
+
+  const [productCategory, setProductCategory] = useState([]);
+  const [selectedProductCategory, setSelectedProductCategory ] = useState("");
+
+  const fetchCategories = useFetch("http://127.0.0.1:8000/api/product_category/", "GET");
+
+    useEffect(()=>{
+        fetchCategories()
+        .then(res => res.json())
+        .then(data => setProductCategory(data))
+        .catch(error => console.error("Error fetching product category", error))
+        // eslint-disable-next-line
+    },[])
   
+  
+  const handleChangeCategory = (event) => {
+    const selectedCategory = event.target.value;
+    setSelectedProductCategory(selectedCategory);
+    console.log(selectedCategory);
+    handleChange({ target: { id: "category", value: selectedCategory } });
+  }
+
   return (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -21,19 +49,23 @@ export function AddProductForm({form, handleAddProduct, handleChange, sendModalS
                   </h3>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <form onSubmit={(event)=> handleAddProduct(event)} className="flex flex-col">
-                    <label htmlFor="name">Name</label>
-                    <input id="name" type="text" value={form.name} onChange={handleChange} className="bg-slate-100"></input>
-                    <label htmlFor="protein">Protein</label>
-                    <input id="protein" type="number" value={form.protein} onChange={handleChange} className="bg-slate-100"></input>
-                    <label htmlFor="carbohydrates">Carbohydrates</label>
-                    <input id="carbohydrates" type="number" value={form.carbohydrates} onChange={handleChange} className="bg-slate-100"></input>
-                    <label htmlFor="fat">Fat</label>
-                    <input id="fat" type="number" value={form.fat} onChange={handleChange} className="bg-slate-100"></input>
-                    <label htmlFor="calories">Calories</label>
-                    <input id="calories" type="number" value={form.calories} onChange={handleChange} className="bg-slate-100"></input>
-                    <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <div className="relative pb-10 ps-10 pe-10 pt-4 flex-auto">
+                  <form onSubmit={(event)=> handleAddProduct(event)} className="flex flex-col gap-1">
+                    <TextField id="name" label="Name" variant="outlined" value={form.name} onChange={handleChange} size="small" margin="dense" />
+                    <TextField id="protein" label="Protein" variant="outlined" value={form.protein} onChange={handleChange} type="number" size="small" margin="dense" />
+                    <TextField id="carbohydrates" label="Carbohydrates" variant="outlined" value={form.carbohydrates} onChange={handleChange} type="number" size="small" margin="dense" />
+                    <TextField id="fat" label="Fat" variant="outlined" value={form.fat} onChange={handleChange} type="number" size="small" margin="dense" />
+                    <TextField id="calories" label="Calories" variant="outlined" value={form.calories} onChange={handleChange} type="number" size="small" margin="dense" />
+                    <FormControl fullWidth margin="normal">
+                      <InputLabel id="category" size="small" >Category</InputLabel >
+                      <Select id="category" label="category" value={selectedProductCategory} onChange={handleChangeCategory} size="small" >
+                        {productCategory.map((productCategory, index) => (
+                          <MenuItem value={productCategory.id} key={index}>
+                            {productCategory.name}
+                          </MenuItem>))}
+                      </Select>
+                    </FormControl>
+                    <div className="flex items-center justify-end p-6 rounded-b">
                       <button
                         className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                         type="button"
