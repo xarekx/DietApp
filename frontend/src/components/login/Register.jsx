@@ -41,7 +41,6 @@ export function UserRegister() {
         <form onSubmit={(e) => handleRegister(e)}>
             <Box
             sx={{
-                width: 300,
                 maxWidth: '100%',
               }}>
                 <TextField fullWidth margin="normal" label="Email" id="email" variant="outlined" size="small" onChange={(e)=> setEmail(e.target.value)}

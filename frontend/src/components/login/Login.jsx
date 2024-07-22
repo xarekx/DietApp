@@ -44,7 +44,6 @@ return (
       <form onSubmit={(e) => handleLogin(e)}>
         <Box
           sx={{
-            width: 300,
             maxWidth: '100%',
           }}
         >

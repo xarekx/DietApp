@@ -99,7 +99,7 @@ function App() {
                   ( 
                     (<>
                       <div className="text-gray-800 text-sm mr-4" id="username">{username}</div> 
-                      <Link to={'/logout'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm" onClick={(e)=>handleLogout(e)}>Logout</Link> 
+                      <Link to={'/login'} className="bg-indigo-600 px-4 py-2 rounded text-white hover:bg-indigo-500 text-sm" onClick={(e)=>handleLogout(e)}>Logout</Link> 
                     </>)):
                   (<>
                       <Link to={'/login'} className="text-gray-800 text-sm mr-4" onClick={() => setToggleMenu(false)}>LOGIN</Link> 
