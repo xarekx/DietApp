@@ -4,6 +4,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useFetch } from "../hooks/useFetch";
+import SearchIcon from '@mui/icons-material/Search';
+import { InputAdornment, TextField } from "@mui/material";
 
 
 export function AddRecipeForm() {
@@ -13,6 +15,7 @@ export function AddRecipeForm() {
         ingredients: [] 
     })
 
+    
     
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState(products);
@@ -35,8 +38,8 @@ export function AddRecipeForm() {
 
     const clearInputs = () => {
         
-        const productInput = document.getElementById("filterIngredients");
-        const quantityInput = document.getElementById("quantityInput");
+        const productInput = document.getElementById("products");
+        const quantityInput = document.getElementById("quantity");
         productInput.value = "";
         quantityInput.value = 0;
     }
@@ -60,7 +63,7 @@ export function AddRecipeForm() {
         if (event.target.value === '' ){
             setFilteredProducts([])
         } else {
-            setFilteredProducts(products.filter(d => (d.name.toLowerCase().startsWith(event.target.value))));
+            setFilteredProducts(products.filter(d => (d.name.toLowerCase().startsWith((event.target.value).toLowerCase()))));
         }
         
     }
@@ -166,40 +169,33 @@ export function AddRecipeForm() {
     return (
     <div className="flex flex-row md:ms-auto md:me-auto w-full m-2 md:w-2/3 mt-10 rounded-t shadow-xl bg-white h-fit">
         <div className="flex flex-col w-full">
-            <form className="text-black font-medium">
-                <div className="flex flex-col">
-                    <label htmlFor="title" 
-                    className="ms-3 mt-2 mb-1 text-sm">Recipe Name</label>
-                    
-                    <input id="title" type="text"
-                    className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md" placeholder="Recipe Name" onChange={handleTitleChange}>
-                    </input>
-
+            <form className="text-black font-medium flex flex-col m-4">
+                <TextField size="small" variant="outlined" label="Recipe Name" id="title" margin="normal" onChange={handleTitleChange} fullWidth/> 
+                <div className="flex flex-row gap-2">
+                    <div className="w-full">
+                        <TextField sx={{marginTop:2}} size="small" variant="outlined" label="Products" id="products" onChange={handleFilter} fullWidth value={productValue.name} onClick={() => setProductValue("")}
+                        InputProps={{
+                            startAdornment:(
+                                <InputAdornment position="start">
+                                    <SearchIcon/>
+                                </InputAdornment>
+                            )
+                        }}/>
+                            <div className="relative">
+                                <ul className="absolute w-full rounded-b-lg bg-slate-100">
+                                {filteredProducts.map((product) => {
+                                    return(
+                                    <li className="border-b-[1px] border-cyan-600 p-2 hover:bg-indigo-200 " key={product.id} onClick={()=>handleUpdateIngredientsList(product)}>{product.name}</li>
+                                    )})}
+                                </ul>
+                            </div>
+                    </div>
+                    <TextField label="Quantity" type="number" margin="normal" id="quantity" variant="outlined" size="small" defaultValue={0} onChange={(e)=> setQuantityValue(e.target.value)}/>
                 </div>
-                <div className="flex flex-col float-start w-2/3">
-                    <label htmlFor="filterIngredients" 
-                    className="ms-3 mt-2 mb-1 text-sm">Products</label>
-
-                    <input id="filterIngredients" 
-                    className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md float-start" placeholder="Products" type="text" onChange={handleFilter} autoComplete="off" value={productValue.name}/>
-                        <div className="relative">
-                            <ul className="absolute w-2/3">
-                            {filteredProducts.map((product) => {
-                                return(
-                                <li className="bg-white p-2" key={product.id} onClick={()=>handleUpdateIngredientsList(product)}>{product.name}</li>
-                                )})}
-                            </ul>
-                        </div>
-                </div>
-                <div className="flex flex-col w-1/3 float-right">
-                    <label htmlFor="quantity" className="ms-3 mt-2 mb-1 text-sm">Quantity</label>   
-                    <input id="quantityInput" type="number" placeholder="Quantity" onChange={(e)=> setQuantityValue(e.target.value)} defaultValue={0} 
-                    className="outline-blue-500 me-3 ps-3 p-1 ms-3 border border-slate-400 rounded-md"/>
-                </div>
-                <button className="text-xs md:text-sm text-white border float-right m-3 p-2 rounded-md bg-emerald-500 hover:shadow-md" onClick={(e)=> handleIngredients(e,productValue,quantityValue)}>Add Ingredient</button>
+                <button className="text-xs md:text-sm text-white border float-right mt-2 p-2 rounded-md bg-emerald-500 hover:shadow-md" onClick={(e)=> handleIngredients(e,productValue,quantityValue)}>Add Ingredient</button>
             </form>
             <div className="font-medium text-md mb-4 h-40 md:min-h-80">
-                <span className="ms-3">
+                <span className="ms-4">
                     Ingredients List
                 </span>
                 <table className="w-full border text-black">
@@ -276,7 +272,7 @@ export function AddRecipeForm() {
             Recipe created
             </Alert>
             )
-            :null}     
+            :null }   
         </div>   
     </div>)
 }
