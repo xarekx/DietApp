@@ -35,7 +35,7 @@ export function UserRegister() {
     }
 
     return (
-    <div className="flex h-[70vh] justify-center items-center me-auto ms-auto">
+    <div className="flex h-[70vh] justify-center items-center login-center">
         <div className="py-6 px-4 h-100 mt-20 bg-white rounded shadow-xl w-[85vw] sm:w-[65vw] md:w-[45vw] lg:w-[30vw] 2xl:w-[20vw]">
         <span className="flex justify-center text-base mb-4"><b>Create your Account</b></span>
         <form onSubmit={(e) => handleRegister(e)}>
