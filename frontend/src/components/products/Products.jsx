@@ -6,9 +6,12 @@ import { MdNavigateBefore } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { DeleteProductForm } from "../../forms/DeleteProductForm";
 import { EditProductForm } from "../../forms/EditProductForm";
-import { FaPlus } from "react-icons/fa";
 import { useFetch } from "../../hooks/useFetch";
 import { getUpdatedFields } from "../../utils/getUpdatedFields";
+import { Button} from "@mui/material";
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import CustomTextField from "../../utils/generic/CustomTextField";
+import CustomFilterButton from "../../utils/generic/CustomFilterButton";
 
 export function ProductsData() {
 
@@ -18,6 +21,7 @@ export function ProductsData() {
     const [selectedProduct, setSelectedProduct ] = useState([]);
     const [toggleModal, setToggleModal] = useState(false);
     const [selectedForm, setSelectedForm] = useState('');
+    const [filteredProducts, setFilteredProducts] = useState([])
 
 
     const [form, setForm] = useState(useState({
@@ -40,15 +44,18 @@ export function ProductsData() {
     useEffect(()=> {
         fetchProductsData()
         .then(res =>res.json())
-        .then(data => setProducts(data))
+        .then(data => {
+            setProducts(data)
+            setFilteredProducts(data)
+            })
         .catch(error => console.error('Error fetching products: ', error));
         // eslint-disable-next-line
     },[])
 
     // variables to pagination
     const itemsPerPage = 15;
-    const currentItems = products.slice(itemOffset, itemOffset + itemsPerPage);
-    const pageCount = Math.ceil(products.length / itemsPerPage);
+    const currentItems = filteredProducts.slice(itemOffset, itemOffset + itemsPerPage);
+    const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
 
     // Create pages based on items per page
     const handlePageClick = (event) => {
@@ -146,22 +153,40 @@ export function ProductsData() {
         setToggleModal(modalStatus);
       }
 
+      const handleFilter = (event) => {
+        const query = event.target.value.toLowerCase();
+        if (query === '' ){
+            setFilteredProducts(products)
+        } else {
+            setFilteredProducts(products.filter(d => (d.name.toLowerCase().startsWith((event.target.value).toLowerCase()))));
+        }
+        
+    }
+
     return (
         <>
+        <div className="flex flex-col w-full">
+            <div className="flex flex-row border-b-[1px] border-slate-400 md:w-2/3 ms-auto me-auto text-[#6E6893] font-bold justify-between mt-4 pb-2">
+                <span className="text-sm md:text-xl">Products</span>
+                <span className="md:text-xl">Total products: {products.length}</span>
+            </div>
         <div className="flex flex-col md:ms-auto md:me-auto w-full md:w-2/3 mt-10 rounded-t shadow-sm md:shadow-xl bg-white h-fit text-xs md:text-sm m-2">
+            
             {/* Content header */}
-            <div className="flex justify-between p-3 md:p-4">
-                <span className="text-sm md:text-xl font-bold">Products</span>
+            <div className="flex justify-between p-3 md:p-4 gap-4">
+                <div className="flex w-1/2 gap-4">
+                    <CustomFilterButton />
+                    <CustomTextField onChange={handleFilter} />
+                </div>
                 <div className="flex text-center">
-                    <button className="flex items-center gap-2 ps-2 pe-2 pt-1 pb-1 border border-slate-400 shadow-sm rounded-md hover:cursor-pointer hover:shadow-md" 
-                    onClick={(event) => {setSelectedForm(event.currentTarget.textContent); setToggleModal(true); setToggleDropdown(false);}}>
-                        <FaPlus className="w-3 h-3 text-slate-500"/>New
-                    </button>
+                    <Button variant="contained" color="success" startIcon={<AddOutlinedIcon />}
+                    onClick={(event) => {setSelectedForm(event.currentTarget.textContent); setToggleModal(true); setToggleDropdown(false);}}>New
+                    </Button>
                 </div>
             </div>
             <table className="table-auto">
                 <thead>
-                    <tr className="text-xm font-bold border-b-[1px] border-slate-100 bg-slate-200">
+                    <tr className="text-sm font-semibold  border-b-[1px] border-t-[1px] border-slate-300 bg-[#F4F2FF] text-[#6E6893]">
                         {/* table headers */}
                         <th className="text-start ps-4 max-w-1/3 md:w-1/2">Name</th>
                         <th className="text-start p-2 ">Protein</th>
@@ -177,9 +202,9 @@ export function ProductsData() {
                         return (
                             <>
                             {index%2===0 ? 
-                                <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100" key={index}>
+                                <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-300 hover:bg-[#F4F2FF] font-medium" key={index}>
                                     {/* table content */}                     
-                                    <td className="ps-4">{product.name}</td>
+                                    <td className="ps-4 pt-1">{product.name}</td>
                                     <td className="p-2">{product.protein}</td>
                                     <td className="p-2">{product.carbohydrates}</td>
                                     <td className="p-2">{product.fat}</td>
@@ -197,7 +222,7 @@ export function ProductsData() {
                                     </td> 
                                 </tr>
                                 :
-                                <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-100 bg-slate-50" key={index}>
+                                <tr className="text-start hover:text-slate-600 border-b-[1px] border-slate-300 bg-slate-50 hover:bg-[#F4F2FF] font-medium" key={index}>
                                     {/* table content */}
                                     <td className="ps-4">{product.name}</td>
                                     <td className="p-2">{product.protein}</td>
@@ -233,7 +258,7 @@ export function ProductsData() {
                 <AddProductForm handleAddProduct={handleAddProduct} form={form} handleChange={handleChange} sendModalStatusToParent={handleCloseModal}/>
             ) : false
             }
-
+            
             <ReactPaginate
                 breakLabel="..."
                 nextLabel={<MdNavigateNext className="border w-[42px] h-[22px] md:w-[43px] md:h-[29px] text-sm md:text-2xl hover:shadow-md rounded-md"/>}
@@ -243,8 +268,10 @@ export function ProductsData() {
                 pageClassName="border ps-4 pe-4 rounded-md hover:shadow-md"
                 previousLabel={<MdNavigateBefore className="border w-[42px] h-[22px] md:w-[43px] md:h-[29px] text-sm md:text-2xl hover:shadow-md rounded-md"/>}
                 renderOnZeroPageCount={null}
-                className="flex justify-center text-sm md:text-lg items-center gap-2 mb-2 mt-2"
+                activeClassName="bg-[#ddd9f1]"
+                className="flex justify-center text-sm md:text-lg items-center gap-2 pt-2 pb-2 bg-[#F4F2FF] border-t-[1px]"
             />
+        </div>
         </div>
         </>
     )
