@@ -45,16 +45,15 @@ export function ProductsData() {
         fetchProductsData()
         .then(res =>res.json())
         .then(data => {
-            setProducts(data)
-            setFilteredProducts(data)
+            setFilteredProducts(data);
+            setProducts(data);
             })
         .catch(error => console.error('Error fetching products: ', error));
         // eslint-disable-next-line
     },[])
-
     // variables to pagination
     const itemsPerPage = 15;
-    const currentItems = filteredProducts.slice(itemOffset, itemOffset + itemsPerPage);
+    const currentItems = (filteredProducts.slice(itemOffset, itemOffset + itemsPerPage));
     const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
 
     // Create pages based on items per page
@@ -151,17 +150,28 @@ export function ProductsData() {
 
     const handleCloseModal = (modalStatus) => {
         setToggleModal(modalStatus);
-      }
+    };
 
-      const handleFilter = (event) => {
+    // filtering 
+    const handleFilter = (event) => {
         const query = event.target.value.toLowerCase();
         if (query === '' ){
             setFilteredProducts(products)
         } else {
             setFilteredProducts(products.filter(d => (d.name.toLowerCase().startsWith((event.target.value).toLowerCase()))));
         }
-        
-    }
+    };
+
+    // 
+    const handleSortBy = (sortOption) => {
+        let sortedProducts = [...filteredProducts]; // creating copy of the array to sort
+        if (sortOption === "category") {
+            sortedProducts.sort((a, b) => a.category_name.localeCompare(b.category_name));
+        } else if (sortOption === "name") {
+            sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        setFilteredProducts(sortedProducts); // set sorted array to the useState
+    };
 
     return (
         <>
@@ -175,7 +185,7 @@ export function ProductsData() {
             {/* Content header */}
             <div className="flex justify-between p-3 md:p-4 gap-4">
                 <div className="flex w-1/2 gap-4">
-                    <CustomFilterButton />
+                    <CustomFilterButton sortOption={handleSortBy} />
                     <CustomTextField onChange={handleFilter} />
                 </div>
                 <div className="flex text-center">
