@@ -22,6 +22,7 @@ import BakeryDiningOutlinedIcon from '@mui/icons-material/BakeryDiningOutlined';
 import GridOnOutlinedIcon from '@mui/icons-material/GridOnOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import { CreateDietPlan } from "./components/diets/CreateDietPlan";
 
 function App() {
   const [recipeToggle, recipeSetToggle] = useState(false);
@@ -152,6 +153,10 @@ function App() {
                   <Link to={'/diets'} className="nav-link" onClick={() => { recipeSetToggle(false); setToggleMenu(false); }}>
                     <CalendarMonthOutlinedIcon className="mr-2" fontSize="medium" /> Diets</Link>
                 </li>
+                <li>
+                  <Link to={'/diets/create'} className="nav-link" onClick={() => { recipeSetToggle(false); setToggleMenu(false); }}>
+                  Create Diet</Link>
+                </li>
               </ul>
             </nav>
             <Routes>
@@ -165,6 +170,7 @@ function App() {
               <Route path='/register' element={<UserRegister />} />
               <Route path='/diets' element={<DietsData />} />
               <Route path='/logout' element={<UserLogin />} />
+              <Route path='/diets/create' element={<CreateDietPlan />} />
             </Routes>
           </div>
         </main>
