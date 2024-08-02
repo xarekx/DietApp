@@ -1,8 +1,8 @@
 from .models import Diet
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import viewsets
-from .serializers import DietSerializer
+from rest_framework import viewsets, status
+from .serializers import DietSerializer, DietCreateSerializer
 from rest_framework.permissions import IsAuthenticated
 from datetime import datetime, timedelta
 import math
@@ -76,7 +76,7 @@ class DietView(viewsets.ModelViewSet):
 
         } for category, products in grouped_by_category.items()]
 
-        return Response(grouped_ingredients_sum_list)
+        return Response(grouped_ingredients_sum_list, status=status.HTTP_200_OK)
 
     @staticmethod
     def get_dates_between(start_day_str, end_day_str):
@@ -98,14 +98,14 @@ class DietView(viewsets.ModelViewSet):
     def count_weeks(self, request):
         diets = self.get_queryset()
         if not diets.exists():
-            return Response({'weeks_count': 0, 'diet_days': []})
+            return Response({'weeks_count': 0, 'diet_days': []}, status=status.HTTP_404_NOT_FOUND)
 
         days = [date for day in self.get_dates_between(str(diets[0].start_diet_date),str(diets[0].end_diet_date)) for date in day.items()]
 
         # weeks_count rounded up to easier get weeks count 
         weeks_count = math.ceil(len(days)/7)
     
-        return Response({'weeks_count': weeks_count, 'diet_days': days})
+        return Response({'weeks_count': weeks_count, 'diet_days': days}, status=status.HTTP_200_OK)
     
     @staticmethod
     def calculate_meal_calories(meal):
@@ -142,6 +142,15 @@ class DietView(viewsets.ModelViewSet):
     def diet_plan(self, request):
         diets = self.get_queryset()
         if not diets.exists():
-            return Response({})
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
 
-        return Response(self.calculate_weekly_calories(diets))
+        return Response(self.calculate_weekly_calories(diets), status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['post'], url_path='create-diet-plan')
+    def create_diet_plan(self, request):
+        serializer = DietCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            created_diets = serializer.save()
+            return Response({'diets': DietSerializer(created_diets, many=True).data}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

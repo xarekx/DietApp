@@ -36,7 +36,7 @@ export function UserLogin({userStatus}) {
   }
   
 return (
-    <div className="flex h-[70vh] justify-center items-center me-auto ms-auto">
+    <div className="flex h-[70vh] justify-center items-center login-center">
     <div className="py-6 px-4 h-80 bg-white rounded shadow-xl w-[85vw] sm:w-[65vw] md:w-[45vw] lg:w-[30vw] 2xl:w-[20vw]">
       <span className="flex justify-center mb-4 text-base">
         <b>Login to your Account</b>

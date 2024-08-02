@@ -113,7 +113,7 @@ export function DietPlanPDF() {
 
     return(<>
         <PDFDownloadLink document={<DietPlanDocument/>} fileName="diet-plan.pdf" className="bg-emerald-600 px-4 py-2 rounded text-white hover:bg-emerald-500 text-sm w-fit mt-[3vw] lg:mt-[2vw] ms-auto" onClick={fetchDietPlan}>
-            {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download Diet')}
+            {({ blob, url, loading, error }) => ('Download Diet')}
         </PDFDownloadLink>  
     </>)
 }
