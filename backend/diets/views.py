@@ -2,7 +2,7 @@ from .models import Diet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import viewsets, status
-from .serializers import DietSerializer
+from .serializers import DietSerializer, DietCreateSerializer
 from rest_framework.permissions import IsAuthenticated
 from datetime import datetime, timedelta
 import math
@@ -145,13 +145,12 @@ class DietView(viewsets.ModelViewSet):
             return Response({}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(self.calculate_weekly_calories(diets), status=status.HTTP_200_OK)
-    
-    @action(detail=False, methods=['POST'], url_path='create-diet-plan')
-    def create_diet_plan(self, request):
-        data = request.data.copy()
 
-        serializer = DietSerializer(data=data)
+    @action(detail=False, methods=['post'], url_path='create-diet-plan')
+    def create_diet_plan(self, request):
+        serializer = DietCreateSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            created_diets = serializer.save()
+            return Response({'diets': DietSerializer(created_diets, many=True).data}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
