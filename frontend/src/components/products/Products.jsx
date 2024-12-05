@@ -22,6 +22,7 @@ export function ProductsData() {
     const [toggleModal, setToggleModal] = useState(false);
     const [selectedForm, setSelectedForm] = useState('');
     const [filteredProducts, setFilteredProducts] = useState([])
+    const [currentPage, setCurrentPage] = useState(0);
 
 
     const [form, setForm] = useState(useState({
@@ -58,7 +59,9 @@ export function ProductsData() {
 
     // Create pages based on items per page
     const handlePageClick = (event) => {
-        const newOffset = (event.selected * itemsPerPage) % products.length;
+        const newOffset = (event.selected * itemsPerPage) % filteredProducts.length;
+        // update current page
+        setCurrentPage(event.selected);
         setItemOffset(newOffset);
         setToggleDropdown(false);
     };
@@ -158,8 +161,10 @@ export function ProductsData() {
         if (query === '' ){
             setFilteredProducts(products)
         } else {
-            setFilteredProducts(products.filter(d => (d.name.toLowerCase().startsWith((event.target.value).toLowerCase()))));
+            setFilteredProducts(products.filter(d => (d.name.toLowerCase().startsWith(query))));
         }
+        setItemOffset(0);
+        setCurrentPage(0);
     };
 
     // 
@@ -280,6 +285,7 @@ export function ProductsData() {
                 renderOnZeroPageCount={null}
                 activeClassName="bg-[#ddd9f1]"
                 className="flex justify-center text-sm md:text-lg items-center gap-2 pt-2 pb-2 bg-[#F4F2FF] border-t-[1px]"
+                forcePage={currentPage}
             />
         </div>
         </div>
