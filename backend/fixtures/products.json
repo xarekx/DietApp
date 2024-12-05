@@ -862,5 +862,1061 @@
         "calories": "40.00",
         "category": 5
     }
+},
+{
+    "model": "product.product",
+    "pk": 73,
+    "fields": {
+        "name": "Bataty",
+        "protein": "1.60",
+        "carbohydrates": "20.00",
+        "fat": "0.10",
+        "calories": "86.00",
+        "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 74,
+    "fields": {
+        "name": "Bakłażan",
+        "protein": "1.00",
+        "carbohydrates": "6.00",
+        "fat": "0.20",
+        "calories": "25.00",
+        "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 75,
+    "fields": {
+        "name": "Kasza jaglana",
+    "protein": "11.00",
+    "carbohydrates": "73.00",
+    "fat": "3.90",
+    "calories": "378.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 76,
+    "fields": {
+        "name": "Czarna fasola",
+    "protein": "8.90",
+    "carbohydrates": "62.36",
+    "fat": "0.54",
+    "calories": "341.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 77,
+    "fields": {
+        "name": "Sezam",
+    "protein": "17.00",
+    "carbohydrates": "23.00",
+    "fat": "49.00",
+    "calories": "573.00",
+    "category": 10
+    }
+},
+{
+    "model": "product.product",
+    "pk": 78,
+    "fields": {
+        "name": "Kasza gryczana",
+    "protein": "13.00",
+    "carbohydrates": "72.00",
+    "fat": "3.40",
+    "calories": "343.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 79,
+    "fields": {
+        "name": "Otręby owsiane",
+    "protein": "17.30",
+    "carbohydrates": "66.20",
+    "fat": "7.00",
+    "calories": "246.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 80,
+    "fields": {
+        "name": "Krewetki",
+    "protein": "24.00",
+    "carbohydrates": "0.20",
+    "fat": "0.50",
+    "calories": "99.00",
+    "category": 2
+    }
+},
+{
+    "model": "product.product",
+    "pk": 81,
+    "fields": {
+        "name": "Wątróbka drobiowa",
+    "protein": "17.00",
+    "carbohydrates": "1.00",
+    "fat": "4.00",
+    "calories": "116.00",
+    "category": 1
+    }
+},
+{
+    "model": "product.product",
+    "pk": 82,
+    "fields": {
+        "name": "Jarmuż",
+    "protein": "3.30",
+    "carbohydrates": "8.00",
+    "fat": "0.70",
+    "calories": "49.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 83,
+    "fields": {
+        "name": "Migdały blanszowane",
+    "protein": "21.00",
+    "carbohydrates": "21.00",
+    "fat": "50.00",
+    "calories": "575.00",
+    "category": 10
+    }
+},
+{
+    "model": "product.product",
+    "pk": 84,
+    "fields": {
+        "name": "Morele suszone",
+    "protein": "3.39",
+    "carbohydrates": "62.64",
+    "fat": "0.51",
+    "calories": "241.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 85,
+    "fields": {
+        "name": "Maliny",
+    "protein": "1.20",
+    "carbohydrates": "12.00",
+    "fat": "0.60",
+    "calories": "52.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 86,
+    "fields": {
+        "name": "Czereśnie",
+    "protein": "1.00",
+    "carbohydrates": "16.00",
+    "fat": "0.20",
+    "calories": "63.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 87,
+    "fields": {
+        "name": "Kukurydza konserwowa",
+    "protein": "3.20",
+    "carbohydrates": "19.00",
+    "fat": "1.20",
+    "calories": "86.00",
+    "category": 9
+    }
+},
+{
+    "model": "product.product",
+    "pk": 88,
+    "fields": {
+        "name": "Herbata zielona (parzona)",
+    "protein": "0.00",
+    "carbohydrates": "0.00",
+    "fat": "0.00",
+    "calories": "0.00",
+    "category": 9
+    }
+},
+{
+    "model": "product.product",
+    "pk": 89,
+    "fields": {
+        "name": "Boczek wędzony",
+    "protein": "37.00",
+    "carbohydrates": "0.00",
+    "fat": "53.00",
+    "calories": "541.00",
+    "category": 1
+    }
+},
+{
+    "model": "product.product",
+    "pk": 90,
+    "fields": {
+        "name": "Chleb pełnoziarnisty",
+    "protein": "11.00",
+    "carbohydrates": "43.00",
+    "fat": "3.00",
+    "calories": "240.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 91,
+    "fields": {
+        "name": "Ryż jaśminowy",
+    "protein": "7.00",
+    "carbohydrates": "80.00",
+    "fat": "1.00",
+    "calories": "357.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 92,
+    "fields": {
+        "name": "Tofu",
+    "protein": "8.00",
+    "carbohydrates": "1.90",
+    "fat": "4.80",
+    "calories": "76.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 93,
+    "fields": {
+        "name": "Imbir (świeży)",
+    "protein": "1.80",
+    "carbohydrates": "17.80",
+    "fat": "0.80",
+    "calories": "80.00",
+    "category": 3
+    }
+},
+{
+    "model": "product.product",
+    "pk": 94,
+    "fields": {
+        "name": "Cukier kokosowy",
+    "protein": "0.00",
+    "carbohydrates": "92.00",
+    "fat": "0.00",
+    "calories": "375.00",
+    "category": 9
+    }
+},
+{
+    "model": "product.product",
+    "pk": 95,
+    "fields": {
+        "name": "Kabanosy",
+    "protein": "23.00",
+    "carbohydrates": "0.00",
+    "fat": "43.00",
+    "calories": "507.00",
+    "category": 1
+    }
+},
+{
+    "model": "product.product",
+    "pk": 96,
+    "fields": {
+        "name": "Dynia",
+    "protein": "1.00",
+    "carbohydrates": "7.00",
+    "fat": "0.10",
+    "calories": "26.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 97,
+    "fields": {
+        "name": "Soczewica czerwona",
+    "protein": "9.00",
+    "carbohydrates": "20.00",
+    "fat": "1.00",
+    "calories": "116.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 98,
+    "fields": {
+        "name": "Kasza kuskus",
+    "protein": "12.80",
+    "carbohydrates": "77.40",
+    "fat": "0.60",
+    "calories": "376.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 99,
+    "fields": {
+        "name": "Stewia (liście suszone)",
+    "protein": "0.00",
+    "carbohydrates": "0.00",
+    "fat": "0.00",
+    "calories": "0.00",
+    "category": 3
+    }
+},
+{
+    "model": "product.product",
+    "pk": 100,
+    "fields": {
+        "name": "Makrela wędzona",
+    "protein": "19.50",
+    "carbohydrates": "0.00",
+    "fat": "14.00",
+    "calories": "212.00",
+    "category": 2
+    }
+},
+{
+    "model": "product.product",
+    "pk": 101,
+    "fields": {
+        "name": "Koper włoski",
+    "protein": "1.20",
+    "carbohydrates": "7.30",
+    "fat": "0.20",
+    "calories": "31.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 102,
+    "fields": {
+        "name": "Czarna porzeczka",
+    "protein": "1.40",
+    "carbohydrates": "15.00",
+    "fat": "0.40",
+    "calories": "63.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 103,
+    "fields": {
+        "name": "Orzechy laskowe",
+    "protein": "15.00",
+    "carbohydrates": "17.00",
+    "fat": "61.00",
+    "calories": "628.00",
+    "category": 10
+    }
+},
+{
+    "model": "product.product",
+    "pk": 104,
+    "fields": {
+        "name": "Kaszanka",
+    "protein": "13.00",
+    "carbohydrates": "9.00",
+    "fat": "23.00",
+    "calories": "275.00",
+    "category": 1
+    }
+},
+{
+    "model": "product.product",
+    "pk": 105,
+    "fields": {
+        "name": "Bób",
+    "protein": "7.60",
+    "carbohydrates": "18.00",
+    "fat": "0.50",
+    "calories": "88.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 106,
+    "fields": {
+        "name": "Kefir naturalny",
+    "protein": "3.40",
+    "carbohydrates": "4.00",
+    "fat": "2.00",
+    "calories": "55.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 107,
+    "fields": {
+        "name": "Rodzynki",
+    "protein": "3.10",
+    "carbohydrates": "79.00",
+    "fat": "0.30",
+    "calories": "299.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 108,
+    "fields": {
+        "name": "Sardynki w oleju",
+    "protein": "20.90",
+    "carbohydrates": "0.00",
+    "fat": "12.40",
+    "calories": "208.00",
+    "category": 2
+    }
+},
+{
+    "model": "product.product",
+    "pk": 109,
+    "fields": {
+        "name": "Chia (nasiona szałwii)",
+    "protein": "16.00",
+    "carbohydrates": "42.00",
+    "fat": "31.00",
+    "calories": "486.00",
+    "category": 10
+    }
+},
+{
+    "model": "product.product",
+    "pk": 110,
+    "fields": {
+        "name": "Mleko kokosowe",
+    "protein": "2.00",
+    "carbohydrates": "3.00",
+    "fat": "21.00",
+    "calories": "200.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 111,
+    "fields": {
+        "name": "Ryż basmati",
+    "protein": "7.00",
+    "carbohydrates": "77.00",
+    "fat": "1.00",
+    "calories": "357.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 112,
+    "fields": {
+        "name": "Kawa rozpuszczalna",
+    "protein": "14.00",
+    "carbohydrates": "50.00",
+    "fat": "0.50",
+    "calories": "240.00",
+    "category": 9
+    }
+},
+{
+    "model": "product.product",
+    "pk": 113,
+    "fields": {
+        "name": "Parmezan",
+    "protein": "38.00",
+    "carbohydrates": "4.10",
+    "fat": "28.00",
+    "calories": "431.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 114,
+    "fields": {
+        "name": "Gruszka",
+    "protein": "0.50",
+    "carbohydrates": "15.00",
+    "fat": "0.10",
+    "calories": "57.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 115,
+    "fields": {
+        "name": "Szpinak (świeży)",
+    "protein": "2.90",
+    "carbohydrates": "3.60",
+    "fat": "0.40",
+    "calories": "23.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 116,
+    "fields": {
+        "name": "Twaróg półtłusty",
+    "protein": "19.00",
+    "carbohydrates": "3.00",
+    "fat": "4.00",
+    "calories": "120.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 117,
+    "fields": {
+        "name": "Mięso mielone wieprzowo-wołowe",
+    "protein": "16.00",
+    "carbohydrates": "0.00",
+    "fat": "20.00",
+    "calories": "250.00",
+    "category": 1
+    }
+},
+{
+    "model": "product.product",
+    "pk": 118,
+    "fields": {
+        "name": "Makaron pełnoziarnisty",
+    "protein": "13.00",
+    "carbohydrates": "69.00",
+    "fat": "3.00",
+    "calories": "348.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 119,
+    "fields": {
+        "name": "Papryka czerwona",
+    "protein": "1.00",
+    "carbohydrates": "6.00",
+    "fat": "0.20",
+    "calories": "26.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 120,
+    "fields": {
+        "name": "Karp",
+        "protein": "17.00",
+        "carbohydrates": "0.00",
+        "fat": "11.00",
+        "calories": "170.00",
+        "category": 2
+    }
+},
+{
+    "model": "product.product",
+    "pk": 121,
+    "fields": {
+        "name": "Brokuł",
+    "protein": "3.00",
+    "carbohydrates": "7.00",
+    "fat": "0.40",
+    "calories": "34.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 122,
+    "fields": {
+        "name": "Indyk (filet z piersi)",
+    "protein": "24.00",
+    "carbohydrates": "0.00",
+    "fat": "1.00",
+    "calories": "104.00",
+    "category": 1
+    }
+},
+{
+    "model": "product.product",
+    "pk": 123,
+    "fields": {
+        "name": "Banany suszone",
+    "protein": "3.90",
+    "carbohydrates": "75.00",
+    "fat": "0.60",
+    "calories": "290.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 124,
+    "fields": {
+        "name": "Czekolada gorzka 85%",
+    "protein": "10.00",
+    "carbohydrates": "20.00",
+    "fat": "48.00",
+    "calories": "579.00",
+    "category": 8
+    }
+},
+{
+    "model": "product.product",
+    "pk": 125,
+    "fields": {
+        "name": "Jogurt grecki",
+    "protein": "8.00",
+    "carbohydrates": "3.00",
+    "fat": "10.00",
+    "calories": "120.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 126,
+    "fields": {
+        "name": "Pieczarki",
+    "protein": "3.10",
+    "carbohydrates": "3.60",
+    "fat": "0.30",
+    "calories": "22.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 127,
+    "fields": {
+        "name": "Ryż jaśminowy",
+    "protein": "7.00",
+    "carbohydrates": "80.00",
+    "fat": "0.60",
+    "calories": "358.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 128,
+    "fields": {
+        "name": "Migdały",
+    "protein": "21.00",
+    "carbohydrates": "20.00",
+    "fat": "50.00",
+    "calories": "576.00",
+    "category": 10
+    }
+},
+{
+    "model": "product.product",
+    "pk": 129,
+    "fields": {
+        "name": "Łosoś wędzony",
+    "protein": "20.00",
+    "carbohydrates": "0.00",
+    "fat": "10.00",
+    "calories": "190.00",
+    "category": 2
+    }
+},
+{
+    "model": "product.product",
+    "pk": 130,
+    "fields": {
+        "name": "Kiszone ogórki",
+    "protein": "0.90",
+    "carbohydrates": "3.10",
+    "fat": "0.10",
+    "calories": "16.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 131,
+    "fields": {
+        "name": "Płatki owsiane górskie",
+    "protein": "13.00",
+    "carbohydrates": "66.00",
+    "fat": "7.00",
+    "calories": "368.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 132,
+    "fields": {
+        "name": "Awokado",
+    "protein": "2.00",
+    "carbohydrates": "9.00",
+    "fat": "15.00",
+    "calories": "160.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 133,
+    "fields": {
+        "name": "Mozzarella",
+    "protein": "18.00",
+    "carbohydrates": "2.00",
+    "fat": "20.00",
+    "calories": "280.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 134,
+    "fields": {
+        "name": "Jajko kurze",
+    "protein": "13.00",
+    "carbohydrates": "1.00",
+    "fat": "11.00",
+    "calories": "155.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 135,
+    "fields": {
+        "name": "Rukola",
+    "protein": "2.60",
+    "carbohydrates": "3.60",
+    "fat": "0.70",
+    "calories": "25.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 136,
+    "fields": {
+        "name": "Miód pszczeli",
+    "protein": "0.30",
+    "carbohydrates": "82.00",
+    "fat": "0.00",
+    "calories": "330.00",
+    "category": 9
+    }
+},
+{
+    "model": "product.product",
+    "pk": 137,
+    "fields": {
+        "name": "Truskawki",
+    "protein": "0.80",
+    "carbohydrates": "7.00",
+    "fat": "0.40",
+    "calories": "32.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 138,
+    "fields": {
+        "name": "Ziemniaki gotowane",
+    "protein": "2.00",
+    "carbohydrates": "18.00",
+    "fat": "0.10",
+    "calories": "80.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 139,
+    "fields": {
+        "name": "Kapusta kiszona",
+    "protein": "1.00",
+    "carbohydrates": "4.00",
+    "fat": "0.20",
+    "calories": "19.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 140,
+    "fields": {
+        "name": "Herbata czarna (napar)",
+    "protein": "0.00",
+    "carbohydrates": "0.30",
+    "fat": "0.00",
+    "calories": "1.00",
+    "category": 9
+    }
+},
+{
+    "model": "product.product",
+    "pk": 141,
+    "fields": {
+        "name": "Ser parmezan",
+    "protein": "35.00",
+    "carbohydrates": "4.00",
+    "fat": "25.00",
+    "calories": "420.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 142,
+    "fields": {
+        "name": "Filet z dorsza",
+    "protein": "18.00",
+    "carbohydrates": "0.00",
+    "fat": "1.00",
+    "calories": "82.00",
+    "category": 2
+    }
+},
+{
+    "model": "product.product",
+    "pk": 143,
+    "fields": {
+        "name": "Ananas świeży",
+    "protein": "0.50",
+    "carbohydrates": "13.00",
+    "fat": "0.10",
+    "calories": "50.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 144,
+    "fields": {
+        "name": "Orzechy laskowe",
+    "protein": "14.00",
+    "carbohydrates": "17.00",
+    "fat": "61.00",
+    "calories": "628.00",
+    "category": 10
+    }
+},
+{
+    "model": "product.product",
+    "pk": 145,
+    "fields": {
+        "name": "Szpinak świeży",
+    "protein": "2.90",
+    "carbohydrates": "3.60",
+    "fat": "0.40",
+    "calories": "23.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 146,
+    "fields": {
+        "name": "Kawa czarna (napar)",
+    "protein": "0.10",
+    "carbohydrates": "0.00",
+    "fat": "0.00",
+    "calories": "2.00",
+    "category": 9
+    }
+},
+{
+    "model": "product.product",
+    "pk": 147,
+    "fields": {
+        "name": "Chleb żytni razowy",
+    "protein": "9.00",
+    "carbohydrates": "48.00",
+    "fat": "1.50",
+    "calories": "240.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 148,
+    "fields": {
+        "name": "Mandarynki",
+    "protein": "0.80",
+    "carbohydrates": "11.00",
+    "fat": "0.20",
+    "calories": "50.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 149,
+    "fields": {
+        "name": "Soczewica czerwona",
+    "protein": "25.00",
+    "carbohydrates": "60.00",
+    "fat": "1.10",
+    "calories": "352.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 150,
+    "fields": {
+        "name": "Pomidory suszone",
+    "protein": "5.00",
+    "carbohydrates": "56.00",
+    "fat": "2.00",
+    "calories": "258.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 151,
+    "fields": {
+        "name": "Serek wiejski",
+    "protein": "11.00",
+    "carbohydrates": "3.00",
+    "fat": "5.00",
+    "calories": "105.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 152,
+    "fields": {
+        "name": "Buraki gotowane",
+    "protein": "1.50",
+    "carbohydrates": "9.00",
+    "fat": "0.10",
+    "calories": "40.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 153,
+    "fields": {
+        "name": "Twaróg półtłusty",
+    "protein": "19.00",
+    "carbohydrates": "3.00",
+    "fat": "5.00",
+    "calories": "128.00",
+    "category": 6
+    }
+},
+{
+    "model": "product.product",
+    "pk": 154,
+    "fields": {
+        "name": "Papryka czerwona",
+    "protein": "1.00",
+    "carbohydrates": "6.00",
+    "fat": "0.30",
+    "calories": "31.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 155,
+    "fields": {
+        "name": "Krewetki gotowane",
+    "protein": "24.00",
+    "carbohydrates": "0.00",
+    "fat": "0.30",
+    "calories": "99.00",
+    "category": 2
+    }
+},
+{
+    "model": "product.product",
+    "pk": 156,
+    "fields": {
+        "name": "Ciecierzyca konserwowa",
+    "protein": "7.00",
+    "carbohydrates": "18.00",
+    "fat": "1.00",
+    "calories": "120.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 157,
+    "fields": {
+        "name": "Ogórek świeży",
+    "protein": "0.80",
+    "carbohydrates": "3.00",
+    "fat": "0.10",
+    "calories": "15.00",
+    "category": 5
+    }
+},
+{
+    "model": "product.product",
+    "pk": 158,
+    "fields": {
+        "name": "Kasza jaglana",
+    "protein": "10.00",
+    "carbohydrates": "70.00",
+    "fat": "3.00",
+    "calories": "348.00",
+    "category": 7
+    }
+},
+{
+    "model": "product.product",
+    "pk": 159,
+    "fields": {
+        "name": "Borówki amerykańskie",
+    "protein": "0.70",
+    "carbohydrates": "14.00",
+    "fat": "0.30",
+    "calories": "57.00",
+    "category": 4
+    }
+},
+{
+    "model": "product.product",
+    "pk": 160,
+    "fields": {
+        "name": "Kakao naturalne",
+    "protein": "20.00",
+    "carbohydrates": "11.00",
+    "fat": "13.00",
+    "calories": "228.00",
+    "category": 9
+    }
 }
 ]
