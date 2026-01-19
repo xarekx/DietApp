@@ -70,7 +70,10 @@ export function ProductsData() {
                 if(!res.ok) {
                     throw new Error('Something went wrong')
                 }
-                setProducts(products.filter((item) => item.id !== id))
+                setProducts(prevProducts => prevProducts.filter((item) => item.id !== id))
+                setFilteredProducts(prev => prev.filter(item => item.id !== id))
+
+                setToggleModal(false);
             })
             .catch(error => console.error('Error deleting product: ', error));
     };

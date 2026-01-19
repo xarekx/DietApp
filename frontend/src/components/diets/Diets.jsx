@@ -46,7 +46,6 @@ export function DietsData() {
       };
 
     const generateDate = (dateArray, dietsArray, weekNumber) => {
-        console.log(dateArray);
         const weekNum = parseInt(weekNumber.split(" ")[1], 10);
         const start = (weekNum - 1) * 7;
         const end = weekNum * 7;
@@ -60,35 +59,35 @@ export function DietsData() {
                         <div className="flex lg:flex-col rounded shadow-lg md:text-xs border-[1px] border-slate-300">
                             <img className="w-[100px] h-[75px] md:w-fit md:h-[98px] lg:w-full lg:h-full rounded-md" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
                             <div className="">
-                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.breakfast?.title || 'null'}</div>
+                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.breakfast?.title || 'Meal is not set'}</div>
                             </div>
                         </div>
 
                         <div className="flex lg:flex-col rounded shadow-lg md:text-xs border-[1px] border-slate-300">
                             <img className="w-[100px] h-[75px] md:w-fit md:h-[98px] lg:w-full lg:h-full rounded-md" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
                             <div className="">
-                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.second_breakfast?.title || 'null'}</div>
+                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.second_breakfast?.title || 'Meal is not set'}</div>
                             </div>
                         </div>
 
                         <div className="flex lg:flex-col rounded shadow-lg md:text-xs border-[1px] border-slate-300">
                             <img className="w-[100px] h-[75px] md:w-fit md:h-[98px] lg:w-full lg:h-full rounded-md" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
                             <div className="">
-                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.lunch?.title || 'null'}</div>
+                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.lunch?.title || 'Meal is not set'}</div>
                             </div>
                         </div>
 
                         <div className="flex lg:flex-col rounded shadow-lg md:text-xs border-[1px] border-slate-300">
                             <img className="w-[100px] h-[75px] md:w-fit md:h-[98px] lg:w-full lg:h-full rounded-md" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
                             <div className="">
-                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.afternoon_meal?.title || 'null'}</div>
+                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.afternoon_meal?.title || 'Meal is not set'}</div>
                             </div>
                         </div>
 
                         <div className="flex lg:flex-col rounded shadow-lg md:text-xs border-[1px] border-slate-300">
                             <img className="w-[100px] h-[75px] md:w-fit md:h-[98px] lg:w-full lg:h-full rounded-md" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
                             <div className="">
-                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.dinner?.title || 'null'}</div>
+                                <div className="font-semibold mt-2 m-1 mb-4 text-center md:p-0.5 lg:p-1 h-6 md:min-h-20 md:m-2 lg:m-1">{dietsArray[index]?.dinner?.title || 'Meal is not set'}</div>
                             </div>
                         </div>                        
                     </div>
