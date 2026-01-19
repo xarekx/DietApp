@@ -6,11 +6,17 @@ from recipe.models import Recipe
 
 class DietSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=AppUser.objects.all())
-    breakfast = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
-    second_breakfast = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
-    lunch = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
-    afternoon_meal = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
-    dinner = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
+    # breakfast = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
+    # second_breakfast = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
+    # lunch = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
+    # afternoon_meal = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
+    # dinner = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all(), required=False, allow_null=True)
+
+    breakfast = RecipeSerializer(read_only=True)
+    second_breakfast = RecipeSerializer(read_only=True)
+    lunch = RecipeSerializer(read_only=True)
+    afternoon_meal = RecipeSerializer(read_only=True)
+    dinner = RecipeSerializer(read_only=True)
 
     class Meta:
         model = Diet
