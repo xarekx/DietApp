@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -36,38 +36,41 @@ export function UserLogin({userStatus}) {
   }
   
 return (
-    <div className="flex h-[70vh] justify-center items-center login-center">
-    <div className="py-6 px-4 h-80 bg-white rounded shadow-xl w-[85vw] sm:w-[65vw] md:w-[45vw] lg:w-[30vw] 2xl:w-[20vw]">
-      <span className="flex justify-center mb-4 text-base">
-        <b>Login to your Account</b>
-      </span>
-      <form onSubmit={(e) => handleLogin(e)}>
-        <Box
-          sx={{
-            maxWidth: '100%',
-          }}
-        >
-        <TextField fullWidth margin="normal" label="Email" id="email" variant="outlined" size="small" 
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LoginOutlinedIcon/>
-            </InputAdornment>
-          ),
-        }} onChange={e => setEmail(e.target.value)}/>
-        <TextField fullWidth margin="normal" id="Password" label="Password" variant="outlined" type="password" size="small" onChange={e => setPassword(e.target.value)} 
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LockOutlinedIcon/>
-            </InputAdornment>
-          )
-        }}/>
-        </Box>
-        <button className="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 text-white font-bold text-center rounded w-full hover:bg-indigo-700" type="submit">Login</button>
-      </form>
-      <a href="#" className="text-sm font-thin text-gray-800 hover:underline mt-4 inline-block hover:text-indigo-600 float-right">Forget Password</a>
-    </div>
+    <div className="w-full flex min-h-screen items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-md p-8">
+        <p className="flex justify-center mb-2 font-bold text-green-600 text-4xl">DietApp</p> 
+        <p className="flex justify-center text-sm mb-4 text-gray-600">Zaloguj się do swojego konta</p>
+        <form onSubmit={(e) => handleLogin(e)}>
+          <Box
+            sx={{
+              maxWidth: '100%',
+            }}
+          >
+          <TextField fullWidth margin="normal" label="Email" id="email" variant="outlined" color="success" size="small" 
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LoginOutlinedIcon/>
+              </InputAdornment>
+            ),
+          }} onChange={e => setEmail(e.target.value)}/>
+          <TextField fullWidth margin="normal" id="Password" label="Hasło" variant="outlined" type="password" size="small" color="success" onChange={e => setPassword(e.target.value)} 
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockOutlinedIcon/>
+              </InputAdornment>
+            )
+          }}/>
+          </Box>
+          <button className="cursor-pointer py-2 px-4 block mt-6 bg-green-600 text-white font-bold text-center rounded w-full hover:bg-green-700" type="submit">Zaloguj się</button>
+        </form>
+        {/* <a href="#" className="text-sm font-thin text-gray-800 hover:underline mt-4 inline-block hover:text-indigo-600 float-right">Forget Password</a> */}
+        <div className="mt-6 text-center">
+          <p>Nie masz konta? <Link to={"/register"} className="text-green-600 hover:text-green-700 font-medium">Zarejestruj się</Link></p>
+        </div>
+      </div>
+      
   </div>
     );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useFetch } from "../../hooks/useFetch";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -35,15 +35,16 @@ export function UserRegister() {
     }
 
     return (
-    <div className="flex h-[70vh] justify-center items-center login-center">
-        <div className="py-6 px-4 h-100 mt-20 bg-white rounded shadow-xl w-[85vw] sm:w-[65vw] md:w-[45vw] lg:w-[30vw] 2xl:w-[20vw]">
-        <span className="flex justify-center text-base mb-4"><b>Create your Account</b></span>
+    <div class="w-full flex min-h-screen items-center justify-center p-4">
+        <div className="bg-white rounded-lg shadow-xl max-w-md p-8">
+        <p className="flex justify-center mb-2 font-bold text-green-600 text-4xl">DietApp</p>
+        <p className="flex justify-center text-sm mb-4 text-gray-600">Utwórz nowe konto</p>
         <form onSubmit={(e) => handleRegister(e)}>
             <Box
             sx={{
                 maxWidth: '100%',
               }}>
-                <TextField fullWidth margin="normal" label="Email" id="email" variant="outlined" size="small" onChange={(e)=> setEmail(e.target.value)}
+                <TextField fullWidth margin="normal" label="Email" id="email" variant="outlined" size="small" color="success" onChange={(e)=> setEmail(e.target.value)}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment>
@@ -51,7 +52,7 @@ export function UserRegister() {
                         </InputAdornment>
                     )
                 }}/>
-                <TextField fullWidth margin="normal" label="Username" id="username" variant="outlined" size="small" onChange={(e)=> setUsername(e.target.value)}
+                <TextField fullWidth margin="normal" label="Imię i nazwisko" id="username" variant="outlined" size="small" color="success" onChange={(e)=> setUsername(e.target.value)}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment>
@@ -59,7 +60,7 @@ export function UserRegister() {
                         </InputAdornment>
                     )
                 }}/>
-                <TextField fullWidth margin="normal" label="Password" id="Password" variant="outlined" size="small" type="password" onChange={(e)=> setPassword(e.target.value)}
+                <TextField fullWidth margin="normal" label="Hasło" id="Password" variant="outlined" size="small" color="success" type="password" onChange={(e)=> setPassword(e.target.value)}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment>
@@ -67,7 +68,7 @@ export function UserRegister() {
                         </InputAdornment>
                     )
                 }}/>
-                <TextField fullWidth margin="normal" label="Repeat Password" id="repeat-password" variant="outlined" size="small" type="password" onChange={(e)=> setRepeatPassword(e.target.value)}
+                <TextField fullWidth margin="normal" label="Potwierdź hasło" id="repeat-password" variant="outlined" size="small" color="success" type="password" onChange={(e)=> setRepeatPassword(e.target.value)}
                 InputProps={{
                     startAdornment: (
                         <InputAdornment>
@@ -76,8 +77,11 @@ export function UserRegister() {
                     )
                 }}/>
             </Box>
-            <button className="cursor-pointer py-2 px-4 block mt-6 bg-indigo-500 hover:bg-indigo-600 text-white font-bold w-full text-center rounded" type="submit">Sign Up</button>
+            <button className="cursor-pointer py-2 px-4 block mt-6 bg-green-600 hover:bg-green-700 text-white font-bold w-full text-center rounded" type="submit">Zarejestruj się</button>
         </form>
+        <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">Masz już konto? <Link to={'/login'} className="text-green-600 hover:text-green-700 font-medium">Zaloguj się</Link></p>
+        </div>
         </div>
     </div>)
 }

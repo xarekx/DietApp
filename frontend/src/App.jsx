@@ -86,7 +86,7 @@ function App() {
     <>
       <Router>
         <main className="flex flex-col bg-slate-200 min-h-screen">
-          <nav>
+          {/* <nav>
             <div className="w-full flex justify-between shadow">
               <div className="flex h-16 items-center">
                 <div className="flex ms-4 md:hidden" onClick={handleMenu}>
@@ -112,10 +112,10 @@ function App() {
                   )}
               </div>
             </div>
-          </nav>
+          </nav> */}
           <div id="wrapper" className="flex">
             <nav className="absolute z-10 w-1/2 md:w-fit bg-white top-16 text-sm ps-4 pe-4 h-calc-100vh-minus-4rem md:h-fit hidden transit md:flex md:bg-transparent" id="menuNavBar">
-              <ul className="logo text-black text-left mt-8">
+              {/* <ul className="logo text-black text-left mt-8">
                 <li>
                   <Link to={'/'} className="nav-link" onClick={() => { recipeSetToggle(false); setToggleMenu(false); }}>
                     <HomeOutlinedIcon className="mr-2" fontSize="medium" />Home</Link>
@@ -157,7 +157,7 @@ function App() {
                   <Link to={'/diets/create'} className="nav-link" onClick={() => { recipeSetToggle(false); setToggleMenu(false); }}>
                   Create Diet</Link>
                 </li>
-              </ul>
+              </ul> */}
             </nav>
             <Routes>
               <Route exact path='/' element={<Home />} />
