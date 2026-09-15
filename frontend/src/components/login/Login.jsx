@@ -29,8 +29,8 @@ export function UserLogin({userStatus}) {
       const username = data.user.username;
       localStorage.setItem('username', username);
 
-      userStatus(true);
-      navigate('/');
+      // userStatus(true);
+      navigate('/app/products');
     })
     .catch((err) => console.error("There was a problem with post request", err));
   }
