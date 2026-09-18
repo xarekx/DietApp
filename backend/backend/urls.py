@@ -23,6 +23,7 @@ from ingredients import views as ingredients_views
 from diets import views as diets_views
 from user_api import urls as user_urls
 from product_category import views as product_category_views
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 router = routers.DefaultRouter()
 router.register(r'products', product_views.ProductView, 'product'),
@@ -34,5 +35,7 @@ router.register(r'product_category', product_category_views.ProductCategoryView,
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/user/', include(user_urls))
+    path('api/user/', include(user_urls)),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

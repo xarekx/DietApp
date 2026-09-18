@@ -1,10 +1,13 @@
 import { getCookie } from "../utils/getCookie";
 
+const token = localStorage.getItem('access');
+
 export const useFetch = (url, method, body = null) => {
     const csrftoken = getCookie('csrftoken');
     const headers = {
         "Content-Type": "application/json",
-        'X-CSRFToken': csrftoken
+        'X-CSRFToken': csrftoken,
+        'Authorization': `Bearer ${token}`,
     }
     
     const requestOptions = {

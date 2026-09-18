@@ -12,7 +12,7 @@ export function UserLogin({userStatus}) {
   const [ password, setPassword ] = useState('');
   const navigate = useNavigate();
 
-  const submitLogin = useFetch("http://127.0.0.1:8000/api/user/login",'POST', {email: email, password: password})
+  const submitLogin = useFetch("http://127.0.0.1:8000/api/token/",'POST', {email: email, password: password})
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -26,10 +26,12 @@ export function UserLogin({userStatus}) {
       }
     })
     .then((data) => {
-      const username = data.user.username;
-      localStorage.setItem('username', username);
 
-      // userStatus(true);
+      const accessToken = data.access;
+      localStorage.setItem('access', accessToken);
+      const refreshToken = data.refresh;
+      localStorage.setItem('refresh', refreshToken);
+      
       navigate('/app/products');
     })
     .catch((err) => console.error("There was a problem with post request", err));
