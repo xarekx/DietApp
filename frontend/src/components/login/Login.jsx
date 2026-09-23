@@ -29,8 +29,10 @@ export function UserLogin({userStatus}) {
 
       const accessToken = data.access;
       localStorage.setItem('access', accessToken);
+      console.log('Access token stored in localStorage:', accessToken);
       const refreshToken = data.refresh;
       localStorage.setItem('refresh', refreshToken);
+      console.log('Refresh token stored in localStorage:', refreshToken);
       
       navigate('/app/products');
     })

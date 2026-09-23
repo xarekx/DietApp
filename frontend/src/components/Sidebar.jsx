@@ -1,7 +1,11 @@
-import { ChefHat, PackageOpen, CalendarDays, ShoppingCart, LogOut, Users, User } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
+import { ChefHat, PackageOpen, CalendarDays, ShoppingCart, LogOut, Users, User } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
+// import { useUserLogout } from '../login/Logout';
+import { useUserLogout } from './login/Logout';
 
 export function Sidebar() {
+
+    const logout = useUserLogout();
         //   fixed lg:relative inset-y-0 left-0 z-50
         //   w-64 bg-white border-r border-gray-200 flex flex-col
         //   transform transition-transform duration-300 ease-in-out
@@ -26,7 +30,8 @@ export function Sidebar() {
                         </div>
 
                     </div>
-                    <button className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-xl transition-colors">
+                    <button className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-xl transition-colors" 
+                    onClick={logout}>
                        <LogOut size={24} strokeWidth={2} className='w-4 h-4'/>Wyloguj się
                     </button>
                 </div>
