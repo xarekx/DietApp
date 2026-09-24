@@ -6,18 +6,20 @@ import { MdNavigateBefore } from "react-icons/md";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { DeleteProductForm } from "../../forms/DeleteProductForm";
 import { EditProductForm } from "../../forms/EditProductForm";
-import { useFetch } from "../../hooks/useFetch";
+import { useAddProduct, useDeleteProduct, useProducts, useUpdateProduct } from "../../api/hooks";
 import { getUpdatedFields } from "../../utils/getUpdatedFields";
 import { Button} from "@mui/material";
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import CustomTextField from "../../utils/generic/CustomTextField";
 import CustomFilterButton from "../../utils/generic/CustomFilterButton";
 
+// Stable fallback so the sync effect below doesn't re-run on every render
+const NO_PRODUCTS = [];
+
 export function ProductsData() {
 
     const [itemOffset, setItemOffset] = useState(0);
     const [toggleDropdown, setToggleDropdown] = useState(false);
-    const [products, setProducts] = useState([]);
     const [selectedProduct, setSelectedProduct ] = useState([]);
     const [toggleModal, setToggleModal] = useState(false);
     const [selectedForm, setSelectedForm] = useState('');
@@ -35,22 +37,15 @@ export function ProductsData() {
 
     const updatedFields = getUpdatedFields(form, selectedProduct);
 
-    const fetchProductsData = useFetch("http://127.0.0.1:8000/api/products/", "GET");
-    const fetchDeleteProduct = useFetch(`http://127.0.0.1:8000/api/products/${selectedProduct.id}`, "DELETE");
-    const fetchUpdateProduct = useFetch(`http://127.0.0.1:8000/api/products/${selectedProduct.id}/`, "PATCH", updatedFields);
-    const fetchAddProduct = useFetch(`http://127.0.0.1:8000/api/products/`, "POST", 
-        {name: form.name, protein: form.protein, carbohydrates: form.carbohydrates, fat: form.fat, calories: form.calories, category: form.category});
-    
+    const { data: products = NO_PRODUCTS } = useProducts();
+    const deleteProduct = useDeleteProduct();
+    const updateProduct = useUpdateProduct();
+    const addProduct = useAddProduct();
+
+    // Reset the filtered/sorted view whenever the product list is (re)fetched
     useEffect(()=> {
-        fetchProductsData()
-        .then(res =>res.json())
-        .then(data => {
-            setFilteredProducts(data);
-            setProducts(data);
-            })
-        .catch(error => console.error('Error fetching products: ', error));
-        // eslint-disable-next-line
-    },[])
+        setFilteredProducts(products);
+    },[products])
     // variables to pagination
     const itemsPerPage = 15;
     const currentItems = (filteredProducts.slice(itemOffset, itemOffset + itemsPerPage));
@@ -65,65 +60,33 @@ export function ProductsData() {
     
     // delete request
     const handleDeleteProduct = (id) => {     
-        fetchDeleteProduct()
-            .then((res) => {
-                if(!res.ok) {
-                    throw new Error('Something went wrong')
-                }
-                setProducts(prevProducts => prevProducts.filter((item) => item.id !== id))
-                setFilteredProducts(prev => prev.filter(item => item.id !== id))
-
-                setToggleModal(false);
-            })
-            .catch(error => console.error('Error deleting product: ', error));
+        deleteProduct.mutate(id, {
+            onSuccess: () => setToggleModal(false),
+            onError: (error) => console.error('Error deleting product: ', error),
+        });
     };
 
     
     // update request - updating only changed values
     const handleUpdateProduct = (event, id) => {
         event.preventDefault();
-        fetchUpdateProduct()
-            .then((res) => {
-                if(!res.ok) {
-                    throw new Error('Something went wrong')
-                }
-                const updatedProducts = products.map((item) => {
-                    if (item.id === id) {
-                        return {
-                            ...item,
-                            ...updatedFields
-                        };
-                    }
-                    return item;
-                });
-
-               setProducts(updatedProducts);
-               setToggleModal(false);
-            })
-            .catch(error => console.error('Error updating product: ', error))
+        updateProduct.mutate({ id, fields: updatedFields }, {
+            onSuccess: () => setToggleModal(false),
+            onError: (error) => console.error('Error updating product: ', error),
+        });
     };
 
     // post data to backend with submit
     const handleAddProduct = (event) => {
         event.preventDefault();
 
-        fetchAddProduct()
-        .then(res => {
-            if(!res.ok) {
-                console.log(res.json());
-                throw new Error('Something went wrong');
-            } else {
-                res.json()
-                fetchProductsData()
-                    .then(res =>res.json())
-                    .then(data => setProducts(data))
-                    .catch(error => console.error('Error fetching products: ', error));
-                handleCloseModal(false);
+        addProduct.mutate(
+            {name: form.name, protein: form.protein, carbohydrates: form.carbohydrates, fat: form.fat, calories: form.calories, category: form.category},
+            {
+                onSuccess: () => handleCloseModal(false),
+                onError: (error) => console.error('Error adding product:', error.data ?? error),
             }
-        })
-        .catch(error => {
-            console.error('Error adding product:', error);
-        });
+        );
     };
     
     // get the change from the input

@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
-import { useFetch } from "../../hooks/useFetch";
+import { useState, useMemo } from "react";
+import { useProductCategories, useProducts } from "../../api/hooks";
 import { Search, Plus } from "lucide-react";
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
 import Select from '@mui/material/Select';
@@ -7,35 +7,15 @@ import AddProductModal from "../../components/products/AddProductModal";
 
 export function Products() {
 
-    const [productCategory, setProductCategory] = useState([]);
     const [selectedProductCategory, setSelectedProductCategory] = useState("");
-    const [products, setProducts] = useState([]);
     const [query, setQuery] = useState("")
     const [isAddOpen, setIsAddOpen] = useState(false);
 
-    const fetchCategories = useFetch("http://127.0.0.1:8000/api/product_category/", "GET");
-    const fetchProductsData = useFetch("http://127.0.0.1:8000/api/products/", "GET");
-
-    useEffect(()=>{
-            fetchCategories()
-            .then(res => res.json())
-            .then(data => setProductCategory(data))
-            .catch(error => console.error("Error fetching product category", error))
-            // eslint-disable-next-line
-        },[])
-
-    useEffect(()=> {
-            fetchProductsData()
-            .then(res =>res.json())
-            .then(data => {
-                setProducts(data);
-                })
-            .catch(error => console.error('Error fetching products: ', error));
-            // eslint-disable-next-line
-        },[])
+    const { data: productCategory = [] } = useProductCategories();
+    const { data: products, refetch: refetchProducts } = useProducts();
 
     const filteredProducts = useMemo(()=> {
-        return products.filter((product) => {
+        return (products ?? []).filter((product) => {
             const matchesQuery = product.name.toLowerCase().includes(query.toLowerCase());
             const matchesCategory = selectedProductCategory ? product.category === selectedProductCategory : true;
 
@@ -51,7 +31,7 @@ export function Products() {
                     <button className="bg-green-600 border px-4 py-2 rounded-xl text-white flex items-center justify-center gap-2 hover:bg-green-700 transition-colors sm:w-auto" onClick={()=> setIsAddOpen(true)}>
                         <Plus  size={24} className="w-5 h-5"/>Dodaj Produkt
                     </button>
-                    <AddProductModal open={isAddOpen} onClose={() => setIsAddOpen(false)} onSuccess={() => fetchProductsData()}/>
+                    <AddProductModal open={isAddOpen} onClose={() => setIsAddOpen(false)} onSuccess={() => refetchProducts()}/>
                 </div>
 
                 <div className="flex flex-col gap-4 mb-6 sm:flex-row">

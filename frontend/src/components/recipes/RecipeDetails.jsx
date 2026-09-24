@@ -4,29 +4,19 @@ import { useParams } from "react-router-dom";
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { useFetch } from "../../hooks/useFetch";
+import { useRecipe } from "../../api/hooks";
 
 
 export function RecipeDetails() {
     // we're handling recipeId from the path
     const { recipeId } = useParams();
 
-    const [recipeDetails, setRecipeDetails] = useState(null);
+    const { data: recipeDetails } = useRecipe(recipeId);
     const [countPortion, setCountPortion] = useState(1);
     const [protein, setProtein] = useState(0);
     const [carbohydrates, setCarbohydrates] = useState(0);
     const [fat, setFat] = useState(0);
     const [calories, setCalories] = useState(0);
-
-    const fetchRecipeData = useFetch(`http://127.0.0.1:8000/api/recipes/${recipeId}`, 'GET');
-
-    useEffect(() => {
-        fetchRecipeData()
-        .then((res) => res.json())
-        .then((data)=> setRecipeDetails(data))
-        .catch((error) => console.error('Error fetching recipe details:', error))
-        // eslint-disable-next-line
-    },[])
 
     useEffect(() => {
         if (recipeDetails) {

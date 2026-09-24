@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
+import { useLogin } from "../../api/hooks";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
@@ -12,31 +12,24 @@ export function UserLogin({userStatus}) {
   const [ password, setPassword ] = useState('');
   const navigate = useNavigate();
 
-  const submitLogin = useFetch("http://127.0.0.1:8000/api/token/",'POST', {email: email, password: password})
+  const login = useLogin();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    submitLogin()
-    .then((res) => {
-      if (res.ok) {
-          return res.json();
-      } else {
+    login.mutate({email: email, password: password}, {
+      onSuccess: (data) => {
+        localStorage.setItem('access', data.access);
+        localStorage.setItem('refresh', data.refresh);
+        navigate('/app/products');
+      },
+      onError: (err) => {
+        if (err.status === 401) {
           console.log('Incorrect email or password.');
-          throw new Error('Incorrect email or password.');
-      }
-    })
-    .then((data) => {
-
-      const accessToken = data.access;
-      localStorage.setItem('access', accessToken);
-      console.log('Access token stored in localStorage:', accessToken);
-      const refreshToken = data.refresh;
-      localStorage.setItem('refresh', refreshToken);
-      console.log('Refresh token stored in localStorage:', refreshToken);
-      
-      navigate('/app/products');
-    })
-    .catch((err) => console.error("There was a problem with post request", err));
+        } else {
+          console.error("There was a problem with post request", err);
+        }
+      },
+    });
   }
   
 return (

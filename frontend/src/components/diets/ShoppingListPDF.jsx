@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import { Calendar } from 'react-calendar'
-import { useFetch } from "../../hooks/useFetch";
+import { useShoppingList } from "../../api/hooks";
 
 import 'react-calendar/dist/Calendar.css';
 
@@ -9,7 +9,9 @@ export function ShoppingListPDF() {
 
   const [calendarToggle, setCalendarToggle] = useState(false);
   const [calendarRange, setCalendarRange] = useState([new Date(), new Date()]);
-  const [ingredientsData, setIngredientsData] = useState([]);
+  // Range the user asked to fetch; null until "fetch data" is clicked
+  const [requestedRange, setRequestedRange] = useState(null);
+  const { data: ingredientsData = [] } = useShoppingList(requestedRange?.start, requestedRange?.end);
 
   // destructure calendarRange
   const [startDate, endDate] = calendarRange;
@@ -83,15 +85,8 @@ const validDate = (date) => {
   return date.getFullYear() + '-' + (realMonth < 10 ? '0' + (realMonth) : realMonth) + '-' + (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
 }
 
-const fetchProductsInCalendarRange = useFetch(`http://127.0.0.1:8000/api/diets/products-by-day/?start_date=${validDate(startDate)}&end_date=${validDate(endDate)}`,'GET');
-
 const handleFetchProducts = () => {
-  console.log("a")
-  fetchProductsInCalendarRange()
-    .then(res =>res.json())
-    .then(data => setIngredientsData(data))
-    .catch(error => console.error('Error fetching ingredients: ', error));
-
+  setRequestedRange({ start: validDate(startDate), end: validDate(endDate) });
 }
 
 // Creating pdf Document
@@ -151,7 +146,7 @@ const MyDocument = () => (
                             </div>
                             {/*body*/}
                             <div className="relative p-6 flex-auto">
-                              <Calendar selectRange={true} onChange={(value)=>{setCalendarRange(value)}}/>
+                              <Calendar selectRange={true} onChange={(value)=>{setCalendarRange(value); setRequestedRange(null)}}/>
                               <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                               <button
                                 className="text-red-500 hover:text-red-300 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

@@ -1,33 +1,24 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import { useFetch } from "../hooks/useFetch";
+import { useProductCategories } from "../api/hooks";
 
 
 export function AddProductForm({form, handleAddProduct, handleChange, sendModalStatusToParent}) {
 
-  const [ closeModalStatus] = useState(false);
+  const [closeModalStatus] = useState(false);
 
   function closeModal() {
       sendModalStatusToParent(closeModalStatus);
   }
 
-  const [productCategory, setProductCategory] = useState([]);
   const [selectedProductCategory, setSelectedProductCategory ] = useState("");
 
-  const fetchCategories = useFetch("http://127.0.0.1:8000/api/product_category/", "GET");
+  const { data: productCategory = [] } = useProductCategories();
 
-    useEffect(()=>{
-        fetchCategories()
-        .then(res => res.json())
-        .then(data => setProductCategory(data))
-        .catch(error => console.error("Error fetching product category", error))
-        // eslint-disable-next-line
-    },[])
-  
   
   const handleChangeCategory = (event) => {
     const selectedCategory = event.target.value;

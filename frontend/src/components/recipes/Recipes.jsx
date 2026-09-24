@@ -1,21 +1,11 @@
-import { useState, useEffect } from "react";
 import React from 'react';
 import { Link } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
+import { useRecipes } from "../../api/hooks";
 
 
 export function RecipesData() {
 
-    const [recipes, setRecipes] = useState([]);
-    const fetchRecipesData = useFetch('http://127.0.0.1:8000/api/recipes/', 'GET'); 
-
-    useEffect(() => {
-        fetchRecipesData()
-        .then((res) => res.json())
-        .then((data) => setRecipes(data))
-        .catch((error) => console.error('Something went wrong with fetching recipes', error));
-        // eslint-disable-next-line
-    }, []);
+    const { data: recipes = [] } = useRecipes();
 
     return (
         <>

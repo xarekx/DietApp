@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Alert from '@mui/material/Alert';
 import CheckIcon from '@mui/icons-material/Check';
 import EditIcon from '@mui/icons-material/Edit';
 import ClearIcon from '@mui/icons-material/Clear';
-import { useFetch } from "../hooks/useFetch";
+import { useCreateRecipe, useProducts } from "../api/hooks";
 import SearchIcon from '@mui/icons-material/Search';
 import { InputAdornment, TextField } from "@mui/material";
 
@@ -15,19 +15,15 @@ export function AddRecipeForm() {
         ingredients: [] 
     })
 
-    
-    
-    const [products, setProducts] = useState([]);
-    const [filteredProducts, setFilteredProducts] = useState(products);
+    const { data: products = [] } = useProducts();
+    const createRecipe = useCreateRecipe();
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [ingredients, setIngredients] = useState([]);
     const [productValue, setProductValue] = useState("");
     const [quantityValue, setQuantityValue] = useState(0);
     const [postRequestValue, setPostRequestValue] = useState(false);
     const [editModalToggle, setEditModalToggle] = useState(false);
     const [selectedIngredientIndex, setSelectedIngredientIndex] = useState(null);
-
-    const fetchProductsData = useFetch('http://127.0.0.1:8000/api/products', 'GET');
-    const fetchCreateRecipe = useFetch('http://127.0.0.1:8000/api/recipes/', 'POST', recipeForm);
 
     const handleTitleChange = (event) => {
         setRecipeForm({
@@ -48,16 +44,6 @@ export function AddRecipeForm() {
         setProductValue(product);
         setFilteredProducts([]);
     }
-
-
-    // get products from database
-    useEffect(() => {
-        fetchProductsData()
-        .then(res =>res.json())
-        .then(data => setProducts(data))
-        .catch(error => console.error('Error fetching products: ', error));
-        // eslint-disable-next-line
-    },[]);
 
     const handleFilter = (event) => {
         if (event.target.value === '' ){
@@ -89,30 +75,24 @@ export function AddRecipeForm() {
 
     // post request - creating new recipe
     const handleCreateRecipe = () => {
-        fetchCreateRecipe()
-        .then((res) => {
-            if (!res.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return res.json();
-        })
-        .then(data => {
-            // handle response
-            console.log('Recipe created:', data);
-            setPostRequestValue(true);
-            setTimeout(function() {
-                setPostRequestValue(false);
-            }, 2000)
-            setIngredients([]);
-            setRecipeForm({
-                title: "",
-                ingredients: [] 
-            });
-            // clear input value of recipe title
-            const recipeNameInput = document.getElementById("title");
-            recipeNameInput.value = "";
-        })
-        .catch(error => console.error('There has been a problem with your fetch operation:', error));
+        createRecipe.mutate(recipeForm, {
+            onSuccess: (data) => {
+                console.log('Recipe created:', data);
+                setPostRequestValue(true);
+                setTimeout(function() {
+                    setPostRequestValue(false);
+                }, 2000)
+                setIngredients([]);
+                setRecipeForm({
+                    title: "",
+                    ingredients: []
+                });
+                // clear input value of recipe title
+                const recipeNameInput = document.getElementById("title");
+                recipeNameInput.value = "";
+            },
+            onError: (error) => console.error('There has been a problem with your fetch operation:', error),
+        });
     };
 
 

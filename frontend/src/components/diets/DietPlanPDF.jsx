@@ -1,21 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
-import { useFetch } from "../../hooks/useFetch";
+import { useDietPlan } from "../../api/hooks";
 
 
 export function DietPlanPDF() {
 
-  const fetchDietPlan = useFetch("http://127.0.0.1:8000/api/diets/diet-plan/", "GET");
-
-  const [dietPlan, setDietPlan] = useState([]);
-
-  useEffect(()=> {
-    fetchDietPlan()
-    .then(res=>res.json())
-    .then(data=> setDietPlan(data))
-    .catch(error => console.error("Error fetching diet plan", error))
-    // eslint-disable-next-line
-  },[])
+  const { data: dietPlan = [], refetch: refetchDietPlan } = useDietPlan();
 
   Font.register({
       family: 'Roboto',
@@ -112,7 +102,7 @@ export function DietPlanPDF() {
     );
 
     return(<>
-        <PDFDownloadLink document={<DietPlanDocument/>} fileName="diet-plan.pdf" className="bg-emerald-600 px-4 py-2 rounded text-white hover:bg-emerald-500 text-sm w-fit mt-[3vw] lg:mt-[2vw] ms-auto" onClick={fetchDietPlan}>
+        <PDFDownloadLink document={<DietPlanDocument/>} fileName="diet-plan.pdf" className="bg-emerald-600 px-4 py-2 rounded text-white hover:bg-emerald-500 text-sm w-fit mt-[3vw] lg:mt-[2vw] ms-auto" onClick={() => refetchDietPlan()}>
             {({ blob, url, loading, error }) => ('Download Diet')}
         </PDFDownloadLink>  
     </>)

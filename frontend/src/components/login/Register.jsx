@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useFetch } from "../../hooks/useFetch";
+import { useRegister } from "../../api/hooks";
 import { Box, InputAdornment, TextField } from "@mui/material";
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
@@ -14,21 +14,18 @@ export function UserRegister() {
     const [ repeatPassword, setRepeatPassword ] = useState('');
     const navigate = useNavigate();
 
-    const submitRegister = useFetch("http://127.0.0.1:8000/api/user/register", 'POST', {email:email, username:username, password:password})
+    const register = useRegister();
 
     const handleRegister = (e) => {
         e.preventDefault();
         if(password === repeatPassword) {
-            submitRegister()
-            .then((res)=> {
-                if (res.ok) {
+            register.mutate({email:email, username:username, password:password}, {
+                onSuccess: () => {
                     console.log("user registered")
                     navigate('/login');
-                } else {
-                    console.log(res);
-                }
-            })
-            .catch((err) => console.error("There was a problem with post request", err))
+                },
+                onError: (err) => console.error("There was a problem with post request", err.data ?? err),
+            });
         } else {
             console.error("Password is not the same");
         }

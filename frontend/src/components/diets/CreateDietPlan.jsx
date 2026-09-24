@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useFetch } from "../../hooks/useFetch";
+import { useState } from "react";
+import { useCreateDietPlan, useRecipes, useUsers } from "../../api/hooks";
 import SearchIcon from '@mui/icons-material/Search';
 import { Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
@@ -19,9 +19,10 @@ export function CreateDietPlan() {
   const [recipes, setRecipes] = useState({ "1": [], "2": [], "3": [], "4": [], "5": [], "6": [], "7": [] });
   const [toggleModal, setToggleModal] = useState(false);
   const [toggledMeal, setToggledMeal] = useState("");
-  const [recipesList, setRecipesList] = useState([]);
+  const { data: recipesList = [] } = useRecipes();
+  const { data: usersList = [] } = useUsers();
+  const createDietPlan = useCreateDietPlan();
   const [filteredRecipes, setFilteredRecipes] = useState([]);
-  const [usersList, setUsersList] = useState([]);
   const [formData, setFormData] = useState({ days: days.map(day => (
     { day: day.key, 
       breakfast: "", 
@@ -35,31 +36,6 @@ export function CreateDietPlan() {
   const [selectedMeal, setSelectedMeal] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
-
-
-  const fetchRecipeList = useFetch("http://127.0.0.1:8000/api/recipes", "GET");
-  const fetchUsersList = useFetch("http://127.0.0.1:8000/api/user/list", "GET");
-  const fetchSendDiet = useFetch(`http://127.0.0.1:8000/api/diets/create-diet-plan/`, "POST", formData);
-
-  useEffect(() => {
-    fetchRecipeList()
-      .then(res => res.json())
-      .then(data => {
-        setRecipesList(data);
-      })
-      .catch(error => console.error("Something went wrong with fetch recipes list ", error));
-      // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    fetchUsersList()
-      .then(res => res.json())
-      .then(data => {
-        setUsersList(data);
-      })
-      .catch(error => console.error("Something went wrong with fetch users list ", error));
-      // eslint-disable-next-line
-  }, []);
 
   const handleFilter = (event) => {
     const query = event.target.value.toLowerCase();
@@ -145,7 +121,7 @@ export function CreateDietPlan() {
           </div>
         ))}
       </div>
-      <Button variant="contained" color="primary" onClick={fetchSendDiet}>Send Plan</Button>
+      <Button variant="contained" color="primary" onClick={() => createDietPlan.mutate(formData)}>Send Plan</Button>
       {toggleModal ? (
         <>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">

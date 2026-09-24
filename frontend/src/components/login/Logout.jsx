@@ -1,16 +1,12 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { clearSession } from '../../api/client';
 
-export function useUserLogout() { 
+export function useUserLogout() {
     const navigate = useNavigate();
 
     const logout = () => {
-        localStorage.removeItem('access');
-        localStorage.removeItem('refresh');
-
-        console.log('Access token removed from localStorage');
-        console.log('Refresh token removed from localStorage');
-
+        // Removes tokens and the query cache
+        clearSession();
         navigate('/login');
     }
 

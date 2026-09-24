@@ -1,7 +1,7 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ShoppingListPDF } from "./ShoppingListPDF";
-import { useFetch } from "../../hooks/useFetch";
+import { useDiets, useDietWeeks } from "../../api/hooks";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,27 +12,9 @@ import { DietPlanPDF } from "./DietPlanPDF";
 
 export function DietsData() {
 
-    const [diets, setDiets] = useState([]);
-    const [countWeeks, setCountWeeks] = useState({ weeks_count: 0, diet_days: [] });
+    const { data: diets = [] } = useDiets();
+    const { data: countWeeks = { weeks_count: 0, diet_days: [] } } = useDietWeeks();
     const [selectedWeek, setSelectedWeek ] = useState('Week 1');
-    const fetchData = useFetch('http://127.0.0.1:8000/api/diets','GET');
-    const fetchWeeks = useFetch('http://127.0.0.1:8000/api/diets/count-weeks','GET');
-    
-    useEffect(() => {
-        fetchData()
-        .then(res =>res.json())
-        .then(data => setDiets(data))
-        .catch(error => console.error('Error fetching products: ', error));
-        // eslint-disable-next-line
-    },[])
-
-    useEffect(() => {
-        fetchWeeks()
-        .then(res =>res.json())
-        .then(data => setCountWeeks(data))
-        .catch(error => console.error('Error fetching products: ', error));
-        // eslint-disable-next-line
-    },[])
 
     const handleChange = (event) => {
         setSelectedWeek(event.target.value);
