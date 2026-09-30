@@ -1,10 +1,9 @@
 from django.contrib.auth import get_user_model, login, logout
-from rest_framework.authentication import SessionAuthentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import UserLoginSerializer, UserRegisterSerializer, UserSerializer, UserListSerializer
 from rest_framework import permissions, status
-from .validations import validate_email, custom_validation, validate_password, validate_username
+from .validations import custom_validation
 
 UserModel = get_user_model()
 
@@ -23,12 +22,9 @@ class UserRegister(APIView):
     
 class UserLogin(APIView):
     permission_classes = (permissions.AllowAny, )
-    authentication_classes = (SessionAuthentication, )
 
     def post(self, request):
         data = request.data 
-        assert validate_email(data)
-        assert validate_password(data)
         serializer = UserLoginSerializer(data=data)
         
         if serializer.is_valid(raise_exception=True):
@@ -42,7 +38,6 @@ class UserLogin(APIView):
         
 class UserLogout(APIView):
     permission_classes = (permissions.AllowAny, )
-    authentication_classes = ()
 
     def post(self, request):
         logout(request)
@@ -51,7 +46,6 @@ class UserLogout(APIView):
 
 class UserView(APIView):
     permission_classes = (permissions.IsAuthenticated, )
-    authentication_classes = (SessionAuthentication,)
 
     def get(self, request):
         serializer = UserSerializer(request.user)
@@ -59,7 +53,6 @@ class UserView(APIView):
     
 class UserList(APIView):
     permission_classes = (permissions.IsAuthenticated, )
-    authentication_classes = (SessionAuthentication,)
 
     def get(self, request, *args, **kwargs):
         users = UserModel.objects.all()

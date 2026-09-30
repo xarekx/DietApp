@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { apiFetch } from "./client";
+import { apiFetch, clearSession } from "./client";
 
 export const queryKeys = {
     productCategories: ['product_category'],
@@ -84,8 +84,14 @@ export const useUsers = () =>
 
 export const useLogin = () =>
     useMutation({
-        mutationFn: (credentials) => apiFetch('/api/token/', { method: 'POST', body: credentials }),
+        mutationFn: (credentials) => apiFetch('/api/user/login', { method: 'POST', body: credentials }),
     });
+
+export const useLogout = () => {
+    return useMutation({
+        mutationFn: () => apiFetch('/api/user/logout', { method: 'POST'}),
+        onSettled: clearSession
+    })};
 
 export const useRegister = () =>
     useMutation({

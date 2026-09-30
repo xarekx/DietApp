@@ -17,9 +17,7 @@ export function UserLogin({userStatus}) {
   const handleLogin = (e) => {
     e.preventDefault();
     login.mutate({email: email, password: password}, {
-      onSuccess: (data) => {
-        localStorage.setItem('access', data.access);
-        localStorage.setItem('refresh', data.refresh);
+      onSuccess: () => {
         navigate('/app/products');
       },
       onError: (err) => {

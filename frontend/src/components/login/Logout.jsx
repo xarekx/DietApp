@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { clearSession } from '../../api/client';
+import { useLogout } from '../../api/hooks';
 
 export function useUserLogout() {
     const navigate = useNavigate();
+    const logoutMutation = useLogout();
 
     const logout = () => {
-        // Removes tokens and the query cache
-        clearSession();
+        logoutMutation.mutate();
         navigate('/login');
     }
 
