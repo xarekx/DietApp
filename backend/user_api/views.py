@@ -34,7 +34,7 @@ class UserLogin(APIView):
 
             user_data = UserSerializer(user).data
             
-            return Response({'user':user_data}, status=status.HTTP_200_OK)
+            return Response({'current_user':user_data}, status=status.HTTP_200_OK)
         
 class UserLogout(APIView):
     permission_classes = (permissions.AllowAny, )
@@ -49,7 +49,7 @@ class UserView(APIView):
 
     def get(self, request):
         serializer = UserSerializer(request.user)
-        return Response({'user': serializer.data}, status=status.HTTP_200_OK)
+        return Response({'current_user': serializer.data}, status=status.HTTP_200_OK)
     
 class UserList(APIView):
     permission_classes = (permissions.IsAuthenticated, )

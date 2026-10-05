@@ -1,13 +1,16 @@
-import { useNavigate } from 'react-router-dom';
 import { useLogout } from '../../api/hooks';
+import { useNavigate } from 'react-router-dom';
 
 export function useUserLogout() {
-    const navigate = useNavigate();
     const logoutMutation = useLogout();
+    const navigate = useNavigate();
 
     const logout = () => {
-        logoutMutation.mutate();
-        navigate('/login');
+        logoutMutation.mutate(undefined, {
+            onSettled: () => {
+                navigate('/login');
+            },
+        });
     }
 
     return logout;

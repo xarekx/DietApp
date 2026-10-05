@@ -2,7 +2,7 @@ import { getCookie } from "../utils/getCookie";
 import { queryClient } from "./queryClient";
 
 export const API_URL = "http://localhost:8000";
-const AUTH_ENDPOINTS = ['/api/user/login', '/api/user/register'];
+const AUTH_ENDPOINTS = ['/api/user/login', '/api/user/register', '/api/user/current'];
 
 export class ApiError extends Error {
     constructor(status, data) {

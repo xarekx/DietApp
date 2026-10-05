@@ -12,6 +12,7 @@ export const queryKeys = {
     dietPlan: ['diets', 'diet-plan'],
     shoppingList: (startDate, endDate) => ['diets', 'products-by-day', startDate, endDate],
     users: ['users'],
+    currentUser: ['current_user'],
 };
 
 // --- Queries ---
@@ -80,12 +81,22 @@ export const useUsers = () =>
         queryFn: () => apiFetch('/api/user/list'),
     });
 
+export const useCurrentUser = () => 
+    useQuery({
+        queryKey: queryKeys.currentUser,
+        queryFn: () => apiFetch('/api/user/current'),
+        staleTime: 5 * 60 * 1000, // Cache 5min
+    });
+
 // --- Mutations ---
 
-export const useLogin = () =>
-    useMutation({
+export const useLogin = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
         mutationFn: (credentials) => apiFetch('/api/user/login', { method: 'POST', body: credentials }),
+        onSuccess: (data) =>  queryClient.setQueryData(queryKeys.currentUser, data),
     });
+}
 
 export const useLogout = () => {
     return useMutation({
