@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
 
 
-export function UserLogin({userStatus}) {
+export function UserLogin() {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
